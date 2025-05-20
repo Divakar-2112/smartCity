@@ -3,13 +3,14 @@ from django.shortcuts import render
 # Create your views here.
 
 def home(request):
-    return render(request,"citizen/layouts/index.html")
+    return render(request,"citizen/index.html")
 
 def register(request):
-    return render(request,"citizen/layouts/register.html")
+    return render(request,"citizen/register.html")
 
 def login(request):
-    return render(request,"citizen/layouts/login.html")
+    return render(request,"citizen/login.html")
 
 def raiseComplaint(request):
-    return render(request,"citizen/layouts/raise_complaint.html")
+    return render(request,"citizen/raise_complaint.html")
+
