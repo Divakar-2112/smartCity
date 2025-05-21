@@ -6,7 +6,3 @@ admin.site.register(Department)
 admin.site.register(SubCategory)
 admin.site.register(ComplaintDetail)
 admin.site.register(User)
-
-
-
-

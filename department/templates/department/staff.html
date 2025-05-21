@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Page</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <p>Staff page</p>
+
+    {% for dep in department %}
+    <h1>{{dep.name}}</h1>
+    {% endfor %}
+
+<h1>Sub-Categories</h1>
+    {% for item in subCategory %}
+        <h5>{{ item.name }}</h5>
+        <!-- <p>{{ item.description }}</p> -->
+    {% empty %}
+        <p>No subcategories available.</p>
+    {% endfor %}
+</body>
+</html>

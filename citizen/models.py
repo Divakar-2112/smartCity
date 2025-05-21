@@ -56,6 +56,3 @@ class ComplaintDetail(models.Model):
 
     def __str__(self):
         return f"Complaint #{self.complaint_id} by {self.user.name}"
-
-
-
