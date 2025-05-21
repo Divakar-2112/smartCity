@@ -7,5 +7,3 @@ admin.site.register(SubCategory)
 admin.site.register(ComplaintDetail)
 
 
-
-
