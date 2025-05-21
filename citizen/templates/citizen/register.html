@@ -1,1 +1,50 @@
-<p>register page</p>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <p>Register</p>
+
+    <div>
+    <form method="post" action="">
+        {% csrf_token %}
+        <div>
+            <label for="username">Username</label>
+            {{form.username}}
+            {% if form.errors.username %}
+                <label class="text-danger">{{form.errors.username}}</label>
+            {% endif %}
+        </div>
+        <div>
+            <label for="email">Email</label>
+            {{form.email}}
+            {% if form.errors.email %}
+                <label class="text-danger">{{form.errors.email}}</label>
+            {% endif %}
+        </div>
+        <div>
+            <label for="password1">Password</label>
+            {{form.password1}}
+            {% if form.errors.password1 %}
+                <label class="text-danger">{{form.errors.password1}}</label>
+            {% endif %}
+        </div>
+        <div>
+            <label for="password2">Confirm password</label>
+            {{form.password2}}
+            {% if form.errors.password2 %}
+                <label class="text-danger">{{form.errors.password2}}</label>
+            {% endif %}
+        </div>
+        <button type="submit">Register</button>
+    </form>
+        <p>Already User ? <a href="#">Login Now</a></p>
+    </div>
+</body>
+</html>

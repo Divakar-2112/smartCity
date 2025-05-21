@@ -8,5 +8,3 @@ admin.site.register(ComplaintDetail)
 admin.site.register(User)
 
 
-
-
