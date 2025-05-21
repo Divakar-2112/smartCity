@@ -35,7 +35,7 @@ class SubCategory(models.Model):
 
 class ComplaintDetail(models.Model):
     complaint_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255)  # Name of the person filing the complaint
+    name = models.CharField(max_length=255) 
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     subCategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     description = models.TextField()
