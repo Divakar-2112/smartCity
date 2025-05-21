@@ -1,11 +1,7 @@
-<<<<<<< HEAD
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib import messages
 from .models import *
-=======
 from django.shortcuts import render
-
->>>>>>> 7ebdaba912b9787aa941eb5696a866b8bb964758
 
 def home(request):
     return render(request, "citizen/index.html")

@@ -14,7 +14,6 @@ STATUS_CHOICES = [
     ('Resolved', 'Resolved'),
     ('Rejected', 'Rejected'),
 ]
-<<<<<<< HEAD
     
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
@@ -27,9 +26,6 @@ class User(models.Model):
 
     def __str__(self):
         return self.name
-=======
-
->>>>>>> 7ebdaba912b9787aa941eb5696a866b8bb964758
 
 class Department(models.Model):
     department_id = models.AutoField(primary_key=True)
