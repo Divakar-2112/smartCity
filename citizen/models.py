@@ -19,7 +19,7 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=20)
     password = models.CharField(max_length=128)
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES,default='citizen')
     department = models.ForeignKey('Department', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
