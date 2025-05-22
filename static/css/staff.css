@@ -1,0 +1,139 @@
+/* Reset some browser defaults */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f6f8;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.header img {
+    height: 60px;
+}
+
+.search-container {
+    position: relative;
+    flex: 1;
+    margin: 0 20px;
+    max-width: 300px;
+}
+
+.search-input {
+    padding: 10px 35px 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    width: 100%;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.filterdiv, .sortdiv {
+    margin-left: 20px;
+}
+
+.filterdiv select,
+.sortdiv select {
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.userprofile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.userprofile img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.tables {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+}
+
+.tables h2 {
+    margin-bottom: 20px;
+    color: #444;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table thead {
+    background-color: #007BFF;
+    color: white;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.status {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: white;
+    text-transform: capitalize;
+}
+
+.status.Resolved {
+    background-color: #28a745;
+}
+
+.status.Pending {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.status.In\ Progress {
+    background-color: #17a2b8;
+}
+
+img {
+    max-height: 60px;
+    border-radius: 6px;
+    object-fit: cover;
+}

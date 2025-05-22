@@ -1,26 +1,92 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Page</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'assets/SmartCity-Logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/staff.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
-    <p>Staff page</p>
 
-    {% for dep in department %}
-    <h1>{{dep.name}}</h1>
-    {% endfor %}
+<div class="container">
+    <div class="header">
+        <img src="{% static 'assets/SmartCity-Logo.png' %}" alt="Logo">
 
-<h1>Sub-Categories</h1>
-    {% for item in subCategory %}
-        <h5>{{ item.name }}</h5>
-        <!-- <p>{{ item.description }}</p> -->
-    {% empty %}
-        <p>No subcategories available.</p>
-    {% endfor %}
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Search complaints...">
+        </div>
+
+        <div class="filterdiv">
+            <label for="filtertype">Filter by Department:</label>
+            <select id="filtertype" name="category">
+                <option selected disabled>Select department</option>
+                {% for dep in department %}
+                    <option>{{ dep.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="sortdiv">
+            <label for="sorttype">Sort by:</label>
+            <select id="sorttype">
+                <option selected disabled>Default</option>
+                <option value="Resolved">Resolved</option>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+            </select>
+        </div>
+
+        <div class="userprofile">
+            <img src="{% static 'images/avatar.jpg' %}" alt="Admin Avatar">
+            <span>Hello {{ user.name }}</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="tables">
+            <h2>Complaints Overview</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Complainant</th>
+                        <th>Department</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th>After-complaint</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="complaint-table">
+                    {% for complaint in complaints %}
+                        <tr>
+                            <td>{{ complaint.complaint_id }}</td>
+                            <td>{{ complaint.user.name }}</td>
+                            <td>{{ complaint.department.name }}</td>
+                            <td>{{ complaint.description }}</td>
+                            <td>{{ complaint.created_at|date:"Y-m-d" }}</td>
+                            <td>{{ complaint.location }}</td>
+                            <td>
+                                {% if complaint.image_url %}
+                                    <img src="{{ complaint.image_url }}" alt="Complaint Image">
+                                {% else %}
+                                    No image
+                                {% endif %}
+                            </td>
+                            <td><span class="status">{{ complaint.status }}</span></td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="8">No complaints available.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
