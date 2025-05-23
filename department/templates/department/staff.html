@@ -22,7 +22,7 @@
         <div class="filterdiv">
             <label for="filtertype">Filter by Department:</label>
             <select id="filtertype" name="category">
-                <option selected disabled>Select department</option>
+                <option selected>Select department</option>
                 {% for dep in department %}
                     <option>{{ dep.name }}</option>
                 {% endfor %}
@@ -32,7 +32,7 @@
         <div class="sortdiv">
             <label for="sorttype">Sort by:</label>
             <select id="sorttype">
-                <option selected disabled>Default</option>
+                <option selected>Default</option>
                 <option value="Resolved">Resolved</option>
                 <option value="Pending">Pending</option>
                 <option value="In Progress">In Progress</option>
@@ -41,52 +41,97 @@
 
         <div class="userprofile">
             <img src="{% static 'images/avatar.jpg' %}" alt="Admin Avatar">
-            <span>Hello {{ user.name }}</span>
+            <span>Hello {{ user.username }}</span>
         </div>
     </div>
 
     <div class="content">
-        <div class="tables">
-            <h2>Complaints Overview</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Complainant</th>
-                        <th>Department</th>
-                        <th>Description</th>
-                        <th>Date</th>
-                        <th>Location</th>
-                        <th>After-complaint</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="complaint-table">
-                    {% for complaint in complaints %}
+        <h2>Complaints Overview</h2>
+
+        {% for dept_name, complaints in department_complaints.items %}
+            <div class="department-section">
+                <h3>{{ dept_name }}</h3>
+                <table class="complaint-table">
+                    <thead>
                         <tr>
-                            <td>{{ complaint.complaint_id }}</td>
-                            <td>{{ complaint.user.name }}</td>
-                            <td>{{ complaint.department.name }}</td>
-                            <td>{{ complaint.description }}</td>
-                            <td>{{ complaint.created_at|date:"Y-m-d" }}</td>
-                            <td>{{ complaint.location }}</td>
-                            <td>
-                                {% if complaint.image_url %}
-                                    <img src="{{ complaint.image_url }}" alt="Complaint Image">
-                                {% else %}
-                                    No image
-                                {% endif %}
-                            </td>
-                            <td><span class="status">{{ complaint.status }}</span></td>
+                            <th>ID</th>
+                            <th>Complainant</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>After-complaint</th>
+                            <th>Status</th>
                         </tr>
-                    {% empty %}
-                        <tr><td colspan="8">No complaints available.</td></tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {% for complaint in complaints %}
+                            <tr>
+                                <td>{{ complaint.complaint_id }}</td>
+                                <td>{{ complaint.user.name }}</td>
+                                <td>{{ complaint.description }}</td>
+                                <td>{{ complaint.created_at|date:"Y-m-d" }}</td>
+                                <td>{{ complaint.location }}</td>
+                                <td>
+                                    {% if complaint.image_url %}
+                                        <img src="{{ complaint.image_url }}" alt="Complaint Image" style="width: 60px; height: auto;">
+                                    {% else %}
+                                        No image
+                                    {% endif %}
+                                </td>
+                                <td><span class="status">{{ complaint.status }}</span></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    let searchInput = document.querySelector('.search-input');
+    let filterSelect = document.getElementById('filtertype');
+    let sortSelect = document.getElementById('sorttype');
+
+    function filterTable() {
+        let searchText = searchInput.value.toLowerCase();
+        let selectedDept = filterSelect.value;
+        let selectedStatus = sortSelect.value;
+
+        document.querySelectorAll('.department-section').forEach(section => {
+            const sectionTitle = section.querySelector('h3').textContent.trim();
+            let showSection = false;
+
+            section.querySelectorAll('tbody tr').forEach(row => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length === 0) return;
+
+                const complainant = cells[1].textContent.toLowerCase();
+                const description = cells[2].textContent.toLowerCase();
+                const status = cells[6].textContent;
+
+                const matchesSearch = complainant.includes(searchText) || description.includes(searchText);
+                const matchesDept = selectedDept === "Select department" || sectionTitle === selectedDept;
+                const matchesStatus = selectedStatus === "Default" || status === selectedStatus;
+
+                if (matchesSearch && matchesDept && matchesStatus) {
+                    row.style.display = '';
+                    showSection = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            section.style.display = showSection ? '' : 'none';
+        });
+    }
+
+    searchInput.addEventListener('input', filterTable);
+    filterSelect.addEventListener('change', filterTable);
+    sortSelect.addEventListener('change', filterTable);
+});
+</script>
 
 </body>
 </html>

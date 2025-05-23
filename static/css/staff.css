@@ -137,3 +137,29 @@ img {
     border-radius: 6px;
     object-fit: cover;
 }
+.department-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #f5f5f5;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.status {
+    font-weight: bold;
+}
+
+img {
+    max-height: 60px;
+}

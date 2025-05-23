@@ -1,14 +1,20 @@
 from django.shortcuts import render
+from collections import defaultdict
 from citizen.models import *
 
-# Create your views here.
 def staff(request):
-    department=Department.objects.all()
+    department = Department.objects.all()
     subCategory = SubCategory.objects.all()
-    complaints = ComplaintDetail.objects.all()
-    context={
+    complaints = ComplaintDetail.objects.select_related('department', 'user').all()
+
+    department_complaints = defaultdict(list)
+    for complaint in complaints:
+        department_complaints[complaint.department.name].append(complaint)
+
+    context = {
         "subCategory": subCategory,
-        "department":department,
-        "complaints":complaints
+        "department": department,
+        "department_complaints": dict(department_complaints),
+        "user": request.user  
     }
     return render(request, 'department/staff.html', context)
