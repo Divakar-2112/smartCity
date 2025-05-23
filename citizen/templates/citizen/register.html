@@ -6,17 +6,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
 </head>
 <body>
-    <p>Register</p>
+{% load static %}
 
-        <form method="POST" autocomplete="off">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+<body>
+
+    <form method="POST" autocomplete="off">
         {% csrf_token %}
-        {{form.as_p}}
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+        {% endfor %}
         <button type="submit">Register</button>
-        </form>
-        
-    </div>
+    </form>
+
+</body>
+</html>
+
 </body>
 </html>
