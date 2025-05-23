@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages 
-from .models import *
+# from django.contrib import messages 
+# from .models import *
 from django.shortcuts import render
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
 from .form import CreateUserForm
-from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from .form import CreateUserForm
+from .models import NewUser
 
 def home(request):
     return render(request, "citizen/index.html")
@@ -17,7 +20,7 @@ def register(request):
         password2 = request.POST['password2']
 
         if password1==password2:
-            user = User.objects.create_user(username=name,email=email,password=password1)
+            user = NewUser.objects.create_user(username=name,email=email,password=password1)
             user.save()
             messages.success(request,'Your account has been created !')
             return redirect('login')

@@ -1,4 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings
+
+
 
 ROLE_CHOICES = [
     ('citizen', 'Citizen'),
@@ -13,7 +17,15 @@ STATUS_CHOICES = [
     ('Rejected', 'Rejected'),
 ]
 
-class User(models.Model):
+class Department(models.Model):
+    department_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+class NewUser(AbstractUser):
     user_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
@@ -21,14 +33,6 @@ class User(models.Model):
     password = models.CharField(max_length=128)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES,default='citizen')
     department = models.ForeignKey('Department', on_delete=models.SET_NULL, null=True, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class Department(models.Model):
-    department_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255)
-    description = models.TextField()
 
     def __str__(self):
         return self.name
@@ -44,7 +48,7 @@ class SubCategory(models.Model):
 
 class ComplaintDetail(models.Model):
     complaint_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     subCategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     description = models.TextField()
