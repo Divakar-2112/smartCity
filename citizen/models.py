@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
-
-
 ROLE_CHOICES = [
     ('citizen', 'Citizen'),
     ('staff', 'Staff'),
@@ -35,7 +33,7 @@ class NewUser(AbstractUser):
     department = models.ForeignKey('Department', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.username
 
 class SubCategory(models.Model):
     subCategory_id = models.AutoField(primary_key=True)
