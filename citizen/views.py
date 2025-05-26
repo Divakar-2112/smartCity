@@ -42,11 +42,5 @@ def register(request):
         form = CreateUserForm()
         return render(request, "citizen/register.html",{'form':form})
 
-def raiseComplaint(request):
-    return render(request, "citizen/raise_complaint.html")
-
 def user(request):
     return render(request,"citizen/user.html")
-
-# def login(request):
-#     return render(request, "citizen/login.html")
