@@ -8,17 +8,19 @@
     <link rel="stylesheet" href="{%static 'css/style.css'%}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" type="image/x-icon" href="{%static 'assets/favicon-icon.png'%}">
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
+
     <header>
       <div class="container navbar">
         <div class="logo">
           <a href="#"><img
-            src="{% static 'assets/SmartCity-Logo.png' %}"
+            src="{% static 'assets/smartCityLogo.png' %}"
             alt="Smart City Logo"
           /></a>
         </div>
@@ -26,6 +28,7 @@
           <a href="#">Home</a>
           <a href="#vision-section">Vision</a>
           <a href="#faq-section">FAQs</a>
+          <a href="#contact-details">Contact</a>
         </nav>
 
         <div class="auth-buttons">
@@ -33,26 +36,6 @@
         </div>
       </div>
     </header>
-
-    <div class="simple-slider">
-      <img
-        src="{% static 'assets/smartCity.jpg' %}"
-        class="slider-image active"
-        alt="Slide 1"
-      />
-      <img
-        src="{% static 'assets/ecoSmartCity.jpg' %}"
-        class="slider-image"
-        alt="Slide 2"
-      />
-      <img
-        src="{% static 'assets/smart-city-solutions.jpg' %}"
-        class="slider-image"
-        alt="Slide 3"
-      />
-      <button class="slider-arrow prev">&#10094;</button>
-      <button class="slider-arrow next">&#10095;</button>
-    </div>
 
     <section class="hero">
       <div class="hero-text">
@@ -74,17 +57,29 @@
       </div>
     </section>
 
+      <section class="image-gallery">
+        <h2 class="gallery-title">Gallery Highlights</h2>
+        <div class="gallery-container">
+          <div class="gallery-item">
+            <img src="{% static 'assets/image-3.png' %}" alt="Smart Lighting">
+            <p class="caption">Smart Lighting System</p>
+          </div>
+          <div class="gallery-item">
+            <img src="{% static 'assets/image-4.png' %}" alt="Public Transport">
+            <p class="caption">Advanced Public Transport</p>
+          </div>
+          <div class="gallery-item">
+            <img src="{% static 'assets/image-5.png' %}" alt="Green Initiatives">
+            <p class="caption">Green Infrastructure</p>
+          </div>
+        </div>
+      </section>
+
     <section class="news-section">
       <div class="news-img">
         <img
           src="https://img.freepik.com/free-vector/news-concept-illustration_114360-1517.jpg?w=740"
           alt="Latest News"
-          style="
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
-          "
         />
       </div>
       <div class="news-content">
@@ -123,6 +118,7 @@
         <li class="faq-item">
           <div class="faq-question">▶ General overview</div>
           <div class="faq-answer">
+            <hr>
             <strong>What is a Smart City?</strong><br />
             A smart city uses technology and data-driven solutions to improve
             citizens’ lives, sustainability, service delivery, and foster
@@ -132,6 +128,7 @@
         <li class="faq-item">
           <div class="faq-question">▶ How smart cities work</div>
           <div class="faq-answer">
+            <hr>
             Smart cities integrate IoT, data analytics, and digital platforms to
             manage resources efficiently and deliver better public services.
           </div>
@@ -139,6 +136,7 @@
         <li class="faq-item">
           <div class="faq-question">▶ Sustainability and community</div>
           <div class="faq-answer">
+            <hr>
             They promote green initiatives, waste management, and community
             engagement for inclusive and sustainable growth.
           </div>
@@ -146,6 +144,7 @@
         <li class="faq-item">
           <div class="faq-question">▶ Security and privacy</div>
           <div class="faq-answer">
+            <hr>
             Smart cities ensure data privacy and security through robust
             cybersecurity measures and transparent data policies.
           </div>
@@ -154,7 +153,7 @@
     </section>
 
     <footer>
-      <div class="footer-container">
+      <div class="footer-container"  id="contact-details">
         <div class="footer-about">
           <h3>About Smart City</h3>
           <p>
@@ -174,9 +173,9 @@
         </div>
         <div class="footer-contact">
           <h4>Contact Us</h4>
-          <p>123 Smart City Blvd, Your City</p>
-          <p>Phone: +1 (234) 567-8900</p>
-          <p>Email: info@smartcity.com</p>
+          <p>L76A, L Block, 21st Street, Anna Nagar, Chennai, Tamil Nadu 600102</p>
+          <p>Phone: +91 99627XXXX</p>
+          <p>Email: smartcity@org.com</p>
         </div>
       </div>
       <div class="footer-bottom">

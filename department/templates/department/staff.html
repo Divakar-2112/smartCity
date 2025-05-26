@@ -49,41 +49,50 @@
         <h2>Complaints Overview</h2>
 
         {% for dept_name, complaints in department_complaints.items %}
-            <div class="department-section">
-                <h3>{{ dept_name }}</h3>
-                <table class="complaint-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Complainant</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            <th>Location</th>
-                            <th>After-complaint</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for complaint in complaints %}
-                            <tr>
-                                <td>{{ complaint.complaint_id }}</td>
-                                <td>{{ complaint.user.name }}</td>
-                                <td>{{ complaint.description }}</td>
-                                <td>{{ complaint.created_at|date:"Y-m-d" }}</td>
-                                <td>{{ complaint.location }}</td>
-                                <td>
-                                    {% if complaint.image_url %}
-                                        <img src="{{ complaint.image_url }}" alt="Complaint Image" style="width: 60px; height: auto;">
-                                    {% else %}
-                                        No image
-                                    {% endif %}
-                                </td>
-                                <td><span class="status">{{ complaint.status }}</span></td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+        <div class="department-section">
+            <h3>{{ dept_name }}</h3>
+            <table class="complaint-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Complainant</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th>After-complaint</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for complaint in complaints %}
+                    <tr>
+                        <td>{{ complaint.complaint_id }}</td>
+                        <td>{{ complaint.user.name }}</td>
+                        <td>{{ complaint.description }}</td>
+                        <td>{{ complaint.created_at|date:"Y-m-d" }}</td>
+                        <td>{{ complaint.location }}</td>
+                        <td>
+                            {% if complaint.image_url %}
+                                <img src="{{ complaint.image_url }}" alt="Complaint Image" style="width: 60px; height: auto;">
+                            {% else %}
+                                No image
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form method="post" action="{% url 'update_complaint_status' complaint.complaint_id %}">
+                                {% csrf_token %}
+                                <select name="status" onchange="this.form.submit()">
+                                    <option value="Pending" {% if complaint.status == 'Pending' %}selected{% endif %}>Pending</option>
+                                    <option value="In Progress" {% if complaint.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+                                    <option value="Resolved" {% if complaint.status == 'Resolved' %}selected{% endif %}>Resolved</option>
+                                </select>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
         {% endfor %}
     </div>
 </div>
@@ -100,20 +109,20 @@ document.addEventListener('DOMContentLoaded', () => {
         let selectedStatus = sortSelect.value;
 
         document.querySelectorAll('.department-section').forEach(section => {
-            const sectionTitle = section.querySelector('h3').textContent.trim();
+            let sectionTitle = section.querySelector('h3').textContent.trim();
             let showSection = false;
 
             section.querySelectorAll('tbody tr').forEach(row => {
-                const cells = row.querySelectorAll('td');
-                if (cells.length === 0) return;
+                let cells = row.querySelectorAll('td');
+                let complainant = cells[1].textContent.toLowerCase();
+                let description = cells[2].textContent.toLowerCase();
+                let statusSelect = cells[6].querySelector('select');
+                let statusText = statusSelect ? statusSelect.value : '';
 
-                const complainant = cells[1].textContent.toLowerCase();
-                const description = cells[2].textContent.toLowerCase();
-                const status = cells[6].textContent;
 
-                const matchesSearch = complainant.includes(searchText) || description.includes(searchText);
-                const matchesDept = selectedDept === "Select department" || sectionTitle === selectedDept;
-                const matchesStatus = selectedStatus === "Default" || status === selectedStatus;
+                let matchesSearch = complainant.includes(searchText) || description.includes(searchText);
+                let matchesDept = selectedDept === "Select department" || sectionTitle === selectedDept;
+                let matchesStatus = selectedStatus === "Default" || statusText === selectedStatus;
 
                 if (matchesSearch && matchesDept && matchesStatus) {
                     row.style.display = '';
