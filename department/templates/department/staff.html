@@ -1,13 +1,13 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Staff Page</title>
+    <title>{{ selected_department.name }} - Staff Page</title>
     <link rel="shortcut icon" href="{% static 'assets/favicon-icon.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/staff.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -25,7 +25,7 @@
             <select id="filtertype" name="category">
                 <option selected>Select department</option>
                 {% for dep in department %}
-                    <option>{{ dep.name }}</option>
+                    <option value="{{ dep.name }}">{{ dep.name }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -42,17 +42,17 @@
         </div>
 
         <div class="userprofile">
-            <i class="fa-solid fa-user"></i>
-            <span>Hello {{ user.username }}</span>
+            <img src="{% static 'images/avatar.jpg' %}" alt="Admin Avatar">
+            <h5>Welcome {{ request.user.first_name }}</h5>
+
         </div>
     </div>
 
     <div class="content">
-        <h2>Complaints Overview</h2>
+        <h2>{{ selected_department.name }} - Complaints Overview</h2>
 
-        {% for dept_name, complaints in department_complaints.items %}
         <div class="department-section">
-            <h3>{{ dept_name }}</h3>
+            <h3>{{ selected_department.name }}</h3>
             <table class="complaint-table">
                 <thead>
                     <tr>
@@ -66,7 +66,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for complaint in complaints %}
+                    {% for complaint in department_complaints[selected_department.name] %}
                     <tr>
                         <td>{{ complaint.complaint_id }}</td>
                         <td>{{ complaint.user.name }}</td>
@@ -96,7 +96,6 @@
                 </tbody>
             </table>
         </div>
-        {% endfor %}
     </div>
 </div>
 
@@ -121,7 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 let description = cells[2].textContent.toLowerCase();
                 let statusSelect = cells[6].querySelector('select');
                 let statusText = statusSelect ? statusSelect.value : '';
-
 
                 let matchesSearch = complainant.includes(searchText) || description.includes(searchText);
                 let matchesDept = selectedDept === "Select department" || sectionTitle === selectedDept;

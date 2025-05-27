@@ -13,155 +13,142 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body>
-    <!-- Header -->
-    <header>
-      <div class="container navbar">
-        <div class="logo">
-          <a href="#"><img
-            src="{% static 'assets/smartCityLogo.png' %}"
-            alt="Smart City Logo"
-          /></a>
-        </div>
-        <nav>
-          <a href="#">Home</a>
-          <a href="#complaint-box">Complaint Box</a>
-          <a href="#faq-section">FAQs</a>
-        </nav>
-        <div class="user-profile">
-          <!-- <img src="assets/circle-user.svg" class="profile-icon" alt="user-profile-icon"> -->
-          <h5>"Hello" Username!</h5>
-          <div class="auth-buttons">
-            <button class="logoutBtn">Logout</button>
+  <main class="main-content">
+    <div class="dashboard">
+      <!-- Header -->
+      <header>
+        <div class="container navbar">
+          <div class="logo">
+            <a href="#"><img src="{% static 'assets/smartCityLogo.png' %}" alt="Smart City Logo" /></a>
           </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-text">
-        <div class="hero-title">
-          Empowering Urban Innovation for a Better Tomorrow
-        </div>
-        <div class="hero-desc">
-          Discover how our city is transforming into a smart, sustainable, and
-          inclusive urban space by leveraging technology, data, and community
-          engagement. Our mission is to enhance quality of life, drive economic
-          growth, and protect the environment for all.
-        </div>
-      </div>
-      <div class="hero-img">
-        <img
-          src="https://img.freepik.com/free-vector/smart-city-concept-illustration_114360-1194.jpg?w=740"
-          alt="Smart City Illustration"
-        />
-      </div>
-    </section>
-
-    <section class="complaint-box" id="complaint-box">
-        <div class="complaint-container">
-            <h2>Submit a Complaint</h2>
-            <form class="complaint-form">
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" placeholder="Your name" required>
+          <nav>
+            <a href="#">Home</a>
+            <a href="#user-complaint">My Complaints</a>
+            <a href="#faq-section">FAQs</a>
+            <a href="#contact-page">Contacts</a>
+          </nav>
+          <div class="user-actions">
+            <input type="search" placeholder="Search services..." />
+            <img src="{% static 'assets/user.svg' %}" alt="User Profile" class="user-icon" />
+            <div class="logout-dropdown">
+              <button>Logout</button>
             </div>
+          </div>
+        </div>
+      </header>
 
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="Your email" required>
+      <!-- Dashboard Header -->
+      <section class="dashboard-header">
+        <h1>Welcome, Shewag!</h1>
+         <!-- Stats Cards -->
+      <section class="stats">
+        <div class="card user-resolved">
+          <h3>Resolved</h3>
+          <span>10</span>
+        </div>
+        <div class="card user-progress">
+          <h3>In Progress</h3>
+          <span>5</span>
+        </div>
+        <div class="card user-rejected">
+          <h3>Rejected</h3>
+          <span>1</span>
+        </div>
+      </section>
+
+      </section>
+
+      <!-- Complaints Section -->
+      <section class="complaint-main" id="user-complaint">
+        <div class="complaints-actions">
+          <h2>My Complaints</h2>
+          <button class="complaintButton"><i class="fa-solid fa-plus"></i>Add Complaints</button>
+        </div>
+        <div class="complaint-card">
+          <div class="card-header">
+            <span class="complaint-id">#1234</span>
+            <span class="status in-progress">In Progress</span>
+          </div>
+          <div class="card-body">
+            <p><strong>Category:</strong> Garbage</p>
+            <p><strong>Date:</strong> 2025-05-20</p>
+            <p><strong>Description:</strong> Overflowing bin not cleared for 3 days.</p>
+          </div>
+        </div>
+        <div class="complaint-card">
+          <div class="card-header">
+            <span class="complaint-id">#1235</span>
+            <span class="status completed">Completed</span>
+          </div>
+          <div class="card-body">
+            <p><strong>Category:</strong> Garbage</p>
+            <p><strong>Date:</strong> 2025-05-21</p>
+            <p><strong>Description:</strong> Garbage collection request fulfilled.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="faq-section" id="faq-section">
+        <div class="faq-title">FAQs</div>
+        <ul class="faq-list">
+          <li class="faq-item">
+            <div class="faq-question">▶ How to apply a complaint</div>
+            <div class="faq-answer">
+              You can submit a complaint through the dashboard by clicking on the 'My Complaints' tab and filling the form.
             </div>
-
-            <div class="form-group">
-                <label for="category">Complaint Category</label>
-                <select id="category" required>
-                <option value="">Select a category</option>
-                <option value="road">Road Maintenance</option>
-                <option value="water">Water Supply</option>
-                <option value="electricity">Electricity</option>
-                <option value="waste">Waste Management</option>
-                <option value="other">Other</option>
-                </select>
+          </li>
+          <li class="faq-item">
+            <div class="faq-question">▶ How to check your complaint</div>
+            <div class="faq-answer">
+              Navigate to 'My Complaints' section to view the status of your complaint.
             </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
 
-            <div class="form-group">
-                <label for="message">Complaint Details</label>
-                <textarea id="message" placeholder="Describe your issue here..." rows="5" required></textarea>
-            </div>
+  <footer>
+        <div class="footer-container">
+          <div class="footer-about">
+            <h3>About Smart City</h3>
+            <p>Empowering sustainable urban innovation and citizen engagement for a better tomorrow.</p>
+          </div>
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Projects</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact" id="contact-page">
+            <h4>Contact Us</h4>
+            <p>123 Smart City Blvd, Your City</p>
+            <p>Phone: +1 (234) 567-8900</p>
+            <p>Email: info@smartcity.com</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; 2025 Smart City Initiative. All rights reserved.
+        </div>
+      </footer>
 
-            <button type="submit">Submit Complaint</button>
-            </form>
-        </div>
-    </section>
-    <!-- FAQs Section -->
-    <section class="faq-section" id="faq-section">
-      <div class="faq-title">FAQs</div>
-      <ul class="faq-list">
-        <li class="faq-item">
-          <div class="faq-question">▶ General overview</div>
-          <div class="faq-answer">
-            <strong>What is a Smart City?</strong><br />
-            A smart city uses technology and data-driven solutions to improve
-            citizens’ lives, sustainability, service delivery, and foster
-            economic growth and a better quality of life.
-          </div>
-        </li>
-        <li class="faq-item">
-          <div class="faq-question">▶ How smart cities work</div>
-          <div class="faq-answer">
-            Smart cities integrate IoT, data analytics, and digital platforms to
-            manage resources efficiently and deliver better public services.
-          </div>
-        </li>
-        <li class="faq-item">
-          <div class="faq-question">▶ Sustainability and community</div>
-          <div class="faq-answer">
-            They promote green initiatives, waste management, and community
-            engagement for inclusive and sustainable growth.
-          </div>
-        </li>
-        <li class="faq-item">
-          <div class="faq-question">▶ Security and privacy</div>
-          <div class="faq-answer">
-            Smart cities ensure data privacy and security through robust
-            cybersecurity measures and transparent data policies.
-          </div>
-        </li>
-      </ul>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-      <div class="footer-container">
-        <div class="footer-about">
-          <h3>About Smart City</h3>
-          <p>
-            Empowering sustainable urban innovation and citizen engagement for a
-            better tomorrow.
-          </p>
-        </div>
-        <div class="footer-links">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-contact">
-          <h4>Contact Us</h4>
-          <p>123 Smart City Blvd, Your City</p>
-          <p>Phone: +1 (234) 567-8900</p>
-          <p>Email: info@smartcity.com</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        &copy; 2025 Smart City Initiative. All rights reserved.
-      </div>
-    </footer>   
+  <script>
+    // FAQ toggle script
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const parent = question.parentElement;
+        parent.classList.toggle('active');
+      });
+    });
+  </script>
   </body>
 </html>
+>>>>>>> 59f381400c665d541fed874da0a2b2ef026123c8
