@@ -129,6 +129,7 @@ nav a:hover::after {
   transition: var(--transition);
 }
 .logoutBtn{
+  cursor: pointer;
   text-decoration: none;
   background-color:  linear-gradient(to top, #0ba360 0%, #3cba92 100%);;
   color: rgb(0, 0, 0);

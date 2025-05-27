@@ -68,7 +68,6 @@ header {
 nav {
   display: flex;
   gap: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 nav a {
   text-decoration: none;
@@ -99,9 +98,10 @@ nav a:hover::after {
   border-radius: 6px;
   transition: var(--transition);
 }
-.btn-Login{
+.btn-Login {
+  cursor: pointer;
   text-decoration: none;
-  background-color:  linear-gradient(to top, #0ba360 0%, #3cba92 100%);;
+  background-color: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
   color: rgb(0, 0, 0);
   border: 2px solid var(--primary);
 }
@@ -190,6 +190,7 @@ nav a:hover::after {
 }
 .slider-arrow:hover {
   background-color: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
 }
 .slider-arrow.prev {
   left: 20px;
@@ -253,10 +254,12 @@ nav a:hover::after {
   font-size: 1rem;
   border-radius: 8px;
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .hero-btn:hover {
   background-color: #023e8a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 .hero-img {
   flex: 1;
@@ -328,10 +331,12 @@ nav a:hover::after {
   border-radius: 8px;
   text-decoration: none;
   font-weight: 500;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .news-btn:hover {
   background-color: #005a94;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 .vision-section {
   background: linear-gradient(to right, #e8f7ff, #ffffff);
@@ -418,6 +423,7 @@ nav a:hover::after {
   color: #002244;
   position: relative;
   padding-bottom: 0.25rem;
+  cursor: pointer;
 }
 .faq-answer {
   font-size: 0.85rem;
@@ -425,9 +431,20 @@ nav a:hover::after {
   margin-top: 0.5rem;
   display: none;
   transition: all 0.3s ease;
+  animation: fadeSlideDown 0.4s ease;
 }
 .faq-item.active .faq-answer {
   display: block;
+}
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 footer {
   background: linear-gradient(to right, #2c3e50, #34495e);
@@ -452,7 +469,6 @@ footer {
   display: inline-block;
   padding-bottom: 0.3rem;
 }
-
 .footer-about p,
 .footer-contact p {
   line-height: 1.6;
@@ -472,9 +488,24 @@ footer {
   text-decoration: none;
   font-size: 0.95rem;
   transition: color 0.3s ease;
+  cursor: pointer;
+  position: relative;
 }
 .footer-links a:hover {
   color: #9fdc29;
+}
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #9fdc29;
+  transition: width 0.3s ease;
+}
+.footer-links a:hover::after {
+  width: 100%;
 }
 .footer-bottom {
   text-align: center;
