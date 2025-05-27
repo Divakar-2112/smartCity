@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Staff Page</title>
-    <link rel="shortcut icon" href="{% static 'assets/SmartCity-Logo.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'assets/favicon-icon.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/staff.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <img src="{% static 'assets/SmartCity-Logo.png' %}" alt="Logo">
+        <img src="{% static 'assets/smartCityLogo.png' %}" alt="Logo">
 
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
@@ -36,11 +37,12 @@
                 <option value="Resolved">Resolved</option>
                 <option value="Pending">Pending</option>
                 <option value="In Progress">In Progress</option>
+                <option value="Reject">Reject</option>
             </select>
         </div>
 
         <div class="userprofile">
-            <img src="{% static 'images/avatar.jpg' %}" alt="Admin Avatar">
+            <i class="fa-solid fa-user"></i>
             <span>Hello {{ user.username }}</span>
         </div>
     </div>
@@ -85,6 +87,7 @@
                                     <option value="Pending" {% if complaint.status == 'Pending' %}selected{% endif %}>Pending</option>
                                     <option value="In Progress" {% if complaint.status == 'In Progress' %}selected{% endif %}>In Progress</option>
                                     <option value="Resolved" {% if complaint.status == 'Resolved' %}selected{% endif %}>Resolved</option>
+                                    <option value="Reject" {% if complaint.status == 'Reject' %}selected{% endif %}>Reject</option>
                                 </select>
                             </form>
                         </td>
