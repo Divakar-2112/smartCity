@@ -42,7 +42,7 @@ header {
   width: 100%;
   background: var(--card);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-  padding: 0.5rem 0;
+  /* padding: 0.5rem 0; */
   position: sticky;
   top: 0;
   z-index: 10;
@@ -52,11 +52,13 @@ header {
   max-width: 100%;
   width: 100%;
   padding: 0 1rem;
+  font-size: large;
+  font-weight: bolder;
   box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  height: 60px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 .logo img {
   height: 5rem;
@@ -68,7 +70,6 @@ header {
 nav {
   display: flex;
   gap: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 nav a {
   text-decoration: none;
@@ -99,15 +100,20 @@ nav a:hover::after {
   border-radius: 6px;
   transition: var(--transition);
 }
-.btn-Login{
-  text-decoration: none;
-  background-color:  linear-gradient(to top, #0ba360 0%, #3cba92 100%);;
-  color: rgb(0, 0, 0);
-  border: 2px solid var(--primary);
+.btn-Login {
+  background: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .btn-Login:hover {
-  background-color: #92f37c;
+  background: #92f37c;
   color: #000;
+  transform: scale(1.02);
+  transition: all 1s;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 .image-gallery {
   padding: 3rem 2rem;
@@ -225,11 +231,15 @@ nav a:hover::after {
   padding: 4rem 2rem;
   background: linear-gradient(135deg, #7fbe70, #92f37c);
   flex-wrap: wrap;
+  animation: fadeSlideIn 1.2s ease-out forwards;
 }
 .hero-text {
   flex: 1;
+  animation-delay: 0.2s;
   min-width: 300px;
   animation: fadeInUp 1s ease-in-out;
+  opacity: 0;
+  animation: fadeSlideIn 1.2s ease-out forwards;
 }
 .hero-title {
   font-size: 2.5rem;
@@ -264,7 +274,9 @@ nav a:hover::after {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fadeInRight 1.2s ease;
+  animation-delay: 0.4s;
+  opacity: 0;
+  animation: fadeSlideIn 1.2s ease-out forwards;
 }
 .hero-img img {
   width: 100%;
@@ -275,6 +287,19 @@ nav a:hover::after {
 .hero-img img:hover {
   transform: scale(1.05);
 }
+
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 .news-section {
   display: flex;
   align-items: center;
@@ -284,6 +309,7 @@ nav a:hover::after {
   padding: 4rem 2rem;
   background: linear-gradient(135deg, #7fbe70, #92f37c);
   flex-wrap: wrap;
+  animation: fadeSlideIn 1.2s ease-out forwards;
 }
 .news-img {
   flex: 1;
@@ -291,7 +317,9 @@ nav a:hover::after {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fadeInRight 1.2s ease;
+  animation-delay: 0.2s;
+  opacity: 0;
+  animation: fadeSlideIn 1.2s ease-out forwards;
 }
 .news-img img {
   width: 100%;
@@ -306,6 +334,7 @@ nav a:hover::after {
 .news-content {
   flex: 1;
   min-width: 280px;
+  animation-delay: 0.2s;
   animation: slideIn 0.8s ease forwards;
 }
 .news-title {
@@ -315,10 +344,11 @@ nav a:hover::after {
   margin-bottom: 1rem;
 }
 .news-desc {
-  font-size: 1.1rem;
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
   color: #ffffff;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
+  line-height: 1.6
 }
 .news-btn {
   display: inline-block;
@@ -333,12 +363,19 @@ nav a:hover::after {
 .news-btn:hover {
   background-color: #005a94;
 }
+
+
+.vision-img {
+  flex: 1 1 400px;
+  text-align: center;
+}
 .vision-section {
   background: linear-gradient(to right, #e8f7ff, #ffffff);
   padding: 4rem 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: zoomFadeIn 1.2s ease-out forwards;
 }
 .vision-container {
   display: flex;
@@ -350,6 +387,9 @@ nav a:hover::after {
 }
 .vision-content {
   flex: 1 1 500px;
+   animation-delay: 0.2s;
+  opacity: 0;
+  animation: zoomFadeIn 1.2s ease-out forwards;
 }
 .vision-title {
   font-size: 2.5rem;
@@ -368,66 +408,82 @@ nav a:hover::after {
   border-radius: 8px;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
 }
-.vision-img {
-  flex: 1 1 400px;
-  text-align: center;
-}
 .vision-img img {
   width: 100%;
   max-width: 350px;
   border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  animation-delay: 0.2s;
+  animation: zoomFadeIn 1.2s ease-out forwards;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 .vision-img img:hover {
   transform: scale(1.05);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
+
+@keyframes zoomFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* FAQ Section */
 .faq-section {
-  padding: 2rem 1rem;
-  background: #f7f7f7;
-  font-family: 'Arial', sans-serif;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-top: 2rem;
+  padding: 1rem;
+
 }
+
 .faq-title {
-  text-align: center;
   font-size: 1.5rem;
-  color: #003366;
-  margin-bottom: 1rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
 }
+
 .faq-list {
   list-style: none;
-  margin: 0 auto;
-  padding: 0;
-  max-width: 600px;
 }
+
 .faq-item {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  margin-bottom: 0.5rem;
-  padding: 0.75rem 1rem;
-  transition: background 0.3s ease;
-  cursor: pointer;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1rem;
 }
-.faq-item:hover {
-  background: #eef6ff;
-}
+
 .faq-question {
-  font-size: 0.95rem;
-  font-weight: bold;
-  color: #002244;
-  position: relative;
-  padding-bottom: 0.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
+
+.faq-question:hover {
+  color: #01c38e;
+}
+
 .faq-answer {
-  font-size: 0.85rem;
-  color: #333;
-  margin-top: 0.5rem;
   display: none;
-  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #444;
 }
+
 .faq-item.active .faq-answer {
   display: block;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 footer {
   background: linear-gradient(to right, #2c3e50, #34495e);
@@ -485,3 +541,5 @@ footer {
   border-top: 1px solid #333;
   margin-top: 2rem;
 }
+
+/* Animation */
