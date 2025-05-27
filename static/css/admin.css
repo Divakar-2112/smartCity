@@ -68,7 +68,7 @@ body {
     cursor: pointer;
 }
 
-/* User Profile */
+
 .userprofile {
     display: flex;
     align-items: center;
@@ -82,7 +82,7 @@ body {
     border-radius: 50%;
 }
 
-/* Status Cards */
+
 .status-counts {
     display: flex;
     gap: 20px;
