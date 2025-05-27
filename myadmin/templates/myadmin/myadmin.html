@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Staff Page</title>
     <link rel="shortcut icon" href="{% static 'assets/SmartCity-Logo.png' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css/staff.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
@@ -20,7 +20,7 @@
         </div>
 
         <div class="filterdiv">
-            <label for="filtertype">Filter by Department:</label>
+            <label for="filtertype">Filter:</label>
             <select id="filtertype" name="category">
                 <option selected>Select department</option>
                 {% for dep in department %}
@@ -35,7 +35,8 @@
                 <option selected>Default</option>
                 <option value="Resolved">Resolved</option>
                 <option value="Pending">Pending</option>
-                <option value="In Progress">In Progress</option>
+                <option value="In Progress">InProgress</option>
+                <option value="Reject">Reject</option>
             </select>
         </div>
 
@@ -44,10 +45,31 @@
             <span>Hello {{ user.username }}</span>
         </div>
     </div>
-
+    <div class="status-counts">
+        <div class="total">
+            <h2>Total Complaints:</h2>
+            <h4>{{ total_complaints }}</h4>
+        </div>
+        <div class="resolved">
+            <h2>Resolved Complaints</h2>
+            <h4>{{ status_counts.Resolved }}</h4>
+        </div>
+        <div class="progress">
+            <h2>In Progress</h2>
+            <h4>{{ status_counts.InProgress }}</h4>
+        </div>
+        <div class="pending">
+            <h2>Pending Complaints</h2>
+            <h4>{{ status_counts.Pending }}</h4>
+        </div>
+        <div class="reject">
+            <h2>Rejected Complaints</h2>
+            <h4>{{ status_counts.Rejected }}</h4>
+        </div>
+    </div>
     <div class="content">
         <h2>Complaints Overview</h2>
-
+       
         {% for dept_name, complaints in department_complaints.items %}
             <div class="department-section">
                 <h3>{{ dept_name }}</h3>
@@ -93,6 +115,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let searchInput = document.querySelector('.search-input');
     let filterSelect = document.getElementById('filtertype');
     let sortSelect = document.getElementById('sorttype');
+    document.querySelectorAll('.status').forEach(statusEl => {
+        const statusText = statusEl.textContent.trim().toLowerCase();
+        if (statusText === 'pending') {
+            statusEl.style.color = '#dc3545'; // red
+        } else if (statusText === 'resolved') {
+            statusEl.style.color = '#28a745'; // green
+        } else if (statusText === 'reject' || statusText === 'rejected') {
+            statusEl.style.color = '#6c757d'; // gray
+        } else if (statusText === 'in progress') {
+            statusEl.style.color = '#ff8c00'; // orange
+        }
+    });
 
     function filterTable() {
         let searchText = searchInput.value.toLowerCase();
