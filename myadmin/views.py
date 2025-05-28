@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from collections import defaultdict
 from citizen.models import *
+from django.http import JsonResponse
+import json
+
+
+
 
 def myadmin(request):
     department = Department.objects.all()
@@ -34,7 +39,7 @@ def myadmin(request):
         "subCategory": subCategory,
         "department": department,
         "department_complaints": dict(department_complaints),
-        "dept_status_counts": dict(dept_status_counts),
+        'dept_status_counts': json.dumps(dept_status_counts),
         "total_complaints": total_complaints,
         "status_counts": overall_status_counts,
         "user": request.user
