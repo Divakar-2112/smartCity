@@ -1,14 +1,24 @@
 from django.shortcuts import render, redirect
-from django.shortcuts import render
 from .form import CreateUserForm
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth import login as auth_login, logout as auth_logout
 from .form import CreateUserForm
 from .models import NewUser
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from django.contrib.auth import logout
+
 
 def home(request):
     return render(request, "citizen/index.html")
 
+def login(request):
+    return render(request, "citizen/login.html")
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
+    
 def register(request):
     if request.method == 'POST':
         name = request.POST['first_name'] + " " + request.POST['last_name']
@@ -31,6 +41,9 @@ def register(request):
             )
             user.phone = phone
             user.save()
+
+            auth_login(request, user)
+            
             messages.success(request,'Your account has been created !')
             return redirect('user')
         else:
@@ -42,5 +55,12 @@ def register(request):
         form = CreateUserForm()
         return render(request, "citizen/register.html",{'form':form})
 
+@login_required(login_url='login') 
 def user(request):
     return render(request,"citizen/user.html")
+
+def staff_home(request):
+    return render(request, 'department/staff.html')
+
+def admin_home(request):
+    return render(request, 'myadmin.html')
