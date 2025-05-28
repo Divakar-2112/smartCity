@@ -11,3 +11,4 @@ urlpatterns = [
     path('staff/', views.staff_home, name='staff'),
     path('myadmin/', views.admin_home, name='myadmin'),
 ]
+
