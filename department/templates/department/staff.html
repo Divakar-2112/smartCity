@@ -1,13 +1,13 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ selected_department.name }} - Staff Page</title>
-    <link rel="shortcut icon" href="{% static 'assets/favicon-icon.png' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css/staff.css' %}">
+    <title>Staff Page</title>
+    <link rel="shortcut icon" href="{% static 'assets/SmartCity-Logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="shortcut icon" href="{% static 'assets/favicon-icon.png' %}" type="image/x-icon">
 </head>
 <body>
 
@@ -21,11 +21,11 @@
         </div>
 
         <div class="filterdiv">
-            <label for="filtertype">Filter by Department:</label>
+            <label for="filtertype">Filter:</label>
             <select id="filtertype" name="category">
                 <option selected>Select department</option>
                 {% for dep in department %}
-                    <option value="{{ dep.name }}">{{ dep.name }}</option>
+                    <option>{{ dep.name }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -37,93 +37,140 @@
                 <option value="Resolved">Resolved</option>
                 <option value="Pending">Pending</option>
                 <option value="In Progress">In Progress</option>
-                <option value="Reject">Reject</option>
+                <option value="Rejected">Rejected</option>
             </select>
         </div>
 
         <div class="userprofile">
-            <img src="{% static 'images/avatar.jpg' %}" alt="Admin Avatar">
-            <h5>Welcome {{ request.user.first_name }}</h5>
+            <span>Hello {{ user.name }}</span>
+        </div>
+    </div>
 
+    <div class="status-counts">
+        <div class="total">
+            <h2>Total Complaints:</h2>
+            <h4 id="count-total">{{ total_complaints }}</h4>
+        </div>
+        <div class="resolved">
+            <h2>Resolved Complaints</h2>
+            <h4 id="count-resolved">{{ status_counts.Resolved }}</h4>
+        </div>
+        <div class="progress">
+            <h2>In Progress</h2>
+            <h4 id="count-inprogress">{{ status_counts.InProgress }}</h4>
+        </div>
+        <div class="pending">
+            <h2>Pending Complaints</h2>
+            <h4 id="count-pending">{{ status_counts.Pending }}</h4>
+        </div>
+        <div class="reject">
+            <h2>Rejected Complaints</h2>
+            <h4 id="count-rejected">{{ status_counts.Rejected }}</h4>
         </div>
     </div>
 
     <div class="content">
-        <h2>{{ selected_department.name }} - Complaints Overview</h2>
-
-        <div class="department-section">
-            <h3>{{ selected_department.name }}</h3>
-            <table class="complaint-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Complainant</th>
-                        <th>Description</th>
-                        <th>Date</th>
-                        <th>Location</th>
-                        <th>After-complaint</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for complaint in department_complaints[selected_department.name] %}
-                    <tr>
-                        <td>{{ complaint.complaint_id }}</td>
-                        <td>{{ complaint.user.name }}</td>
-                        <td>{{ complaint.description }}</td>
-                        <td>{{ complaint.created_at|date:"Y-m-d" }}</td>
-                        <td>{{ complaint.location }}</td>
-                        <td>
-                            {% if complaint.image_url %}
-                                <img src="{{ complaint.image_url }}" alt="Complaint Image" style="width: 60px; height: auto;">
-                            {% else %}
-                                No image
-                            {% endif %}
-                        </td>
-                        <td>
-                            <form method="post" action="{% url 'update_complaint_status' complaint.complaint_id %}">
-                                {% csrf_token %}
-                                <select name="status" onchange="this.form.submit()">
-                                    <option value="Pending" {% if complaint.status == 'Pending' %}selected{% endif %}>Pending</option>
-                                    <option value="In Progress" {% if complaint.status == 'In Progress' %}selected{% endif %}>In Progress</option>
-                                    <option value="Resolved" {% if complaint.status == 'Resolved' %}selected{% endif %}>Resolved</option>
-                                    <option value="Reject" {% if complaint.status == 'Reject' %}selected{% endif %}>Reject</option>
-                                </select>
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+        <h2>Complaints Overview</h2>
+        {% for dept_name, complaints in department_complaints.items %}
+            <div class="department-section">
+                <h3>{{ dept_name }}</h3>
+                <table class="complaint-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Complainant</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Before-complaint</th>
+                            <th>After-complaint</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for complaint in complaints %}
+                            <tr>
+                                <td>{{ complaint.complaint_id }}</td>
+                                <td>{{ complaint.user.name }}</td>
+                                <td>{{ complaint.description }}</td>
+                                <td>{{ complaint.created_at|date:"Y-m-d" }}</td>
+                                <td>{{ complaint.location }}</td>
+                                <td>
+                                    {% if complaint.image_url %}
+                                        <img src="{{ complaint.image_url }}" alt="Complaint Image" style="width: 60px; height: auto;">
+                                    {% else %}
+                                        No image
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if complaint.image_url %}
+                                        <img src="{{ complaint.image_url }}" alt="Complaint Image" style="width: 60px; height: auto;">
+                                    {% else %}
+                                        No image
+                                    {% endif %}
+                                </td>
+                                <td><span class="status">{{ complaint.status }}</span></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
     </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    let searchInput = document.querySelector('.search-input');
-    let filterSelect = document.getElementById('filtertype');
-    let sortSelect = document.getElementById('sorttype');
+    const deptStatusCounts = {{ dept_status_counts|safe }};
+
+    function countFilteredComplaints() {
+        const counts = {Resolved: 0, "In Progress": 0, Pending: 0, Rejected: 0};
+        let total = 0;
+        document.querySelectorAll('.department-section').forEach(section => {
+            if (section.style.display !== 'none') {
+                section.querySelectorAll('tbody tr').forEach(row => {
+                    if (row.style.display !== 'none') {
+                        const status = row.querySelector('.status').textContent.trim();
+                        if (counts.hasOwnProperty(status)) counts[status]++;
+                        total++;
+                    }
+                });
+            }
+        });
+        document.getElementById('count-total').textContent = total;
+        document.getElementById('count-resolved').textContent = counts.Resolved;
+        document.getElementById('count-inprogress').textContent = counts["In Progress"];
+        document.getElementById('count-pending').textContent = counts.Pending;
+        document.getElementById('count-rejected').textContent = counts.Rejected;
+    }
+
+    function applyStatusColors() {
+        document.querySelectorAll('.status').forEach(el => {
+            const status = el.textContent.trim().toLowerCase();
+            if (status === 'pending') el.style.color = '#dc3545';
+            else if (status === 'resolved') el.style.color = '#28a745';
+            else if (status === 'in progress') el.style.color = '#ff8c00';
+            else if (status === 'rejected') el.style.color = '#6c757d';
+        });
+    }
 
     function filterTable() {
-        let searchText = searchInput.value.toLowerCase();
-        let selectedDept = filterSelect.value;
-        let selectedStatus = sortSelect.value;
+        const searchText = document.querySelector('.search-input').value.toLowerCase();
+        const selectedDept = document.getElementById('filtertype').value;
+        const selectedStatus = document.getElementById('sorttype').value;
 
         document.querySelectorAll('.department-section').forEach(section => {
-            let sectionTitle = section.querySelector('h3').textContent.trim();
+            const deptName = section.querySelector('h3').textContent.trim();
             let showSection = false;
 
             section.querySelectorAll('tbody tr').forEach(row => {
-                let cells = row.querySelectorAll('td');
-                let complainant = cells[1].textContent.toLowerCase();
-                let description = cells[2].textContent.toLowerCase();
-                let statusSelect = cells[6].querySelector('select');
-                let statusText = statusSelect ? statusSelect.value : '';
+                const cells = row.querySelectorAll('td');
+                const complainant = cells[1].textContent.toLowerCase();
+                const description = cells[2].textContent.toLowerCase();
+                const status = cells[6].textContent.trim();
 
-                let matchesSearch = complainant.includes(searchText) || description.includes(searchText);
-                let matchesDept = selectedDept === "Select department" || sectionTitle === selectedDept;
-                let matchesStatus = selectedStatus === "Default" || statusText === selectedStatus;
+                const matchesSearch = complainant.includes(searchText) || description.includes(searchText);
+                const matchesDept = selectedDept === "Select department" || deptName === selectedDept;
+                const matchesStatus = selectedStatus === "Default" || status === selectedStatus;
 
                 if (matchesSearch && matchesDept && matchesStatus) {
                     row.style.display = '';
@@ -135,12 +182,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             section.style.display = showSection ? '' : 'none';
         });
+
+        countFilteredComplaints();
     }
 
-    searchInput.addEventListener('input', filterTable);
-    filterSelect.addEventListener('change', filterTable);
-    sortSelect.addEventListener('change', filterTable);
-});
+    document.addEventListener('DOMContentLoaded', () => {
+        applyStatusColors();
+        document.querySelector('.search-input').addEventListener('input', filterTable);
+        document.getElementById('filtertype').addEventListener('change', filterTable);
+        document.getElementById('sorttype').addEventListener('change', filterTable);
+    });
 </script>
 
 </body>

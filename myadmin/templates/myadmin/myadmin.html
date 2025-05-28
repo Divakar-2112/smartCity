@@ -42,7 +42,7 @@
         </div>
 
         <div class="userprofile">
-            <span>Hello {{ user.username }}</span>
+            <span>Hello {{ user.first_name }}</span>
         </div>
     </div>
 
@@ -82,6 +82,7 @@
                             <th>Description</th>
                             <th>Date</th>
                             <th>Location</th>
+                            <th>Before-complaint</th>
                             <th>After-complaint</th>
                             <th>Status</th>
                         </tr>
@@ -101,6 +102,13 @@
                                         No image
                                     {% endif %}
                                 </td>
+                                <td>
+                                    {% if complaint.image_url %}
+                                        <img src="{{ complaint.image_url }}" alt="Complaint Image" style="width: 60px; height: auto;">
+                                    {% else %}
+                                        No image
+                                    {% endif %}
+                                </td>
                                 <td><span class="status">{{ complaint.status }}</span></td>
                             </tr>
                         {% endfor %}
@@ -112,78 +120,65 @@
 </div>
 
 <script>
-    const deptStatusCounts = {{ dept_status_counts|safe }};
-
     function countFilteredComplaints() {
-        const counts = {Resolved: 0, "In Progress": 0, Pending: 0, Rejected: 0};
-        let total = 0;
-        document.querySelectorAll('.department-section').forEach(section => {
-            if (section.style.display !== 'none') {
-                section.querySelectorAll('tbody tr').forEach(row => {
-                    if (row.style.display !== 'none') {
-                        const status = row.querySelector('.status').textContent.trim();
-                        if (counts.hasOwnProperty(status)) counts[status]++;
-                        total++;
-                    }
-                });
-            }
-        });
-        document.getElementById('count-total').textContent = total;
-        document.getElementById('count-resolved').textContent = counts.Resolved;
-        document.getElementById('count-inprogress').textContent = counts["In Progress"];
-        document.getElementById('count-pending').textContent = counts.Pending;
-        document.getElementById('count-rejected').textContent = counts.Rejected;
-    }
+    const counts = {
+        Resolved: 0,
+        "In Progress": 0,
+        Pending: 0,
+        Rejected: 0
+    };
+    let total = 0;
 
-    function applyStatusColors() {
-        document.querySelectorAll('.status').forEach(el => {
-            const status = el.textContent.trim().toLowerCase();
-            if (status === 'pending') el.style.color = '#dc3545';
-            else if (status === 'resolved') el.style.color = '#28a745';
-            else if (status === 'in progress') el.style.color = '#ff8c00';
-            else if (status === 'rejected') el.style.color = '#6c757d';
-        });
-    }
-
-    function filterTable() {
-        const searchText = document.querySelector('.search-input').value.toLowerCase();
-        const selectedDept = document.getElementById('filtertype').value;
-        const selectedStatus = document.getElementById('sorttype').value;
-
-        document.querySelectorAll('.department-section').forEach(section => {
-            const deptName = section.querySelector('h3').textContent.trim();
-            let showSection = false;
-
-            section.querySelectorAll('tbody tr').forEach(row => {
-                const cells = row.querySelectorAll('td');
-                const complainant = cells[1].textContent.toLowerCase();
-                const description = cells[2].textContent.toLowerCase();
-                const status = cells[6].textContent.trim();
-
-                const matchesSearch = complainant.includes(searchText) || description.includes(searchText);
-                const matchesDept = selectedDept === "Select department" || deptName === selectedDept;
-                const matchesStatus = selectedStatus === "Default" || status === selectedStatus;
-
-                if (matchesSearch && matchesDept && matchesStatus) {
-                    row.style.display = '';
-                    showSection = true;
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-
-            section.style.display = showSection ? '' : 'none';
-        });
-
-        countFilteredComplaints();
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        applyStatusColors();
-        document.querySelector('.search-input').addEventListener('input', filterTable);
-        document.getElementById('filtertype').addEventListener('change', filterTable);
-        document.getElementById('sorttype').addEventListener('change', filterTable);
+    document.querySelectorAll('tbody tr').forEach(row => {
+        if (row.style.display !== 'none') {
+            const status = row.querySelector('.status').textContent.trim();
+            if (counts.hasOwnProperty(status)) counts[status]++;
+            total++;
+        }
     });
+
+    document.getElementById('count-total').textContent = total;
+    document.getElementById('count-resolved').textContent = counts.Resolved;
+    document.getElementById('count-inprogress').textContent = counts["In Progress"];
+    document.getElementById('count-pending').textContent = counts.Pending;
+    document.getElementById('count-rejected').textContent = counts.Rejected;
+}
+
+function applyStatusColors() {
+    document.querySelectorAll('.status').forEach(el => {
+        const status = el.textContent.trim().toLowerCase();
+        if (status === 'pending') el.style.color = '#dc3545';
+        else if (status === 'resolved') el.style.color = '#28a745';
+        else if (status === 'in progress') el.style.color = '#ff8c00';
+        else if (status === 'rejected') el.style.color = '#6c757d';
+    });
+}
+
+function filterTable() {
+    const searchText = document.querySelector('.search-input').value.toLowerCase();
+    const selectedStatus = document.getElementById('sorttype').value;
+
+    document.querySelectorAll('tbody tr').forEach(row => {
+        const cells = row.querySelectorAll('td');
+        const complainant = cells[1].textContent.toLowerCase();
+        const description = cells[2].textContent.toLowerCase();
+        const status = cells[7].textContent.trim();
+
+        const matchesSearch = complainant.includes(searchText) || description.includes(searchText);
+        const matchesStatus = selectedStatus === "Default" || status === selectedStatus;
+
+        row.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
+    });
+
+    countFilteredComplaints();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyStatusColors();
+    document.querySelector('.search-input').addEventListener('input', filterTable);
+    document.getElementById('sorttype').addEventListener('change', filterTable);
+});
+
 </script>
 
 </body>
