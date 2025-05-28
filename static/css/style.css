@@ -101,20 +101,11 @@ nav a:hover::after {
   transition: var(--transition);
 }
 .btn-Login {
-<<<<<<< HEAD
   cursor: pointer;
   text-decoration: none;
   background-color: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
   color: rgb(0, 0, 0);
   border: 2px solid var(--primary);
-=======
-  background: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
->>>>>>> 59f381400c665d541fed874da0a2b2ef026123c8
 }
 .btn-Login:hover {
   background: #92f37c;
@@ -473,18 +464,12 @@ nav a:hover::after {
 }
 
 .faq-question {
-<<<<<<< HEAD
   font-size: 0.95rem;
   font-weight: bold;
   color: #002244;
   position: relative;
   padding-bottom: 0.25rem;
   cursor: pointer;
-=======
-  font-weight: 600;
-  cursor: pointer;
-  transition: color 0.3s ease;
->>>>>>> 59f381400c665d541fed874da0a2b2ef026123c8
 }
 
 .faq-question:hover {
@@ -493,14 +478,8 @@ nav a:hover::after {
 
 .faq-answer {
   display: none;
-<<<<<<< HEAD
   transition: all 0.3s ease;
   animation: fadeSlideDown 0.4s ease;
-=======
-  margin-top: 0.5rem;
-  font-size: 0.95rem;
-  color: #444;
->>>>>>> 59f381400c665d541fed874da0a2b2ef026123c8
 }
 
 .faq-item.active .faq-answer {
@@ -592,8 +571,3 @@ footer {
   border-top: 1px solid #333;
   margin-top: 2rem;
 }
-<<<<<<< HEAD
-=======
-
-/* Animation */
->>>>>>> 59f381400c665d541fed874da0a2b2ef026123c8
