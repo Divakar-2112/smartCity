@@ -20,7 +20,7 @@ def staff_department_view(request, dept_id):
         "department_complaints": dict(department_complaints),
         "user": request.user
     }
-    return render(request, 'department/staff.html', context)
+    return render(request, 'department/staff_department.html', context)
 
 
 def update_complaint_status(request, complaint_id):

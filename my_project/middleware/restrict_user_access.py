@@ -19,11 +19,11 @@ class RestrictUserAccessMiddleware:
             if not path.startswith('/admin'):
                 return redirect('/admin')
 
-        elif username == "priya_admin":
+        elif username == "priya_admin" :
             if not path.startswith('/myadmin'):
                 return redirect('/myadmin')
 
-        elif username in ["bala_tat_dpt", "lokesh_pw_dpt", "vicky_par_dpt", "gopi_sd_dpt"] or request.user.is_staff:
+        elif username in ["bala_pw_dpt", "lokesh_ws_dpt", "vicky_elect_dpt", "gopi_wm_dpt"] or request.user.is_staff:
             if not path.startswith('/staff'):
                 return redirect('/staff')
 
