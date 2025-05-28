@@ -60,7 +60,7 @@ def user(request):
     return render(request,"citizen/user.html")
 
 def staff_home(request):
-    return render(request, 'staff.html')
+    return render(request, 'department/staff.html')
 
 def admin_home(request):
     return render(request, 'myadmin.html')
