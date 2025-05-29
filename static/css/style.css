@@ -16,8 +16,7 @@
   --border: #e0e0e0;
   --transition: all 0.3s ease-in-out;
 }
-
-html {
+html{
   scroll-behavior: smooth;
 }
 ::-webkit-scrollbar {
@@ -59,8 +58,6 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 .logo img {
   height: 5rem;
@@ -336,6 +333,7 @@ width: 12rem;
   }
 }
 
+
 .news-section {
   display: flex;
   align-items: center;
@@ -384,7 +382,7 @@ width: 12rem;
   font-weight: bold;
   margin-bottom: 1rem;
   color: #ffffff;
-  line-height: 1.6;
+  line-height: 1.6
 }
 .news-btn {
   display: inline-block;
@@ -401,6 +399,7 @@ width: 12rem;
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
+
 
 .vision-img {
   flex: 1 1 400px;
@@ -424,7 +423,7 @@ width: 12rem;
 }
 .vision-content {
   flex: 1 1 500px;
-  animation-delay: 0.2s;
+   animation-delay: 0.2s;
   opacity: 0;
   animation: zoomFadeIn 1.2s ease-out forwards;
 }
@@ -477,6 +476,7 @@ width: 12rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   margin-top: 2rem;
   padding: 1rem;
+
 }
 
 .faq-title {
@@ -520,12 +520,8 @@ width: 12rem;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 @keyframes fadeSlideDown {
   from {
@@ -586,7 +582,7 @@ footer {
   color: #9fdc29;
 }
 .footer-links a::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: -2px;
   left: 0;
