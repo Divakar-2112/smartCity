@@ -15,32 +15,23 @@
     integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
 <body>
+<header class="navbar">
+      <div class="logo">
+        <img src="{% static 'assets/smartCityLogo.png' %}"  alt="">
+      </div>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Search complaints...">
+        </div>
+      <div class="actions">
+        <img src="{% static 'assets/user.svg' %}"  alt="" class="user-icon">
+        <p>Hello! Username</p>
+        <button class="btn btn-getstarted">Logout</button>
+      </div>
+</header>
   <main class="main-content">
     <div class="dashboard">
-
-      <header>
-        <div class="container navbar">
-          <div class="logo">
-            <a href="#"><img src="{% static 'assets/smartCityLogo.png' %}" alt="Smart City Logo" /></a>
-          </div>
-          <nav>
-            <a href="#">Home</a>
-            <a href="#user-complaint">My Complaints</a>
-            <a href="#faq-section">FAQs</a>
-            <a href="#contact-page">Contacts</a>
-          </nav>
-          <div class="user-actions">
-            <input type="search" placeholder="Search services..." />
-            <img src="{% static 'assets/user.svg' %}" alt="User Profile" class="user-icon" />
-            <div class="logout-dropdown">
-              <button>Logout</button>
-            </div>
-          </div>
-        </div>
-      </header>
-
       <section class="dashboard-header">
         <h1>Welcome, {{ request.user.first_name }}!</h1>
         <section class="stats">
@@ -85,6 +76,28 @@
       </section>
 
         <h2>Raise a Complaint</h2>
+
+      <section class="faq-section" id="faq-section">
+        <div class="faq-title">FAQs</div>
+        <ul class="faq-list">
+          <li class="faq-item">
+            <div class="faq-question">▶ How to apply a complaint</div>
+            <div class="faq-answer">
+              You can submit a complaint through the dashboard by clicking on the 'My Complaints' tab and filling the
+              form.
+            </div>
+          </li>
+          <li class="faq-item">
+            <div class="faq-question">▶ How to check your complaint</div>
+            <div class="faq-answer">
+              Navigate to 'My Complaints' section to view the status of your complaint.
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+  <h2>Raise a Complaint</h2>
   <form method="POST">
     {% csrf_token %}
 
@@ -115,10 +128,5 @@
 
     <input type="submit" value="Submit Complaint">
   </form>
-
-    </div>
-  </main>
-
 </body>
-
 </html>
