@@ -10,16 +10,22 @@
     <link rel="shortcut icon" href="{% static 'assets/favicon-icon.png' %}" type="image/x-icon">
 </head>
 <body>
-
-<div class="container">
-    <div class="header">
-        <img src="{% static 'assets/smartCityLogo.png' %}" alt="Logo">
-
+<header class="navbar">
+      <div class="logo">
+        <img src="{% static 'assets/smartCityLogo.png' %}"  alt="">
+      </div>
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
             <input type="text" class="search-input" placeholder="Search complaints...">
         </div>
-
+      <div class="actions">
+        <img src="{% static 'assets/user.svg' %}"  alt="" class="user-icon">
+        <p>Hello! Username</p>
+        <button class="btn btn-getstarted">Logout</button>
+      </div>
+</header>
+<div class="container">
+    <div class="header">
         <div class="filterdiv">
             <label for="filtertype">Filter:</label>
             <select id="filtertype" name="category">
@@ -39,10 +45,6 @@
                 <option value="In Progress">In Progress</option>
                 <option value="Rejected">Rejected</option>
             </select>
-        </div>
-
-        <div class="userprofile">
-            <span>Hello {{ user.first_name }}</span>
         </div>
     </div>
 
@@ -78,7 +80,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Complainant</th>
+                            <th>Citizen</th>
                             <th>Description</th>
                             <th>Date</th>
                             <th>Location</th>
@@ -117,7 +119,38 @@
             </div>
         {% endfor %}
     </div>
+<footer>
+      <div class="footer-container"  id="contact-details">
+        <div class="footer-about">
+          <h3>About Smart City</h3>
+          <p>
+            Empowering sustainable urban innovation and citizen engagement for a
+            better tomorrow.
+          </p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact Us</h4>
+          <p>L76A, L Block, 21st Street, Anna Nagar, Chennai, Tamil Nadu 600102</p>
+          <p>Phone: +91 99627XXXX</p>
+          <p>Email: smartcity@org.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2025 Smart City Initiative. All rights reserved.
+      </div>
+    </footer>
 </div>
+
 
 <script>
     function countFilteredComplaints() {

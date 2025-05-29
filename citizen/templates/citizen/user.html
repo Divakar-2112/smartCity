@@ -15,32 +15,23 @@
     integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
 <body>
+<header class="navbar">
+      <div class="logo">
+        <img src="{% static 'assets/smartCityLogo.png' %}"  alt="">
+      </div>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Search complaints...">
+        </div>
+      <div class="actions">
+        <img src="{% static 'assets/user.svg' %}"  alt="" class="user-icon">
+        <p>Hello! Username</p>
+        <button class="btn btn-getstarted">Logout</button>
+      </div>
+</header>
   <main class="main-content">
     <div class="dashboard">
-
-      <header>
-        <div class="container navbar">
-          <div class="logo">
-            <a href="#"><img src="{% static 'assets/smartCityLogo.png' %}" alt="Smart City Logo" /></a>
-          </div>
-          <nav>
-            <a href="#">Home</a>
-            <a href="#user-complaint">My Complaints</a>
-            <a href="#faq-section">FAQs</a>
-            <a href="#contact-page">Contacts</a>
-          </nav>
-          <div class="user-actions">
-            <input type="search" placeholder="Search services..." />
-            <img src="{% static 'assets/user.svg' %}" alt="User Profile" class="user-icon" />
-            <div class="logout-dropdown">
-              <button>Logout</button>
-            </div>
-          </div>
-        </div>
-      </header>
-
       <section class="dashboard-header">
         <h1>Welcome, {{ request.user.first_name }}!</h1>
         <section class="stats">
@@ -59,7 +50,6 @@
         </section>
       </section>
 
-      <!-- Complaints Section -->
       <section class="complaint-main" id="user-complaint">
         <div class="complaints-actions">
           <h2>My Complaints</h2>
@@ -85,6 +75,8 @@
         {% endif %}
       </section>
 
+        <h2>Raise a Complaint</h2>
+
       <section class="faq-section" id="faq-section">
         <div class="faq-title">FAQs</div>
         <ul class="faq-list">
@@ -105,44 +97,6 @@
       </section>
     </div>
   </main>
-
-  <footer>
-    <div class="footer-container">
-      <div class="footer-about">
-        <h3>About Smart City</h3>
-        <p>Empowering sustainable urban innovation and citizen engagement for a better tomorrow.</p>
-      </div>
-      <div class="footer-links">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-contact" id="contact-page">
-        <h4>Contact Us</h4>
-        <p>123 Smart City Blvd, Your City</p>
-        <p>Phone: +1 (234) 567-8900</p>
-        <p>Email: info@smartcity.com</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      &copy; 2025 Smart City Initiative. All rights reserved.
-    </div>
-  </footer>
-
-  <script>
-    document.querySelectorAll('.faq-question').forEach(question => {
-      question.addEventListener('click', () => {
-        const parent = question.parentElement;
-        parent.classList.toggle('active');
-      });
-    });
-  </script>
-
   <h2>Raise a Complaint</h2>
   <form method="POST">
     {% csrf_token %}
@@ -155,7 +109,6 @@
       {% endfor %}
     </select>
 
-    <!-- SubCategory Dropdown -->
     <label for="subCategory">Sub Category</label>
     <select name="subCategory" id="subCategory" required>
       <option value="">-- Select SubCategory --</option>
@@ -164,20 +117,16 @@
       {% endfor %}
     </select>
 
-    <!-- Description -->
     <label for="description">Description:</label><br>
     <textarea name="description" rows="4" cols="50" required></textarea><br><br>
 
-    <!-- Location -->
     <label for="location">Location:</label>
     <input type="text" name="location" required><br><br>
 
-    <!-- Image URL (optional) -->
     <label for="image_url">Image URL:</label>
     <input type="url" name="image_url" placeholder="https://..."><br><br>
 
     <input type="submit" value="Submit Complaint">
   </form>
 </body>
-
 </html>

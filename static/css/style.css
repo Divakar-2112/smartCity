@@ -1,8 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+<<<<<<< HEAD
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 * {
- font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+=======
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+* {
+ font-family: "Lato", sans-serif;
  letter-spacing: 2px;
  word-spacing: 2px;
+ box-sizing: border-box;
+>>>>>>> 33accd3a62a0a8f19af096ffdeeb5f7053b93a28
 }
 :root {
   --primary: #7fbe70;
@@ -15,12 +24,13 @@
   --border: #e0e0e0;
   --transition: all 0.3s ease-in-out;
 }
-html{
+
+html {
   scroll-behavior: smooth;
 }
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 0.4rem;
+  height: 0.4rem;
 }
 ::-webkit-scrollbar-track {
   background: #ffffff;
@@ -42,7 +52,6 @@ header {
   width: 100%;
   background: var(--card);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-  /* padding: 0.5rem 0; */
   position: sticky;
   top: 0;
   z-index: 10;
@@ -58,7 +67,11 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+<<<<<<< HEAD
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+=======
+>>>>>>> 33accd3a62a0a8f19af096ffdeeb5f7053b93a28
 }
 .logo img {
   height: 5rem;
@@ -67,18 +80,37 @@ header {
 .logo img:hover {
   transform: scale(1.05);
 }
-nav {
+.navbar {
   display: flex;
-  gap: 2rem;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  padding: 0.5rem;
+  border-bottom: 1px solid #e5e5e5;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
-nav a {
+.navbar .logo{
+  width: 11%;
+}
+.navbar .logo img{
+width: 12rem;
+}
+.navbar nav {
+  display: flex;
+  gap: 1.5rem;
+}
+.navbar nav a {
+  position: relative; /* ✅ This is crucial */
   text-decoration: none;
-  font-size: 1rem;
   color: #333;
-  transition: color 0.3s ease, border-bottom 0.3s ease;
-  position: relative;
+  font-weight: bold;
+  transition: color 0.2s ease-in-out;
 }
-nav a::after {
+
+.navbar nav a::after {
   content: "";
   position: absolute;
   bottom: -5px;
@@ -88,31 +120,45 @@ nav a::after {
   background-color: #01c38e;
   transition: width 0.3s ease;
 }
-nav a:hover {
+
+.navbar nav a:hover {
   color: #01c38e;
 }
-nav a:hover::after {
+
+.navbar nav a:hover::after {
   width: 100%;
+}
+.navbar .actions {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+.btn-signin {
+  background-color: #f3f3f3;
+}
+.btn-signin:hover {
+  background-color: #e2e2e2;
+}
+.btn-getstarted {
+  background-color: #22c55e;
+  color: white;
+}
+.btn-getstarted:hover {
+  background-color: #16a34a;
 }
 .auth-buttons button {
   font-size: 0.9rem;
   padding: 6px 14px;
   border-radius: 6px;
   transition: var(--transition);
-}
-.btn-Login {
-  cursor: pointer;
-  text-decoration: none;
-  background-color: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
-  color: rgb(0, 0, 0);
-  border: 2px solid var(--primary);
-}
-.btn-Login:hover {
-  background: #92f37c;
-  color: #000;
-  transform: scale(1.02);
-  transition: all 1s;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 .image-gallery {
   padding: 3rem 2rem;
@@ -301,7 +347,6 @@ nav a:hover::after {
   }
 }
 
-
 .news-section {
   display: flex;
   align-items: center;
@@ -350,7 +395,7 @@ nav a:hover::after {
   font-weight: bold;
   margin-bottom: 1rem;
   color: #ffffff;
-  line-height: 1.6
+  line-height: 1.6;
 }
 .news-btn {
   display: inline-block;
@@ -367,7 +412,6 @@ nav a:hover::after {
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
-
 
 .vision-img {
   flex: 1 1 400px;
@@ -391,7 +435,7 @@ nav a:hover::after {
 }
 .vision-content {
   flex: 1 1 500px;
-   animation-delay: 0.2s;
+  animation-delay: 0.2s;
   opacity: 0;
   animation: zoomFadeIn 1.2s ease-out forwards;
 }
@@ -444,7 +488,6 @@ nav a:hover::after {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   margin-top: 2rem;
   padding: 1rem;
-
 }
 
 .faq-title {
@@ -488,8 +531,12 @@ nav a:hover::after {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes fadeSlideDown {
   from {
@@ -550,7 +597,7 @@ footer {
   color: #9fdc29;
 }
 .footer-links a::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   left: 0;

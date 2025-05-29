@@ -15,27 +15,24 @@
     />
   </head>
   <body>
-    <header>
-      <div class="container navbar">
-        <div class="logo">
-          <a href="#"><img
-            src="{% static 'assets/smartCityLogo.png' %}"
-            alt="Smart City Logo"
-          /></a>
-        </div>
-        <nav>
-          <a href="#">Home</a>
-          <a href="#vision-section">Vision</a>
-          <a href="#faq-section">FAQs</a>
-          <a href="#contact-details">Contact</a>
-        </nav>
-        <div class="auth-buttons">
-        <a href="{% url 'login' %}"><button class="btn-Login">Login</button></a>
-        </div>
+    <header class="navbar">
+      <div class="logo">
+        <img src="{% static 'assets/smartCityLogo.png' %}"  alt="">
+      </div>
+      <nav>
+        <a href="#hero-section">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#vision-section">Blog</a>
+        <a href="#faq-section">FAQs</a>
+      </nav>
+      <div class="actions">
+        <p>Sign in →</p>
+        <button class="btn btn-getstarted">Get Started</button>
       </div>
     </header>
 
-    <section class="hero">
+    <section class="hero" id="hero-section">
       <div class="hero-text">
         <div class="hero-title">
           Empowering Urban Innovation for a Better Tomorrow
@@ -54,24 +51,24 @@
         />
       </div>
     </section>
-
-      <section class="image-gallery">
-        <h2 class="gallery-title">Gallery Highlights</h2>
-        <div class="gallery-container">
-          <div class="gallery-item">
-            <img src="{% static 'assets/image-3.png' %}" alt="Smart Lighting">
-            <p class="caption">Smart Lighting System</p>
-          </div>
-          <div class="gallery-item">
-            <img src="{% static 'assets/image-4.png' %}" alt="Public Transport">
-            <p class="caption">Advanced Public Transport</p>
-          </div>
-          <div class="gallery-item">
-            <img src="{% static 'assets/image-5.png' %}" alt="Green Initiatives">
-            <p class="caption">Green Infrastructure</p>
-          </div>
+    
+    <section class="image-gallery">
+      <h2 class="gallery-title">Gallery Highlights</h2>
+      <div class="gallery-container">
+        <div class="gallery-item">
+          <img src="{% static 'assets/image-3.png' %}" alt="Smart Lighting">
+          <p class="caption">Smart Lighting System</p>
         </div>
-      </section>
+        <div class="gallery-item">
+          <img src="{% static 'assets/image-4.png' %}" alt="Public Transport">
+          <p class="caption">Advanced Public Transport</p>
+        </div>
+        <div class="gallery-item">
+          <img src="{% static 'assets/image-5.png' %}" alt="Green Initiatives">
+          <p class="caption">Green Infrastructure</p>
+        </div>
+      </div>
+    </section>
 
     <section class="news-section">
       <div class="news-img">

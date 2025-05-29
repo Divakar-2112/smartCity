@@ -21,24 +21,26 @@
   </style>
 </head>
 <body>
-
+  <div class="signup-wrapper">
     <div class="container">
-    <div class="image-section">
-      <img src="{% static 'assets/login-image.png' %}" alt="Register Background">
-    </div>
-    
-    <div class="form-section">
-      <form method="POST" autocomplete="off">
-        {% csrf_token %}
-        {% for field in form %}
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-          {{ field }}
-        {% endfor %}
-        <button type="submit">Register</button>
-      </form>
+      
+      <div class="image-section">
+        <img src="{% static 'assets/login-image.png' %}" alt="Register Background">
+      </div>
+      
+      <div class="form-section">
+        <h3>Signup Account</h3>
+        <form method="POST" autocomplete="off">
+          {% csrf_token %}
+          {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+          {% endfor %}
+          <button type="submit">Register</button>
+        </form>
+      </div>
     </div>
   </div>
-
 </body>
 </html>
 
