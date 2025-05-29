@@ -3,37 +3,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Staff Page</title>
+    <title>Department Staff Dashboard</title>
     <link rel="shortcut icon" href="{% static 'assets/SmartCity-Logo.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/admin.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="shortcut icon" href="{% static 'assets/favicon-icon.png' %}" type="image/x-icon">
 </head>
 <body>
-    <header class="navbar">
-      <div class="logo">
-        <img src="{% static 'assets/smartCityLogo.png' %}"  alt="">
-      </div>
+
+<div class="container">
+    <div class="header">
+        <img src="{% static 'assets/smartCityLogo.png' %}" alt="Logo">
+
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
             <input type="text" class="search-input" placeholder="Search complaints...">
-        </div>
-      <div class="actions">
-        <img src="{% static 'assets/user.svg' %}"  alt="" class="user-icon">
-        <p>Hello! Username</p>
-        <button class="btn btn-getstarted">Logout</button>
-      </div>
-</header>
-<div class="container">
-    <div class="header">
-        <div class="filterdiv">
-            <label for="filtertype">Filter:</label>
-            <select id="filtertype" name="category">
-                <option selected>Select department</option>
-                {% for dep in department %}
-                    <option>{{ dep.name }}</option>
-                {% endfor %}
-            </select>
         </div>
 
         <div class="sortdiv">
@@ -46,6 +30,10 @@
                 <option value="Rejected">Rejected</option>
             </select>
         </div>
+
+        <div class="userprofile">
+            <span>Hello {{ user.first_name }}</span>
+        </div>
     </div>
 
     <div class="status-counts">
@@ -54,7 +42,7 @@
             <h4 id="count-total">{{ total_complaints }}</h4>
         </div>
         <div class="resolved">
-            <h2>Resolved Complaints</h2>
+            <h2>Resolved</h2>
             <h4 id="count-resolved">{{ status_counts.Resolved }}</h4>
         </div>
         <div class="progress">
@@ -62,169 +50,138 @@
             <h4 id="count-inprogress">{{ status_counts.InProgress }}</h4>
         </div>
         <div class="pending">
-            <h2>Pending Complaints</h2>
+            <h2>Pending</h2>
             <h4 id="count-pending">{{ status_counts.Pending }}</h4>
         </div>
         <div class="reject">
-            <h2>Rejected Complaints</h2>
+            <h2>Rejected</h2>
             <h4 id="count-rejected">{{ status_counts.Rejected }}</h4>
         </div>
     </div>
 
     <div class="content">
-        <h2>Complaints Overview</h2>
-        {% for dept_name, complaints in department_complaints.items %}
-            <div class="department-section">
-                <h3>{{ dept_name }}</h3>
-                <table class="complaint-table">
-                    <thead>
+        <h2>Complaints Overview - {{ department.name }}</h2>
+        <div class="department-section">
+            <table class="complaint-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Complainant</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th>Before</th>
+                        <th>After</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for complaint in department_complaints %}
                         <tr>
-                            <th>ID</th>
-                            <th>Complainant</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            <th>Location</th>
-                            <th>Before-complaint</th>
-                            <th>After-complaint</th>
-                            <th>Status</th>
+                            <td>{{ complaint.complaint_id }}</td>
+                            <td>{{ complaint.user.name }}</td>
+                            <td>{{ complaint.description }}</td>
+                            <td>{{ complaint.created_at|date:"Y-m-d" }}</td>
+                            <td>{{ complaint.location }}</td>
+                            <td>
+                                {% if complaint.image_url %}
+                                    <img src="{{ complaint.image_url }}" alt="Before" style="width: 60px;">
+                                {% else %}
+                                    No image
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if complaint.image_url %}
+                                    <img src="{{ complaint.image_url }}" alt="After" style="width: 60px;">
+                                {% else %}
+                                    No image
+                                {% endif %}
+                            </td>
+                            <td>
+                                <select class="status-dropdown status">
+                                    <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
+                                    <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
+                                    <option value="Resolved" {% if complaint.status == "Resolved" %}selected{% endif %}>Resolved</option>
+                                    <option value="Rejected" {% if complaint.status == "Rejected" %}selected{% endif %}>Rejected</option>
+                                </select>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {% for complaint in complaints %}
-                            <tr>
-                                <td>{{ complaint.complaint_id }}</td>
-                                <td>{{ complaint.user.name }}</td>
-                                <td>{{ complaint.description }}</td>
-                                <td>{{ complaint.created_at|date:"Y-m-d" }}</td>
-                                <td>{{ complaint.location }}</td>
-                                <td>
-                                    {% if complaint.image_url %}
-                                        <img src="{{ complaint.image_url }}" alt="Complaint Image" style="width: 60px; height: auto;">
-                                    {% else %}
-                                        No image
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if complaint.image_url %}
-                                        <img src="{{ complaint.image_url }}" alt="Complaint Image" style="width: 60px; height: auto;">
-                                    {% else %}
-                                        No image
-                                    {% endif %}
-                                </td>
-                                <td><span class="status">{{ complaint.status }}</span></td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        {% endfor %}
+                    {% empty %}
+                        <tr>
+                            <td rowspan="1" style="text-align:center;">No complaints found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
-    <footer>
-      <div class="footer-container"  id="contact-details">
-        <div class="footer-about">
-          <h3>About Smart City</h3>
-          <p>
-            Empowering sustainable urban innovation and citizen engagement for a
-            better tomorrow.
-          </p>
-        </div>
-        <div class="footer-links">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-contact">
-          <h4>Contact Us</h4>
-          <p>L76A, L Block, 21st Street, Anna Nagar, Chennai, Tamil Nadu 600102</p>
-          <p>Phone: +91 99627XXXX</p>
-          <p>Email: smartcity@org.com</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        &copy; 2025 Smart City Initiative. All rights reserved.
-      </div>
-    </footer>
-
 <script>
-    const deptStatusCounts = {{ dept_status_counts|safe }};
+function countFilteredComplaints() {
+    const counts = {
+        Resolved: 0,
+        "In Progress": 0,
+        Pending: 0,
+        Rejected: 0
+    };
+    let total = 0;
 
-    function countFilteredComplaints() {
-        const counts = {Resolved: 0, "In Progress": 0, Pending: 0, Rejected: 0};
-        let total = 0;
-        document.querySelectorAll('.department-section').forEach(section => {
-            if (section.style.display !== 'none') {
-                section.querySelectorAll('tbody tr').forEach(row => {
-                    if (row.style.display !== 'none') {
-                        const status = row.querySelector('.status').textContent.trim();
-                        if (counts.hasOwnProperty(status)) counts[status]++;
-                        total++;
-                    }
-                });
-            }
-        });
-        document.getElementById('count-total').textContent = total;
-        document.getElementById('count-resolved').textContent = counts.Resolved;
-        document.getElementById('count-inprogress').textContent = counts["In Progress"];
-        document.getElementById('count-pending').textContent = counts.Pending;
-        document.getElementById('count-rejected').textContent = counts.Rejected;
-    }
-
-    function applyStatusColors() {
-        document.querySelectorAll('.status').forEach(el => {
-            const status = el.textContent.trim().toLowerCase();
-            if (status === 'pending') el.style.color = '#dc3545';
-            else if (status === 'resolved') el.style.color = '#28a745';
-            else if (status === 'in progress') el.style.color = '#ff8c00';
-            else if (status === 'rejected') el.style.color = '#6c757d';
-        });
-    }
-
-    function filterTable() {
-        const searchText = document.querySelector('.search-input').value.toLowerCase();
-        const selectedDept = document.getElementById('filtertype').value;
-        const selectedStatus = document.getElementById('sorttype').value;
-
-        document.querySelectorAll('.department-section').forEach(section => {
-            const deptName = section.querySelector('h3').textContent.trim();
-            let showSection = false;
-
-            section.querySelectorAll('tbody tr').forEach(row => {
-                const cells = row.querySelectorAll('td');
-                const complainant = cells[1].textContent.toLowerCase();
-                const description = cells[2].textContent.toLowerCase();
-                const status = cells[6].textContent.trim();
-
-                const matchesSearch = complainant.includes(searchText) || description.includes(searchText);
-                const matchesDept = selectedDept === "Select department" || deptName === selectedDept;
-                const matchesStatus = selectedStatus === "Default" || status === selectedStatus;
-
-                if (matchesSearch && matchesDept && matchesStatus) {
-                    row.style.display = '';
-                    showSection = true;
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-
-            section.style.display = showSection ? '' : 'none';
-        });
-
-        countFilteredComplaints();
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        applyStatusColors();
-        document.querySelector('.search-input').addEventListener('input', filterTable);
-        document.getElementById('filtertype').addEventListener('change', filterTable);
-        document.getElementById('sorttype').addEventListener('change', filterTable);
+    document.querySelectorAll('tbody tr').forEach(row => {
+        if (row.style.display !== 'none') {
+            const status = row.querySelector('.status')?.value?.trim();
+            if (counts.hasOwnProperty(status)) counts[status]++;
+            total++;
+        }
     });
+
+    document.getElementById('count-total').textContent = total;
+    document.getElementById('count-resolved').textContent = counts.Resolved;
+    document.getElementById('count-inprogress').textContent = counts["In Progress"];
+    document.getElementById('count-pending').textContent = counts.Pending;
+    document.getElementById('count-rejected').textContent = counts.Rejected;
+}
+
+function applyStatusColors() {
+    document.querySelectorAll('.status-dropdown').forEach(el => {
+        const status = el.value.toLowerCase();
+        if (status === 'pending') el.style.color = '#dc3545';
+        else if (status === 'resolved') el.style.color = '#28a745';
+        else if (status === 'in progress') el.style.color = '#ff8c00';
+        else if (status === 'rejected') el.style.color = '#6c757d';
+    });
+}
+
+function filterTable() {
+    const searchText = document.querySelector('.search-input').value.toLowerCase();
+    const selectedStatus = document.getElementById('sorttype').value;
+
+    document.querySelectorAll('tbody tr').forEach(row => {
+        const cells = row.querySelectorAll('td');
+        const complainant = cells[1].textContent.toLowerCase();
+        const description = cells[2].textContent.toLowerCase();
+        const status = row.querySelector('.status')?.value?.trim();
+
+        const matchesSearch = complainant.includes(searchText) || description.includes(searchText);
+        const matchesStatus = selectedStatus === "Default" || status === selectedStatus;
+
+        row.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
+    });
+
+    countFilteredComplaints();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyStatusColors();
+    document.querySelector('.search-input').addEventListener('input', filterTable);
+    document.getElementById('sorttype').addEventListener('change', filterTable);
+    document.querySelectorAll('.status-dropdown').forEach(dropdown => {
+        dropdown.addEventListener('change', () => {
+            applyStatusColors();
+            countFilteredComplaints();
+        });
+    });
+});
 </script>
 
 </body>
