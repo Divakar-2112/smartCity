@@ -6,7 +6,6 @@ from collections import defaultdict
 def staff_complaints_view(request):
     user = request.user
 
-    # Map usernames to department names
     user_department_map = {
         "bala_pw_dpt": "Public Works",
         "lokesh_ws_dpt": "Water Supply",
@@ -17,7 +16,7 @@ def staff_complaints_view(request):
     dept_name = user_department_map.get(user.username.lower())
 
     if not dept_name:
-        return redirect('/login')  # or handle error appropriately
+        return redirect('/login')
 
     current_dept = get_object_or_404(Department, name=dept_name)
     complaints = ComplaintDetail.objects.select_related('department', 'user').filter(department=current_dept)
@@ -26,7 +25,6 @@ def staff_complaints_view(request):
     for complaint in complaints:
         department_complaints[current_dept.name].append(complaint)
 
-    # Complaint counts by status
     status_counts = {
         'Resolved': complaints.filter(status='Resolved').count(),
         'InProgress': complaints.filter(status='In Progress').count(),
