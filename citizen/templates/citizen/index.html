@@ -174,14 +174,14 @@
   <script>
     document.querySelectorAll(".faq-question").forEach((question) => {
       question.addEventListener("click", () => {
-        const item = question.closest(".faq-item");
+        let item = question.closest(".faq-item");
         item.classList.toggle("active");
       });
     });
 
-    const images = document.querySelectorAll(".slider-image");
-    const nextBtn = document.querySelector(".slider-arrow.next");
-    const prevBtn = document.querySelector(".slider-arrow.prev");
+    let images = document.querySelectorAll(".slider-image");
+    let nextBtn = document.querySelector(".slider-arrow.next");
+    let prevBtn = document.querySelector(".slider-arrow.prev");
     let currentIndex = 0;
 
     function updateSlider(index) {

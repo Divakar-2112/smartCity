@@ -1,13 +1,14 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Page</title>
-    <link rel="stylesheet" href="{% static 'css/register.css' %}">
-    <link rel="icon" type="image/x-icon" href="{%static 'assets/favicon-icon.png'%}">
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Page</title>
+  <link rel="stylesheet" href="{% static 'css/register.css' %}">
+  <link rel="icon" type="image/x-icon" href="{%static 'assets/favicon-icon.png'%}">
+  <style>
     body::before {
       content: "";
       position: absolute;
@@ -19,20 +20,21 @@
     }
   </style>
 </head>
+
 <body>
   <div class="signup-wrapper">
     <div class="container">
       <div class="image-section">
         <img src="{% static 'assets/sign-up-form.png' %}" alt="Register Background">
       </div>
-      
+
       <div class="form-section">
         <h3>Create Account</h3>
         <form method="POST" autocomplete="off">
           {% csrf_token %}
           {% for field in form %}
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            {{ field }}
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
           {% endfor %}
           <button type="submit">Register</button>
         </form>
