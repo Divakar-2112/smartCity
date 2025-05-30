@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -5,12 +6,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User_Dashboard Page</title>
+  <title>Citizen Page</title>
   <link rel="stylesheet" href="{%static 'css/user.css'%}" />
-  <link rel="shortcut icon" href="{% static 'assets/favicon-icon.png'%}" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="icon" type="image/x-icon" href="assets/favicon-icon.png">
+  <link rel="icon" type="image/x-icon" href="{%static 'assets/favicon-icon.png'%}">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
@@ -28,14 +28,13 @@
     </div>
     <div class="actions">
       <img src="{% static 'assets/user.svg' %}" alt="" class="user-icon">
-      <p>Hello! Username</p>
-      <button class="btn btn-getstarted">Logout</button>
+      <p>Hello ! {{ user.first_name }}</p>
+      <button class="btn btn-getstarted" onclick="window.location.href='/logout/'">Logout</button>
     </div>
   </header>
   <main class="main-content">
     <div class="dashboard">
       <section class="dashboard-header">
-        <h1>Welcome, {{ request.user.first_name }}!</h1>
         <section class="stats">
           <div class="card user-resolved">
             <h3>Resolved</h3>
@@ -52,11 +51,10 @@
         </section>
       </section>
 
-      <!-- Complaints Section -->
       <section class="complaint-main" id="user-complaint">
         <div class="complaints-actions">
           <h2>My Complaints</h2>
-          <button class="complaintButton"><i class="fa-solid fa-plus"></i>Add Complaints</button>
+          <button class="complaintButton" id="openComplaintModal"><i class="fa-solid fa-plus"></i>Add Complaints</button>
         </div>
 
         {% if complaints %}
@@ -77,62 +75,44 @@
         <p>No complaints submitted yet.</p>
         {% endif %}
       </section>
-
-      <section class="faq-section" id="faq-section">
-        <div class="faq-title">FAQs</div>
-        <ul class="faq-list">
-          <li class="faq-item">
-            <div class="faq-question">▶ How to apply a complaint</div>
-            <div class="faq-answer">
-              You can submit a complaint through the dashboard by clicking on the 'My Complaints' tab and filling the
-              form.
-            </div>
-          </li>
-          <li class="faq-item">
-            <div class="faq-question">▶ How to check your complaint</div>
-            <div class="faq-answer">
-              Navigate to 'My Complaints' section to view the status of your complaint.
-            </div>
-          </li>
-        </ul>
-      </section>
     </div>
   </main>
-  <h2>Raise a Complaint</h2>
-  <form method="POST">
-    {% csrf_token %}
 
-    <label for="department">Department</label>
-    <select name="department" id="department" required>
-      <option value="">-- Select Department --</option>
-      {% for dept in departments %}
-      <option value="{{ dept.department_id }}">{{ dept.name }}</option>
-      {% endfor %}
-    </select>
+  <div id="complaintModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Add New Complaint</h2>
+      <form method="POST" id="complaintForm">
+        {% csrf_token %}
+        <label for="department">Department</label>
+        <select name="department" id="department" required>
+          <option value="">-- Select Department --</option>
+          {% for dept in departments %}
+          <option value="{{ dept.department_id }}">{{ dept.name }}</option>
+          {% endfor %}
+        </select>
 
-    <!-- SubCategory Dropdown -->
-    <label for="subCategory">Sub Category</label>
-    <select name="subCategory" id="subCategory" required>
-      <option value="">-- Select SubCategory --</option>
-      {% for sub in subcategories %}
-      <option value="{{ sub.subCategory_id }}">{{ sub.name }}</option>
-      {% endfor %}
-    </select>
+        <label for="subCategory">Sub Category</label>
+        <select name="subCategory" id="subCategory" required>
+          <option value="">-- Select SubCategory --</option>
+          {% for sub in subcategories %}
+          <option value="{{ sub.subCategory_id }}">{{ sub.name }}</option>
+          {% endfor %}
+        </select>
 
-    <!-- Description -->
-    <label for="description">Description:</label><br>
-    <textarea name="description" rows="4" cols="50" required></textarea><br><br>
+        <label for="description">Description:</label><br>
+        <textarea name="description" rows="4" cols="50" required></textarea><br><br>
 
-    <!-- Location -->
-    <label for="location">Location:</label>
-    <input type="text" name="location" required><br><br>
+        <label for="location">Location:</label>
+        <input type="text" name="location" required><br><br>
 
-    <!-- Image URL (optional) -->
-    <label for="image_url">Image URL:</label>
-    <input type="url" name="image_url" placeholder="https://..."><br><br>
+        <label for="image_url">Image URL:</label>
+        <input type="url" name="image_url" placeholder="https://..."><br><br>
 
-    <input type="submit" value="Submit Complaint">
-  </form>
+        <input type="submit" value="Submit Complaint">
+      </form>
+    </div>
+  </div>
 
   <footer>
     <div class="footer-container" id="contact-details">
@@ -164,6 +144,49 @@
       &copy; 2025 Smart City Initiative. All rights reserved.
     </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const searchInput = document.querySelector('.search-input');
+      const complaintCards = document.querySelectorAll('.complaint-card');
+
+      searchInput.addEventListener('keyup', function (event) {
+        const searchTerm = event.target.value.toLowerCase();
+        let complaintsFound = false;
+        complaintCards.forEach(card => {
+          const complaintText = card.textContent.toLowerCase();
+          if (complaintText.includes(searchTerm)) {
+            card.style.display = 'block';
+            complaintsFound = true;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+
+      const modal = document.getElementById("complaintModal");
+      const btn = document.getElementById("openComplaintModal");
+      const span = document.getElementsByClassName("close")[0];
+      const form = document.getElementById("complaintForm");
+
+      btn.onclick = function() {
+        modal.style.display = "block";
+      }
+
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    });
+  </script>
+
+
+>>>>>>> 4552799f1eb7c01a9e43073f5d70f79ede3e26eb
 </body>
 
 </html>

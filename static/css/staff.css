@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 :root {
   --primary: rgba(79, 140, 255, 0.8);
@@ -15,10 +15,23 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 html{
   scroll-behavior: smooth;
+}
+::-webkit-scrollbar {
+  width: 0.4rem;
+  height: 0.4rem;
+}
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb {
+  background: #3a8529;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #000000;
 }
 body {
   background: var(--background);

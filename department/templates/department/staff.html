@@ -6,22 +6,28 @@
     <meta charset="UTF-8">
     <title>Department Staff Dashboard</title>
     <link rel="shortcut icon" href="{% static 'assets/SmartCity-Logo.png' %}" type="image/x-icon">
-    <link rel="shortcut icon" href="{% static 'assets/favicon-icon.png'%}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/admin.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
+    <header class="navbar">
+        <div class="logo">
+            <img src="{% static 'assets/smartCityLogo.png' %}" alt="Logo">
+        </div>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Search complaints...">
+        </div>
+        <div class="actions">
+            <img src="{% static 'assets/user.svg' %}" alt="" class="user-icon">
+            <p>Hello ! {{ user.first_name }}</p>
+            <button class="btn btn-getstarted" onclick="window.location.href='/logout/'">Logout</button>
+        </div>
+    </header>
 
     <div class="container">
         <div class="header">
-            <img src="{% static 'assets/smartCityLogo.png' %}" alt="Logo">
-
-            <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Search complaints...">
-            </div>
-
             <div class="sortdiv">
                 <label for="sorttype">Sort by:</label>
                 <select id="sorttype">
@@ -31,10 +37,6 @@
                     <option value="In Progress">In Progress</option>
                     <option value="Rejected">Rejected</option>
                 </select>
-            </div>
-
-            <div class="userprofile">
-                <span>Hello {{ user.first_name }}</span>
             </div>
         </div>
 
@@ -67,7 +69,7 @@
                 <table class="complaint-table">
                     <thead>
                         <tr>
-                            <th>Complainant ID</th>
+                            <th>Complaint ID</th>
                             <th>UserName</th>
                             <th>Description</th>
                             <th>Date</th>
@@ -93,14 +95,10 @@
                             </td>
                             <td>
                                 <select class="status-dropdown status">
-                                    <option value="Pending" {% if complaint.status=="Pending" %}selected{% endif %}>
-                                        Pending</option>
-                                    <option value="In Progress" {% if complaint.status=="In Progress" %}selected{% endif
-                                        %}>In Progress</option>
-                                    <option value="Resolved" {% if complaint.status=="Resolved" %}selected{% endif %}>
-                                        Resolved</option>
-                                    <option value="Rejected" {% if complaint.status=="Rejected" %}selected{% endif %}>
-                                        Rejected</option>
+                                    <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
+                                    <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
+                                    <option value="Resolved" {% if complaint.status == "Resolved" %}selected{% endif %}>Resolved</option>
+                                    <option value="Rejected" {% if complaint.status == "Rejected" %}selected{% endif %}>Rejected</option>
                                 </select>
                             </td>
                         </tr>
@@ -115,9 +113,37 @@
         </div>
     </div>
 
+    <footer>
+        <div class="footer-container" id="contact-details">
+            <div class="footer-about">
+                <h3>About Smart City</h3>
+                <p>Empowering sustainable urban innovation and citizen engagement for a better tomorrow.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>L76A, L Block, 21st Street, Anna Nagar, Chennai, Tamil Nadu 600102</p>
+                <p>Phone: +91 99627XXXX</p>
+                <p>Email: smartcity@org.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Smart City Initiative. All rights reserved.
+        </div>
+    </footer>
+
     <script>
         function countFilteredComplaints() {
-            let counts = {
+            const counts = {
                 Resolved: 0,
                 "In Progress": 0,
                 Pending: 0,
@@ -127,7 +153,7 @@
 
             document.querySelectorAll('tbody tr').forEach(row => {
                 if (row.style.display !== 'none') {
-                    let status = row.querySelector('.status')?.value?.trim();
+                    const status = row.querySelector('.status')?.value?.trim();
                     if (counts.hasOwnProperty(status)) counts[status]++;
                     total++;
                 }
@@ -142,7 +168,7 @@
 
         function applyStatusColors() {
             document.querySelectorAll('.status-dropdown').forEach(el => {
-                let status = el.value.toLowerCase();
+                const status = el.value.toLowerCase();
                 el.style.color = {
                     'pending': '#dc3545',
                     'resolved': '#28a745',
@@ -153,17 +179,17 @@
         }
 
         function filterTable() {
-            let searchText = document.querySelector('.search-input').value.toLowerCase();
-            let selectedStatus = document.getElementById('sorttype').value;
+            const searchText = document.querySelector('.search-input').value.toLowerCase();
+            const selectedStatus = document.getElementById('sorttype').value;
 
             document.querySelectorAll('tbody tr').forEach(row => {
-                let cells = row.querySelectorAll('td');
-                let complainant = cells[1].textContent.toLowerCase();
-                let description = cells[2].textContent.toLowerCase();
-                let status = row.querySelector('.status')?.value?.trim();
+                const cells = row.querySelectorAll('td');
+                const complainant = cells[1].textContent.toLowerCase();
+                const description = cells[2].textContent.toLowerCase();
+                const status = row.querySelector('.status')?.value?.trim();
 
-                let matchesSearch = complainant.includes(searchText) || description.includes(searchText);
-                let matchesStatus = selectedStatus === "Default" || status === selectedStatus;
+                const matchesSearch = complainant.includes(searchText) || description.includes(searchText);
+                const matchesStatus = selectedStatus === "Default" || status === selectedStatus;
 
                 row.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
             });
@@ -178,9 +204,9 @@
 
             document.querySelectorAll('.status-dropdown').forEach(dropdown => {
                 dropdown.addEventListener('change', (event) => {
-                    let newStatus = event.target.value;
-                    let row = event.target.closest('tr');
-                    let complaintId = row.querySelector('td').textContent.trim();
+                    const newStatus = event.target.value;
+                    const row = event.target.closest('tr');
+                    const complaintId = row.querySelector('td').textContent.trim();
 
                     fetch("{% url 'update_complaint_status' %}", {
                         method: 'POST',
@@ -209,9 +235,9 @@
             function getCookie(name) {
                 let cookieValue = null;
                 if (document.cookie && document.cookie !== '') {
-                    let cookies = document.cookie.split(';');
+                    const cookies = document.cookie.split(';');
                     for (let i = 0; i < cookies.length; i++) {
-                        let cookie = cookies[i].trim();
+                        const cookie = cookies[i].trim();
                         if (cookie.substring(0, name.length + 1) === (name + '=')) {
                             cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                             break;
@@ -222,7 +248,6 @@
             }
         });
     </script>
-
 </body>
 
 </html>
