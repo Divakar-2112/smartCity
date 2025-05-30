@@ -1,6 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
 * {
   margin: 0;
   padding: 0;
+  letter-spacing: 2px;
+  word-spacing: 2px;
   box-sizing: border-box;
 }
 :root {
@@ -10,9 +14,10 @@
   --background-color: #f3f5f9;
   --form-bg: #ffffff;
 }
-html, body {
+html,
+body {
   min-height: 100vh;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Lato", sans-serif;
   overflow-x: hidden;
 }
 .login-wrapper {
@@ -46,7 +51,7 @@ html, body {
 }
 .form-section {
   flex: 1;
-  padding: 1rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -56,7 +61,7 @@ html, body {
   font-size: 1.8rem;
   color: var(--text-color);
   margin-bottom: 1.5rem;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .login-form label {
@@ -90,7 +95,7 @@ html, body {
   border-radius: 8px;
   background-color: var(--primary-color);
   color: #000;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -112,10 +117,9 @@ html, body {
 .login-form a {
   color: var(--secondary-color);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 400;
 }
 
-/* Image Section */
 .image-section {
   flex: 1;
   background-color: #000;
@@ -127,7 +131,6 @@ html, body {
   object-fit: cover;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .container {
     flex-direction: column-reverse;

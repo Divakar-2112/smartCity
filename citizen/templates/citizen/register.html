@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,13 +22,12 @@
 <body>
   <div class="signup-wrapper">
     <div class="container">
-      
       <div class="image-section">
-        <img src="{% static 'assets/login-image.png' %}" alt="Register Background">
+        <img src="{% static 'assets/sign-up-form.png' %}" alt="Register Background">
       </div>
       
       <div class="form-section">
-        <h3>Signup Account</h3>
+        <h3>Create Account</h3>
         <form method="POST" autocomplete="off">
           {% csrf_token %}
           {% for field in form %}
@@ -43,5 +41,3 @@
   </div>
 </body>
 </html>
-
-

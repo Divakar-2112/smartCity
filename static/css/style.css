@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 * {
- font-family: "Lato", sans-serif;
- letter-spacing: 2px;
- word-spacing: 2px;
- box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  box-sizing: border-box;
 }
 :root {
   --primary: #7fbe70;
@@ -16,7 +16,7 @@
   --border: #e0e0e0;
   --transition: all 0.3s ease-in-out;
 }
-html{
+html {
   scroll-behavior: smooth;
 }
 ::-webkit-scrollbar {
@@ -33,7 +33,6 @@ html{
   background: #000000;
 }
 body {
-  font-family: "Montserrat", Arial, sans-serif;
   background: var(--background);
   margin: 0;
   color: var(--dark);
@@ -76,13 +75,14 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
-.navbar .logo{
+.navbar .logo {
   width: 11%;
 }
-.navbar .logo img{
-width: 12rem;
+.navbar .logo img {
+  width: 12rem;
 }
 .navbar nav {
   display: flex;
@@ -333,7 +333,6 @@ width: 12rem;
   }
 }
 
-
 .news-section {
   display: flex;
   align-items: center;
@@ -382,7 +381,7 @@ width: 12rem;
   font-weight: bold;
   margin-bottom: 1rem;
   color: #ffffff;
-  line-height: 1.6
+  line-height: 1.6;
 }
 .news-btn {
   display: inline-block;
@@ -399,7 +398,6 @@ width: 12rem;
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
-
 
 .vision-img {
   flex: 1 1 400px;
@@ -423,7 +421,7 @@ width: 12rem;
 }
 .vision-content {
   flex: 1 1 500px;
-   animation-delay: 0.2s;
+  animation-delay: 0.2s;
   opacity: 0;
   animation: zoomFadeIn 1.2s ease-out forwards;
 }
@@ -476,7 +474,6 @@ width: 12rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   margin-top: 2rem;
   padding: 1rem;
-
 }
 
 .faq-title {
@@ -520,8 +517,12 @@ width: 12rem;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes fadeSlideDown {
   from {
@@ -582,7 +583,7 @@ footer {
   color: #9fdc29;
 }
 .footer-links a::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   left: 0;

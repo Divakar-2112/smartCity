@@ -21,7 +21,7 @@
       <div class="actions">
         <img src="{% static 'assets/user.svg' %}"  alt="" class="user-icon">
         <p>Hello! Username</p>
-        <button class="btn btn-getstarted">Logout</button>
+        <button class="btn btn-getstarted" onclick="window.location.href='/logout/'">Logout</button>
       </div>
 </header>
 <div class="container">
@@ -35,7 +35,6 @@
                 {% endfor %}
             </select>
         </div>
-
         <div class="sortdiv">
             <label for="sorttype">Sort by:</label>
             <select id="sorttype">
@@ -84,8 +83,7 @@
                             <th>Description</th>
                             <th>Date</th>
                             <th>Location</th>
-                            <th>Before-complaint</th>
-                            <th>After-complaint</th>
+                            <th>Image</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -97,13 +95,6 @@
                                 <td>{{ complaint.description }}</td>
                                 <td>{{ complaint.created_at|date:"Y-m-d" }}</td>
                                 <td>{{ complaint.location }}</td>
-                                <td>
-                                    {% if complaint.image_url %}
-                                        <img src="{{ complaint.image_url }}" alt="Complaint Image" style="width: 60px; height: auto;">
-                                    {% else %}
-                                        No image
-                                    {% endif %}
-                                </td>
                                 <td>
                                     {% if complaint.image_url %}
                                         <img src="{{ complaint.image_url }}" alt="Complaint Image" style="width: 60px; height: auto;">

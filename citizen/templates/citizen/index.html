@@ -1,215 +1,209 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smart City - Home Page</title>
-    <link rel="stylesheet" href="{%static 'css/style.css'%}" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="icon" type="image/x-icon" href="{%static 'assets/favicon-icon.png'%}">
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <header class="navbar">
-      <div class="logo">
-        <img src="{% static 'assets/smartCityLogo.png' %}"  alt="">
-      </div>
-      <nav>
-        <a href="#hero-section">Home</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#vision-section">Blog</a>
-        <a href="#faq-section">FAQs</a>
-      </nav>
-      <div class="actions">
-        <p>Sign in →</p>
-        <button class="btn btn-getstarted">Get Started</button>
-      </div>
-    </header>
 
-    <section class="hero" id="hero-section">
-      <div class="hero-text">
-        <div class="hero-title">
-          Empowering Urban Innovation for a Better Tomorrow
-        </div>
-        <div class="hero-desc">
-          Discover how our city is transforming into a smart, sustainable, and
-          inclusive urban space by leveraging technology, data, and community
-          engagement. Our mission is to enhance quality of life, drive economic
-          growth, and protect the environment for all.
-        </div>
-      </div>
-      <div class="hero-img">
-        <img
-          src="https://img.freepik.com/free-vector/smart-city-concept-illustration_114360-1194.jpg?w=740"
-          alt="Smart City Illustration"
-        />
-      </div>
-    </section>
-    
-    <section class="image-gallery">
-      <h2 class="gallery-title">Gallery Highlights</h2>
-      <div class="gallery-container">
-        <div class="gallery-item">
-          <img src="{% static 'assets/image-3.png' %}" alt="Smart Lighting">
-          <p class="caption">Smart Lighting System</p>
-        </div>
-        <div class="gallery-item">
-          <img src="{% static 'assets/image-4.png' %}" alt="Public Transport">
-          <p class="caption">Advanced Public Transport</p>
-        </div>
-        <div class="gallery-item">
-          <img src="{% static 'assets/image-5.png' %}" alt="Green Initiatives">
-          <p class="caption">Green Infrastructure</p>
-        </div>
-      </div>
-    </section>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart City - Home Page</title>
+  <link rel="stylesheet" href="{%static 'css/style.css'%}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" type="image/x-icon" href="{%static 'assets/favicon-icon.png'%}">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+</head>
 
-    <section class="news-section">
-      <div class="news-img">
-        <img
-          src="https://img.freepik.com/free-vector/news-concept-illustration_114360-1517.jpg?w=740"
-          alt="Latest News"
-        />
-      </div>
-      <div class="news-content">
-        <div class="news-title">Latest News & Updates 📰</div>
-        <div class="news-desc">
-          <strong>March 2025:</strong> 18 cities, including Agra, Varanasi, and
-          Madurai, have completed all Smart Cities Mission projects, setting new
-          benchmarks in urban innovation and citizen-centric services.
-        </div>
-      </div>
-    </section>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="{% static 'assets/smartCityLogo.png' %}" alt="">
+    </div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#Highlights">About</a>
+      <a href="#vision-section">Blog</a>
+      <a href="#faq-section">FAQs</a>
+      <a href="#contact-details">Services</a>
+    </nav>
+    <div class="actions">
+      <p>Sign in →</p>
+      <button class="btn btn-getstarted" onclick="window.location.href='/login/'">Get Started</button>
+    </div>
+  </header>
 
-    <section class="vision-section" id="vision-section">
-      <div class="vision-content">
-        <div class="vision-title">Vision 🌟</div>
-        <div class="vision-desc">
-          The vision for smart cities is to develop sustainable urban
-          environments that provide robust core infrastructure, a clean and
-          green setting, and a high quality of life for all citizens through
-          smart solutions. By focusing on comprehensive development across
-          institutional, physical, social, and economic pillars, cities can grow
-          efficiently, sustainably, and inclusively.
-        </div>
+  <section class="hero" id="hero-section">
+    <div class="hero-text">
+      <div class="hero-title">
+        Empowering Urban Innovation for a Better Tomorrow
       </div>
-      <div class="vision-img">
-        <img
-          src="https://img.freepik.com/free-vector/family-life-concept-illustration_114360-1591.jpg?w=740"
-          alt="Vision Illustration"
-        />
+      <div class="hero-desc">
+        Discover how our city is transforming into a smart, sustainable, and
+        inclusive urban space by leveraging technology, data, and community
+        engagement. Our mission is to enhance quality of life, drive economic
+        growth, and protect the environment for all.
       </div>
-    </section>
+    </div>
+    <div class="hero-img">
+      <img src="https://img.freepik.com/free-vector/smart-city-concept-illustration_114360-1194.jpg?w=740"
+        alt="Smart City Illustration" />
+    </div>
+  </section>
 
-    <section class="faq-section" id="faq-section">
-      <div class="faq-title">FAQs</div>
-      <ul class="faq-list">
-        <li class="faq-item">
-          <div class="faq-question">▶ General overview</div>
-          <div class="faq-answer">
-            <hr>
-            <strong>What is a Smart City?</strong><br />
-            A smart city uses technology and data-driven solutions to improve
-            citizens’ lives, sustainability, service delivery, and foster
-            economic growth and a better quality of life.
-          </div>
-        </li>
-        <li class="faq-item">
-          <div class="faq-question">▶ How smart cities work</div>
-          <div class="faq-answer">
-            <hr>
-            Smart cities integrate IoT, data analytics, and digital platforms to
-            manage resources efficiently and deliver better public services.
-          </div>
-        </li>
-        <li class="faq-item">
-          <div class="faq-question">▶ Sustainability and community</div>
-          <div class="faq-answer">
-            <hr>
-            They promote green initiatives, waste management, and community
-            engagement for inclusive and sustainable growth.
-          </div>
-        </li>
-        <li class="faq-item">
-          <div class="faq-question">▶ Security and privacy</div>
-          <div class="faq-answer">
-            <hr>
-            Smart cities ensure data privacy and security through robust
-            cybersecurity measures and transparent data policies.
-          </div>
-        </li>
-      </ul>
-    </section>
-
-    <footer>
-      <div class="footer-container"  id="contact-details">
-        <div class="footer-about">
-          <h3>About Smart City</h3>
-          <p>
-            Empowering sustainable urban innovation and citizen engagement for a
-            better tomorrow.
-          </p>
-        </div>
-        <div class="footer-links">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-contact">
-          <h4>Contact Us</h4>
-          <p>L76A, L Block, 21st Street, Anna Nagar, Chennai, Tamil Nadu 600102</p>
-          <p>Phone: +91 99627XXXX</p>
-          <p>Email: smartcity@org.com</p>
-        </div>
+  <section class="image-gallery" id="Highlights">
+    <h2 class="gallery-title">Gallery Highlights</h2>
+    <div class="gallery-container">
+      <div class="gallery-item">
+        <img src="{% static 'assets/image-3.png' %}" alt="Smart Lighting">
+        <p class="caption">Smart Lighting System</p>
       </div>
-      <div class="footer-bottom">
-        &copy; 2025 Smart City Initiative. All rights reserved.
+      <div class="gallery-item">
+        <img src="{% static 'assets/image-4.png' %}" alt="Public Transport">
+        <p class="caption">Advanced Public Transport</p>
       </div>
-    </footer>
+      <div class="gallery-item">
+        <img src="{% static 'assets/image-5.png' %}" alt="Green Initiatives">
+        <p class="caption">Green Infrastructure</p>
+      </div>
+    </div>
+  </section>
 
-    <script>
-      document.querySelectorAll(".faq-question").forEach((question) => {
-        question.addEventListener("click", () => {
-          const item = question.closest(".faq-item");
-          item.classList.toggle("active");
-        });
+  <section class="news-section">
+    <div class="news-img">
+      <img src="https://img.freepik.com/free-vector/news-concept-illustration_114360-1517.jpg?w=740"
+        alt="Latest News" />
+    </div>
+    <div class="news-content">
+      <div class="news-title">Latest News & Updates 📰</div>
+      <div class="news-desc">
+        <strong>March 2025:</strong> 18 cities, including Agra, Varanasi, and
+        Madurai, have completed all Smart Cities Mission projects, setting new
+        benchmarks in urban innovation and citizen-centric services.
+      </div>
+    </div>
+  </section>
+
+  <section class="vision-section" id="vision-section">
+    <div class="vision-content">
+      <div class="vision-title">Vision 🌟</div>
+      <div class="vision-desc">
+        The vision for smart cities is to develop sustainable urban
+        environments that provide robust core infrastructure, a clean and
+        green setting, and a high quality of life for all citizens through
+        smart solutions. By focusing on comprehensive development across
+        institutional, physical, social, and economic pillars, cities can grow
+        efficiently, sustainably, and inclusively.
+      </div>
+    </div>
+    <div class="vision-img">
+      <img src="https://img.freepik.com/free-vector/family-life-concept-illustration_114360-1591.jpg?w=740"
+        alt="Vision Illustration" />
+    </div>
+  </section>
+
+  <section class="faq-section" id="faq-section">
+    <div class="faq-title">FAQs</div>
+    <ul class="faq-list">
+      <li class="faq-item">
+        <div class="faq-question">▶ General overview</div>
+        <div class="faq-answer">
+          <hr>
+          <strong>What is a Smart City?</strong><br />
+          A smart city uses technology and data-driven solutions to improve
+          citizens’ lives, sustainability, service delivery, and foster
+          economic growth and a better quality of life.
+        </div>
+      </li>
+      <li class="faq-item">
+        <div class="faq-question">▶ How smart cities work</div>
+        <div class="faq-answer">
+          <hr>
+          Smart cities integrate IoT, data analytics, and digital platforms to
+          manage resources efficiently and deliver better public services.
+        </div>
+      </li>
+      <li class="faq-item">
+        <div class="faq-question">▶ Sustainability and community</div>
+        <div class="faq-answer">
+          <hr>
+          They promote green initiatives, waste management, and community
+          engagement for inclusive and sustainable growth.
+        </div>
+      </li>
+      <li class="faq-item">
+        <div class="faq-question">▶ Security and privacy</div>
+        <div class="faq-answer">
+          <hr>
+          Smart cities ensure data privacy and security through robust
+          cybersecurity measures and transparent data policies.
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    <div class="footer-container" id="contact-details">
+      <div class="footer-about">
+        <h3>About Smart City</h3>
+        <p>
+          Empowering sustainable urban innovation and citizen engagement for a
+          better tomorrow.
+        </p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Us</h4>
+        <p>L76A, L Block, 21st Street, Anna Nagar, Chennai, Tamil Nadu 600102</p>
+        <p>Phone: +91 99627XXXX</p>
+        <p>Email: smartcity@org.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 Smart City Initiative. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll(".faq-question").forEach((question) => {
+      question.addEventListener("click", () => {
+        const item = question.closest(".faq-item");
+        item.classList.toggle("active");
       });
+    });
 
-      const images = document.querySelectorAll(".slider-image");
-      const nextBtn = document.querySelector(".slider-arrow.next");
-      const prevBtn = document.querySelector(".slider-arrow.prev");
-      let currentIndex = 0;
+    const images = document.querySelectorAll(".slider-image");
+    const nextBtn = document.querySelector(".slider-arrow.next");
+    const prevBtn = document.querySelector(".slider-arrow.prev");
+    let currentIndex = 0;
 
-      function updateSlider(index) {
-        images.forEach((img, i) => {
-          img.classList.toggle("active", i === index);
-        });
-      }
-
-      nextBtn.addEventListener("click", () => {
-        currentIndex = (currentIndex + 1) % images.length;
-        updateSlider(currentIndex);
+    function updateSlider(index) {
+      images.forEach((img, i) => {
+        img.classList.toggle("active", i === index);
       });
+    }
 
-      prevBtn.addEventListener("click", () => {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
-        updateSlider(currentIndex);
-      });
-      setInterval(() => {
-        currentIndex = (currentIndex + 1) % images.length;
-        updateSlider(currentIndex);
-      }, 5000);
-    </script>
-  </body>
+    nextBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateSlider(currentIndex);
+    });
+
+    prevBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      updateSlider(currentIndex);
+    });
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateSlider(currentIndex);
+    }, 5000);
+  </script>
+</body>
+
 </html>
