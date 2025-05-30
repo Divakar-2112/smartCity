@@ -5,8 +5,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard Page</title>
+  <title>User_Dashboard Page</title>
   <link rel="stylesheet" href="{%static 'css/user.css'%}" />
+  <link rel="shortcut icon" href="{% static 'assets/favicon-icon.png'%}" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="icon" type="image/x-icon" href="assets/favicon-icon.png">
@@ -15,21 +16,22 @@
     integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
-<header class="navbar">
-      <div class="logo">
-        <img src="{% static 'assets/smartCityLogo.png' %}"  alt="">
-      </div>
-        <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-input" placeholder="Search complaints...">
-        </div>
-      <div class="actions">
-        <img src="{% static 'assets/user.svg' %}"  alt="" class="user-icon">
-        <p>Hello! Username</p>
-        <button class="btn btn-getstarted">Logout</button>
-      </div>
-</header>
+  <header class="navbar">
+    <div class="logo">
+      <img src="{% static 'assets/smartCityLogo.png' %}" alt="">
+    </div>
+    <div class="search-container">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" class="search-input" placeholder="Search complaints...">
+    </div>
+    <div class="actions">
+      <img src="{% static 'assets/user.svg' %}" alt="" class="user-icon">
+      <p>Hello! Username</p>
+      <button class="btn btn-getstarted">Logout</button>
+    </div>
+  </header>
   <main class="main-content">
     <div class="dashboard">
       <section class="dashboard-header">
@@ -133,34 +135,35 @@
   </form>
 
   <footer>
-      <div class="footer-container"  id="contact-details">
-        <div class="footer-about">
-          <h3>About Smart City</h3>
-          <p>
-            Empowering sustainable urban innovation and citizen engagement for a
-            better tomorrow.
-          </p>
-        </div>
-        <div class="footer-links">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-contact">
-          <h4>Contact Us</h4>
-          <p>L76A, L Block, 21st Street, Anna Nagar, Chennai, Tamil Nadu 600102</p>
-          <p>Phone: +91 99627XXXX</p>
-          <p>Email: smartcity@org.com</p>
-        </div>
+    <div class="footer-container" id="contact-details">
+      <div class="footer-about">
+        <h3>About Smart City</h3>
+        <p>
+          Empowering sustainable urban innovation and citizen engagement for a
+          better tomorrow.
+        </p>
       </div>
-      <div class="footer-bottom">
-        &copy; 2025 Smart City Initiative. All rights reserved.
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
       </div>
-    </footer>
+      <div class="footer-contact">
+        <h4>Contact Us</h4>
+        <p>L76A, L Block, 21st Street, Anna Nagar, Chennai, Tamil Nadu 600102</p>
+        <p>Phone: +91 99627XXXX</p>
+        <p>Email: smartcity@org.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 Smart City Initiative. All rights reserved.
+    </div>
+  </footer>
 </body>
+
 </html>

@@ -1,82 +1,83 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Department Staff Dashboard</title>
     <link rel="shortcut icon" href="{% static 'assets/SmartCity-Logo.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'assets/favicon-icon.png'%}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/admin.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="shortcut icon" href="{% static 'assets/favicon-icon.png' %}" type="image/x-icon">
 </head>
+
 <body>
 
-<div class="container">
-    <div class="header">
-        <img src="{% static 'assets/smartCityLogo.png' %}" alt="Logo">
+    <div class="container">
+        <div class="header">
+            <img src="{% static 'assets/smartCityLogo.png' %}" alt="Logo">
 
-        <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-input" placeholder="Search complaints...">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search complaints...">
+            </div>
+
+            <div class="sortdiv">
+                <label for="sorttype">Sort by:</label>
+                <select id="sorttype">
+                    <option selected>Default</option>
+                    <option value="Resolved">Resolved</option>
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Rejected">Rejected</option>
+                </select>
+            </div>
+
+            <div class="userprofile">
+                <span>Hello {{ user.first_name }}</span>
+            </div>
         </div>
 
-        <div class="sortdiv">
-            <label for="sorttype">Sort by:</label>
-            <select id="sorttype">
-                <option selected>Default</option>
-                <option value="Resolved">Resolved</option>
-                <option value="Pending">Pending</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Rejected">Rejected</option>
-            </select>
+        <div class="status-counts">
+            <div class="total">
+                <h2>Total Complaints:</h2>
+                <h4 id="count-total">{{ total_complaints }}</h4>
+            </div>
+            <div class="resolved">
+                <h2>Resolved</h2>
+                <h4 id="count-resolved">{{ status_counts.Resolved }}</h4>
+            </div>
+            <div class="progress">
+                <h2>In Progress</h2>
+                <h4 id="count-inprogress">{{ status_counts.InProgress }}</h4>
+            </div>
+            <div class="pending">
+                <h2>Pending</h2>
+                <h4 id="count-pending">{{ status_counts.Pending }}</h4>
+            </div>
+            <div class="reject">
+                <h2>Rejected</h2>
+                <h4 id="count-rejected">{{ status_counts.Rejected }}</h4>
+            </div>
         </div>
 
-        <div class="userprofile">
-            <span>Hello {{ user.first_name }}</span>
-        </div>
-    </div>
-
-    <div class="status-counts">
-        <div class="total">
-            <h2>Total Complaints:</h2>
-            <h4 id="count-total">{{ total_complaints }}</h4>
-        </div>
-        <div class="resolved">
-            <h2>Resolved</h2>
-            <h4 id="count-resolved">{{ status_counts.Resolved }}</h4>
-        </div>
-        <div class="progress">
-            <h2>In Progress</h2>
-            <h4 id="count-inprogress">{{ status_counts.InProgress }}</h4>
-        </div>
-        <div class="pending">
-            <h2>Pending</h2>
-            <h4 id="count-pending">{{ status_counts.Pending }}</h4>
-        </div>
-        <div class="reject">
-            <h2>Rejected</h2>
-            <h4 id="count-rejected">{{ status_counts.Rejected }}</h4>
-        </div>
-    </div>
-
-    <div class="content">
-        <h2>Complaints Overview - {{ department.name }}</h2>
-        <div class="department-section">
-            <table class="complaint-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Complainant</th>
-                        <th>Description</th>
-                        <th>Date</th>
-                        <th>Location</th>
-                        <th>Before</th>
-                        <th>After</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for complaint in department_complaints %}
+        <div class="content">
+            <h2>Complaints Overview - {{ department.name }}</h2>
+            <div class="department-section">
+                <table class="complaint-table">
+                    <thead>
+                        <tr>
+                            <th>Complainant ID</th>
+                            <th>UserName</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Image</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for complaint in department_complaints %}
                         <tr>
                             <td>{{ complaint.complaint_id }}</td>
                             <td>{{ complaint.user.name }}</td>
@@ -85,104 +86,143 @@
                             <td>{{ complaint.location }}</td>
                             <td>
                                 {% if complaint.image_url %}
-                                    <img src="{{ complaint.image_url }}" alt="Before" style="width: 60px;">
+                                <img src="{{ complaint.image_url }}" alt="Image" style="width: 60px;">
                                 {% else %}
-                                    No image
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if complaint.image_url %}
-                                    <img src="{{ complaint.image_url }}" alt="After" style="width: 60px;">
-                                {% else %}
-                                    No image
+                                No image
                                 {% endif %}
                             </td>
                             <td>
                                 <select class="status-dropdown status">
-                                    <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
-                                    <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
-                                    <option value="Resolved" {% if complaint.status == "Resolved" %}selected{% endif %}>Resolved</option>
-                                    <option value="Rejected" {% if complaint.status == "Rejected" %}selected{% endif %}>Rejected</option>
+                                    <option value="Pending" {% if complaint.status=="Pending" %}selected{% endif %}>
+                                        Pending</option>
+                                    <option value="In Progress" {% if complaint.status=="In Progress" %}selected{% endif
+                                        %}>In Progress</option>
+                                    <option value="Resolved" {% if complaint.status=="Resolved" %}selected{% endif %}>
+                                        Resolved</option>
+                                    <option value="Rejected" {% if complaint.status=="Rejected" %}selected{% endif %}>
+                                        Rejected</option>
                                 </select>
                             </td>
                         </tr>
-                    {% empty %}
+                        {% empty %}
                         <tr>
-                            <td rowspan="1" style="text-align:center;">No complaints found.</td>
+                            <td colspan="7" style="text-align:center;">No complaints found.</td>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-function countFilteredComplaints() {
-    const counts = {
-        Resolved: 0,
-        "In Progress": 0,
-        Pending: 0,
-        Rejected: 0
-    };
-    let total = 0;
+    <script>
+        function countFilteredComplaints() {
+            let counts = {
+                Resolved: 0,
+                "In Progress": 0,
+                Pending: 0,
+                Rejected: 0
+            };
+            let total = 0;
 
-    document.querySelectorAll('tbody tr').forEach(row => {
-        if (row.style.display !== 'none') {
-            const status = row.querySelector('.status')?.value?.trim();
-            if (counts.hasOwnProperty(status)) counts[status]++;
-            total++;
+            document.querySelectorAll('tbody tr').forEach(row => {
+                if (row.style.display !== 'none') {
+                    let status = row.querySelector('.status')?.value?.trim();
+                    if (counts.hasOwnProperty(status)) counts[status]++;
+                    total++;
+                }
+            });
+
+            document.getElementById('count-total').textContent = total;
+            document.getElementById('count-resolved').textContent = counts.Resolved;
+            document.getElementById('count-inprogress').textContent = counts["In Progress"];
+            document.getElementById('count-pending').textContent = counts.Pending;
+            document.getElementById('count-rejected').textContent = counts.Rejected;
         }
-    });
 
-    document.getElementById('count-total').textContent = total;
-    document.getElementById('count-resolved').textContent = counts.Resolved;
-    document.getElementById('count-inprogress').textContent = counts["In Progress"];
-    document.getElementById('count-pending').textContent = counts.Pending;
-    document.getElementById('count-rejected').textContent = counts.Rejected;
-}
+        function applyStatusColors() {
+            document.querySelectorAll('.status-dropdown').forEach(el => {
+                let status = el.value.toLowerCase();
+                el.style.color = {
+                    'pending': '#dc3545',
+                    'resolved': '#28a745',
+                    'in progress': '#ff8c00',
+                    'rejected': '#6c757d'
+                }[status] || 'black';
+            });
+        }
 
-function applyStatusColors() {
-    document.querySelectorAll('.status-dropdown').forEach(el => {
-        const status = el.value.toLowerCase();
-        if (status === 'pending') el.style.color = '#dc3545';
-        else if (status === 'resolved') el.style.color = '#28a745';
-        else if (status === 'in progress') el.style.color = '#ff8c00';
-        else if (status === 'rejected') el.style.color = '#6c757d';
-    });
-}
+        function filterTable() {
+            let searchText = document.querySelector('.search-input').value.toLowerCase();
+            let selectedStatus = document.getElementById('sorttype').value;
 
-function filterTable() {
-    const searchText = document.querySelector('.search-input').value.toLowerCase();
-    const selectedStatus = document.getElementById('sorttype').value;
+            document.querySelectorAll('tbody tr').forEach(row => {
+                let cells = row.querySelectorAll('td');
+                let complainant = cells[1].textContent.toLowerCase();
+                let description = cells[2].textContent.toLowerCase();
+                let status = row.querySelector('.status')?.value?.trim();
 
-    document.querySelectorAll('tbody tr').forEach(row => {
-        const cells = row.querySelectorAll('td');
-        const complainant = cells[1].textContent.toLowerCase();
-        const description = cells[2].textContent.toLowerCase();
-        const status = row.querySelector('.status')?.value?.trim();
+                let matchesSearch = complainant.includes(searchText) || description.includes(searchText);
+                let matchesStatus = selectedStatus === "Default" || status === selectedStatus;
 
-        const matchesSearch = complainant.includes(searchText) || description.includes(searchText);
-        const matchesStatus = selectedStatus === "Default" || status === selectedStatus;
+                row.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
+            });
 
-        row.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
-    });
-
-    countFilteredComplaints();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    applyStatusColors();
-    document.querySelector('.search-input').addEventListener('input', filterTable);
-    document.getElementById('sorttype').addEventListener('change', filterTable);
-    document.querySelectorAll('.status-dropdown').forEach(dropdown => {
-        dropdown.addEventListener('change', () => {
-            applyStatusColors();
             countFilteredComplaints();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            applyStatusColors();
+            document.querySelector('.search-input').addEventListener('input', filterTable);
+            document.getElementById('sorttype').addEventListener('change', filterTable);
+
+            document.querySelectorAll('.status-dropdown').forEach(dropdown => {
+                dropdown.addEventListener('change', (event) => {
+                    let newStatus = event.target.value;
+                    let row = event.target.closest('tr');
+                    let complaintId = row.querySelector('td').textContent.trim();
+
+                    fetch("{% url 'update_complaint_status' %}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': getCookie('csrftoken')
+                        },
+                        body: JSON.stringify({
+                            complaint_id: complaintId,
+                            status: newStatus
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.success) alert("Error updating status: " + (data.error || "Unknown error"));
+                            applyStatusColors();
+                            countFilteredComplaints();
+                        })
+                        .catch(error => {
+                            alert("Network error: " + error);
+                        });
+                });
+            });
+
+            // CSRF helper
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    let cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        let cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
         });
-    });
-});
-</script>
+    </script>
 
 </body>
+
 </html>

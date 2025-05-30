@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
-from citizen.models import Department, ComplaintDetail
+from django.http import JsonResponse
+import json
+from django.views.decorators.csrf import csrf_exempt
+from citizen.models import *
 
 def staff_complaints_view(request):
     if not request.user.is_authenticated:
@@ -7,7 +10,6 @@ def staff_complaints_view(request):
 
     staff_username = request.user.username.lower()
 
-    # Map usernames to departments
     staff_dept_map = {
         'bala_pw_dpt': 'Public Works',
         'lokesh_ws_dpt': 'Water Supply',
@@ -41,3 +43,20 @@ def staff_complaints_view(request):
         "user": request.user
     }
     return render(request, 'department/staff.html', context)
+
+@csrf_exempt
+def update_complaint_status(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            complaint_id = data.get("complaint_id")
+            new_status = data.get("status")
+
+            complaint = ComplaintDetail.objects.get(complaint_id=complaint_id)
+            complaint.status = new_status
+            complaint.save()
+
+            return JsonResponse({"success": True})
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
+    return JsonResponse({"success": False, "error": "Invalid request"})
