@@ -4,34 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Staff Page</title>
-    <link rel="shortcut icon" href="{% static 'assets/SmartCity-Logo.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'assets/favicon-icon.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/admin.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="shortcut icon" href="{% static 'assets/favicon-icon.png' %}" type="image/x-icon">
 </head>
 <body>
 <header class="navbar">
-      <div class="logo">
-        <img src="{% static 'assets/smartCityLogo.png' %}"  alt="">
-      </div>
-        <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-input" placeholder="Search complaints...">
-        </div>
-      <div class="actions">
-        <img src="{% static 'assets/user.svg' %}"  alt="" class="user-icon">
-        <p>Hello! Username</p>
+    <div class="logo">
+        <img src="{% static 'assets/smartCityLogo.png' %}" alt="">
+    </div>
+    <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" class="search-input" placeholder="Search complaints...">
+    </div>
+    <div class="actions">
+        <img src="{% static 'assets/user.svg' %}" alt="" class="user-icon">
+        <p>Hello! {{ user.first_name }}</p>
         <button class="btn btn-getstarted" onclick="window.location.href='/logout/'">Logout</button>
-      </div>
+    </div>
 </header>
+
 <div class="container">
     <div class="header">
         <div class="filterdiv">
             <label for="filtertype">Filter:</label>
             <select id="filtertype" name="category">
-                <option selected>Select department</option>
+                <option value="All" selected>Select department</option>
                 {% for dep in department %}
-                    <option>{{ dep.name }}</option>
+                    <option value="{{ dep.name }}">{{ dep.name }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -73,13 +73,13 @@
     <div class="content">
         <h2>Complaints Overview</h2>
         {% for dept_name, complaints in department_complaints.items %}
-            <div class="department-section">
+            <div class="department-section" data-department="{{ dept_name }}">
                 <h3>{{ dept_name }}</h3>
                 <table class="complaint-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Complainant</th>
+                            <th>Complaint ID</th>
+                            <th>UserName</th>
                             <th>Description</th>
                             <th>Date</th>
                             <th>Location</th>
@@ -89,7 +89,7 @@
                     </thead>
                     <tbody>
                         {% for complaint in complaints %}
-                            <tr>
+                            <tr data-department="{{ dept_name }}">
                                 <td>{{ complaint.complaint_id }}</td>
                                 <td>{{ complaint.user.name }}</td>
                                 <td>{{ complaint.description }}</td>
@@ -110,41 +110,38 @@
             </div>
         {% endfor %}
     </div>
-<footer>
-      <div class="footer-container"  id="contact-details">
-        <div class="footer-about">
-          <h3>About Smart City</h3>
-          <p>
-            Empowering sustainable urban innovation and citizen engagement for a
-            better tomorrow.
-          </p>
+
+    <footer>
+        <div class="footer-container" id="contact-details">
+            <div class="footer-about">
+                <h3>About Smart City</h3>
+                <p>Empowering sustainable urban innovation and citizen engagement for a better tomorrow.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>L76A, L Block, 21st Street, Anna Nagar, Chennai, Tamil Nadu 600102</p>
+                <p>Phone: +91 99627XXXX</p>
+                <p>Email: smartcity@org.com</p>
+            </div>
         </div>
-        <div class="footer-links">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
+        <div class="footer-bottom">
+            &copy; 2025 Smart City Initiative. All rights reserved.
         </div>
-        <div class="footer-contact">
-          <h4>Contact Us</h4>
-          <p>L76A, L Block, 21st Street, Anna Nagar, Chennai, Tamil Nadu 600102</p>
-          <p>Phone: +91 99627XXXX</p>
-          <p>Email: smartcity@org.com</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        &copy; 2025 Smart City Initiative. All rights reserved.
-      </div>
     </footer>
 </div>
 
-
 <script>
-    function countFilteredComplaints() {
+function countFilteredComplaints() {
     const counts = {
         Resolved: 0,
         "In Progress": 0,
@@ -181,17 +178,20 @@ function applyStatusColors() {
 function filterTable() {
     const searchText = document.querySelector('.search-input').value.toLowerCase();
     const selectedStatus = document.getElementById('sorttype').value;
+    const selectedDepartment = document.getElementById('filtertype').value;
 
     document.querySelectorAll('tbody tr').forEach(row => {
         const cells = row.querySelectorAll('td');
         const complainant = cells[1].textContent.toLowerCase();
         const description = cells[2].textContent.toLowerCase();
-        const status = cells[7].textContent.trim();
+        const status = row.querySelector('.status').textContent.trim();
+        const department = row.getAttribute('data-department');
 
         const matchesSearch = complainant.includes(searchText) || description.includes(searchText);
         const matchesStatus = selectedStatus === "Default" || status === selectedStatus;
+        const matchesDepartment = selectedDepartment === "All" || department === selectedDepartment;
 
-        row.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
+        row.style.display = (matchesSearch && matchesStatus && matchesDepartment) ? '' : 'none';
     });
 
     countFilteredComplaints();
@@ -201,9 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
     applyStatusColors();
     document.querySelector('.search-input').addEventListener('input', filterTable);
     document.getElementById('sorttype').addEventListener('change', filterTable);
+    document.getElementById('filtertype').addEventListener('change', filterTable);
 });
-
 </script>
-
 </body>
 </html>
