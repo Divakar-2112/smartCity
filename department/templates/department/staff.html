@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Department Staff Dashboard</title>
-    <link rel="shortcut icon" href="{% static 'assets/SmartCity-Logo.png' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/staff.css' %}">
+      <link rel="icon" type="image/x-icon" href="{%static 'assets/favicon-icon.png'%}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
@@ -42,7 +42,7 @@
 
         <div class="status-counts">
             <div class="total">
-                <h2>Total Complaints:</h2>
+                <h2>Total Complaints</h2>
                 <h4 id="count-total">{{ total_complaints }}</h4>
             </div>
             <div class="resolved">
@@ -231,7 +231,6 @@
                 });
             });
 
-            // CSRF helper
             function getCookie(name) {
                 let cookieValue = null;
                 if (document.cookie && document.cookie !== '') {

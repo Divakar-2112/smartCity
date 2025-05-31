@@ -8,7 +8,7 @@
   --border-color: #ccc;
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   letter-spacing: 2px;
@@ -23,6 +23,19 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #f0f5f2;
+  animation: fadeInPage 0.6s ease forwards;
+}
+
+@keyframes fadeInPage {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .signup-wrapper {
@@ -37,10 +50,22 @@ html, body {
   display: flex;
   background: var(--form-bg);
   border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
   max-width: 700px;
   width: 100%;
   overflow: hidden;
+  animation: containerFade 0.5s ease forwards;
+}
+
+@keyframes containerFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .image-section {
@@ -51,12 +76,23 @@ html, body {
   background: #e6f5ea;
   padding: 1rem;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  transition: background-color 0.3s ease;
+}
+
+.image-section:hover {
+  background-color: #d0ebc7;
 }
 
 .image-section img {
   width: 100%;
   height: auto;
   object-fit: fill;
+  transition: transform 0.4s ease;
+  cursor: pointer;
+}
+
+.image-section img:hover {
+  transform: scale(1.05);
 }
 
 .form-section {
@@ -65,6 +101,14 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  animation: formFade 0.6s ease forwards 0.3s;
+  opacity: 0;
+}
+
+@keyframes formFade {
+  to {
+    opacity: 1;
+  }
 }
 
 .form-section h3 {
@@ -72,6 +116,7 @@ html, body {
   font-size: 1.25rem;
   text-align: center;
   color: var(--text-color);
+  letter-spacing: 1px;
 }
 
 .input-group {
@@ -91,53 +136,62 @@ html, body {
 .form-section select,
 .form-section textarea {
   width: 100%;
-  padding: 0.5rem 0.7rem;
+  padding: 0.6rem 0.9rem;
   border: none;
-  border-radius: 4px;
-  border-bottom: 2px solid #ccc;
-  font-size: 0.85rem;
+  border-radius: 6px;
+  border-bottom: 2px solid var(--border-color);
+  font-size: 0.9rem;
   background-color: #fafafa;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 input:focus, select:focus, textarea:focus {
   border-color: var(--primary-color);
+  background-color: #fff;
   outline: none;
+  box-shadow: 0 2px 8px rgba(142, 232, 122, 0.4);
+  padding-left: 1rem;
 }
 
 .form-section button {
   width: 100%;
-  padding: 0.65rem;
+  padding: 0.75rem;
   background-color: var(--primary-color);
   color: #000;
   border: none;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.9rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
   cursor: pointer;
-  transition: 0.3s ease;
-  margin-top: 0.5rem;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  margin-top: 0.7rem;
+  box-shadow: 0 4px 8px rgba(142, 232, 122, 0.4);
 }
 
 .form-section button:hover {
   background-color: var(--secondary-color);
   color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(83, 162, 71, 0.6);
 }
 
 .form-section p {
-  margin-top: 0.8rem;
+  margin-top: 0.9rem;
   font-size: 0.78rem;
   text-align: center;
+  color: #555;
 }
 
 .form-section p a {
   color: var(--primary-color);
   text-decoration: none;
   font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .form-section p a:hover {
   text-decoration: underline;
+  color: var(--secondary-color);
 }
 
 @media (max-width: 768px) {
@@ -147,10 +201,25 @@ input:focus, select:focus, textarea:focus {
   }
 
   .image-section {
-    height: 120px;
+    height: 140px;
   }
 
   .form-section {
     padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .input-group input,
+  .form-section input,
+  .form-section select,
+  .form-section textarea {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .form-section button {
+    font-size: 0.9rem;
+    padding: 0.65rem;
   }
 }
