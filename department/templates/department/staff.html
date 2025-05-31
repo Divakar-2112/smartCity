@@ -141,6 +141,15 @@
         </div>
     </footer>
 
+    <div id="complaintModal" class="modal">
+  <div class="modal-content">
+    <span id="closeModal" class="close">&times;</span>
+    <h2>Complaint Details</h2>
+    <div id="complaintDetails">
+    </div>
+  </div>
+</div>
+
     <script>
         function countFilteredComplaints() {
             const counts = {
@@ -231,7 +240,6 @@
                 });
             });
 
-            // CSRF helper
             function getCookie(name) {
                 let cookieValue = null;
                 if (document.cookie && document.cookie !== '') {
@@ -246,6 +254,47 @@
                 }
                 return cookieValue;
             }
+
+document.querySelectorAll('.complaint-table tbody tr').forEach(row => {
+  row.addEventListener('click', event => {
+    if (event.target.tagName.toLowerCase() === 'select') return;
+
+    const cells = row.querySelectorAll('td');
+    const complaintId = cells[0].textContent.trim();
+    const userName = cells[1].textContent.trim();
+    const description = cells[2].textContent.trim();
+    const date = cells[3].textContent.trim();
+    const location = cells[4].textContent.trim();
+    const status = row.querySelector('.status-dropdown').value.trim();
+    const imgEl = cells[5].querySelector('img');
+    const imageUrl = imgEl ? imgEl.src : null;
+
+    const detailsDiv = document.getElementById('complaintDetails');
+    detailsDiv.innerHTML = `
+      <p><strong>Complaint ID:</strong> ${complaintId}</p>
+      <p><strong>User Name:</strong> ${userName}</p>
+      <p><strong>Description:</strong> ${description}</p>
+      <p><strong>Date:</strong> ${date}</p>
+      <p><strong>Location:</strong> ${location}</p>
+      <p><strong>Status:</strong> ${status}</p>
+      ${imageUrl ? `<p><strong>Image:</strong><br><img src="${imageUrl}" alt="Complaint Image"></p>` : '<p><strong>Image:</strong> No image</p>'}
+    `;
+
+    document.getElementById('complaintModal').style.display = 'block';
+  });
+});
+
+document.getElementById('closeModal').addEventListener('click', () => {
+  document.getElementById('complaintModal').style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+  const modal = document.getElementById('complaintModal');
+  if (event.target === modal) {
+    modal.style.display = 'none';
+  }
+});
+
         });
     </script>
 </body>

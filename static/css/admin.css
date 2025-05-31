@@ -262,6 +262,7 @@ table th, table td {
 table tr:hover {
     background-color: #f9f9f99a;
     color: #333;
+    cursor: pointer;
 }
 
 img {
@@ -388,3 +389,45 @@ footer {
         gap: 15px;
     }
 }
+
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+  }
+  .modal-content {
+    background-color: #fff;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  }
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .close:hover {
+    color: #000;
+  }
+  #complaintDetails img {
+    max-width: 100%;
+    margin-top: 10px;
+    border-radius: 4px;
+  }
+  #complaintDetails p {
+    margin: 8px 0;
+    font-size: 16px;
+  }
