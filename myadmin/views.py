@@ -4,9 +4,6 @@ from citizen.models import *
 from django.http import JsonResponse
 import json
 
-
-
-
 def myadmin(request):
     department = Department.objects.all()
     subCategory = SubCategory.objects.all()

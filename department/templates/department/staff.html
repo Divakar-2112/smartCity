@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Department Staff Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="{%static 'assets/favicon-icon.png'%}">
     <link rel="stylesheet" href="{% static 'css/staff.css' %}">
-      <link rel="icon" type="image/x-icon" href="{%static 'assets/favicon-icon.png'%}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
@@ -42,7 +42,7 @@
 
         <div class="status-counts">
             <div class="total">
-                <h2>Total Complaints</h2>
+                <h2>Total Complaints:</h2>
                 <h4 id="count-total">{{ total_complaints }}</h4>
             </div>
             <div class="resolved">
@@ -113,6 +113,15 @@
         </div>
     </div>
 
+    <div id="complaintModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2>Complaint Details</h2>
+            <div id="complaintDetails">
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-container" id="contact-details">
             <div class="footer-about">
@@ -141,14 +150,8 @@
         </div>
     </footer>
 
-    <div id="complaintModal" class="modal">
-  <div class="modal-content">
-    <span id="closeModal" class="close">&times;</span>
-    <h2>Complaint Details</h2>
-    <div id="complaintDetails">
-    </div>
-  </div>
-</div>
+</body>
+</html>
 
     <script>
         function countFilteredComplaints() {
@@ -254,23 +257,22 @@
                 }
                 return cookieValue;
             }
+            document.querySelectorAll('.complaint-table tbody tr').forEach(row => {
+                row.addEventListener('click', event => {
+                    if (event.target.tagName.toLowerCase() === 'select') return;
 
-document.querySelectorAll('.complaint-table tbody tr').forEach(row => {
-  row.addEventListener('click', event => {
-    if (event.target.tagName.toLowerCase() === 'select') return;
+                    const cells = row.querySelectorAll('td');
+                    const complaintId = cells[0].textContent.trim();
+                    const userName = cells[1].textContent.trim();
+                    const description = cells[2].textContent.trim();
+                    const date = cells[3].textContent.trim();
+                    const location = cells[4].textContent.trim();
+                    const status = row.querySelector('.status-dropdown').value.trim();
+                    const imgEl = cells[5].querySelector('img');
+                    const imageUrl = imgEl ? imgEl.src : null;
 
-    const cells = row.querySelectorAll('td');
-    const complaintId = cells[0].textContent.trim();
-    const userName = cells[1].textContent.trim();
-    const description = cells[2].textContent.trim();
-    const date = cells[3].textContent.trim();
-    const location = cells[4].textContent.trim();
-    const status = row.querySelector('.status-dropdown').value.trim();
-    const imgEl = cells[5].querySelector('img');
-    const imageUrl = imgEl ? imgEl.src : null;
-
-    const detailsDiv = document.getElementById('complaintDetails');
-    detailsDiv.innerHTML = `
+                    const detailsDiv = document.getElementById('complaintDetails');
+                    detailsDiv.innerHTML = `
       <p><strong>Complaint ID:</strong> ${complaintId}</p>
       <p><strong>User Name:</strong> ${userName}</p>
       <p><strong>Description:</strong> ${description}</p>
@@ -280,21 +282,20 @@ document.querySelectorAll('.complaint-table tbody tr').forEach(row => {
       ${imageUrl ? `<p><strong>Image:</strong><br><img src="${imageUrl}" alt="Complaint Image"></p>` : '<p><strong>Image:</strong> No image</p>'}
     `;
 
-    document.getElementById('complaintModal').style.display = 'block';
-  });
-});
+                    document.getElementById('complaintModal').style.display = 'block';
+                });
+            });
 
-document.getElementById('closeModal').addEventListener('click', () => {
-  document.getElementById('complaintModal').style.display = 'none';
-});
+            document.getElementById('closeModal').addEventListener('click', () => {
+                document.getElementById('complaintModal').style.display = 'none';
+            });
 
-window.addEventListener('click', (event) => {
-  const modal = document.getElementById('complaintModal');
-  if (event.target === modal) {
-    modal.style.display = 'none';
-  }
-});
-
+            window.addEventListener('click', (event) => {
+                const modal = document.getElementById('complaintModal');
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
         });
     </script>
 </body>

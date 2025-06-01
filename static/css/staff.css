@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
 * {
   margin: 0;
@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   background-color: #f8fafc;
   color: #333;
   line-height: 1.6;
@@ -37,7 +37,8 @@ body {
 
 header {
   background-color: #fff;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -46,8 +47,14 @@ header {
 }
 
 @keyframes slideDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .navbar {
@@ -59,7 +66,8 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .navbar .logo {
@@ -248,27 +256,47 @@ header {
 
 .total {
   border-top-color: #3b82f6;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(239, 246, 255, 0.95) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.15) 0%,
+    rgba(239, 246, 255, 0.95) 100%
+  );
 }
 
 .resolved {
   border-top-color: #10b981;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(236, 253, 245, 0.95) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.15) 0%,
+    rgba(236, 253, 245, 0.95) 100%
+  );
 }
 
 .progress {
   border-top-color: #f59e0b;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(255, 251, 235, 0.95) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.15) 0%,
+    rgba(255, 251, 235, 0.95) 100%
+  );
 }
 
 .pending {
   border-top-color: #ef4444;
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(254, 242, 242, 0.95) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.15) 0%,
+    rgba(254, 242, 242, 0.95) 100%
+  );
 }
 
 .reject {
   border-top-color: #64748b;
-  background: linear-gradient(135deg, rgba(100, 116, 139, 0.15) 0%, rgba(248, 250, 252, 0.95) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(100, 116, 139, 0.15) 0%,
+    rgba(248, 250, 252, 0.95) 100%
+  );
 }
 
 .content h2 {
@@ -405,20 +433,30 @@ footer {
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 1024px) {
   .navbar .logo img {
     width: 10rem;
   }
-  
+
   .status-counts > div {
     min-width: 150px;
     padding: 1rem;
@@ -430,44 +468,44 @@ footer {
     flex-wrap: wrap;
     padding: 0.5rem 1rem;
   }
-  
+
   .navbar .logo {
     width: 100%;
     text-align: center;
     margin-bottom: 0.5rem;
   }
-  
+
   .navbar .logo img {
     width: 9rem;
   }
-  
+
   .search-container {
     order: 3;
     width: 100%;
     max-width: 100%;
     margin: 0.5rem 0;
   }
-  
+
   .actions {
     order: 2;
     margin-left: auto;
   }
-  
+
   .status-counts {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .status-counts > div {
     width: 100%;
     max-width: 220px;
   }
-  
+
   .complaint-table {
     font-size: 0.9rem;
   }
-  
-  .complaint-table th, 
+
+  .complaint-table th,
   .complaint-table td {
     padding: 0.75rem;
   }
@@ -479,63 +517,115 @@ footer {
     gap: 0.5rem;
     align-items: flex-end;
   }
-  
+
   .btn-getstarted {
     margin-left: 0;
   }
-  
+
   .footer-container {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .complaint-table {
     display: block;
     overflow-x: auto;
   }
-  
+
   .status-counts > div {
     min-width: 100%;
   }
 }
+
 .modal {
-    display: none; 
-    position: fixed;
-    z-index: 1000; 
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.7);
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease-out;
+  overflow-y: auto;
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: slideUp 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.close {
+  color: #777;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  line-height: 1;
+  padding: 0 5px;
+  border-radius: 50%;
+}
+
+.close:hover {
+  color: #ff3b30;
+  transform: rotate(90deg);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+#complaintDetails {
+  color: #333;
+}
+
+#complaintDetails p {
+  margin: 12px 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+#complaintDetails img {
+  max-width: 100%;
+  margin: 15px 0;
+  border-radius: 6px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  display: block; 
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
   }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
   .modal-content {
-    background-color: #fff;
-    margin: 50px auto;
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 700px;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    margin: 10% auto;
+    padding: 20px 15px;
+    width: 95%;
   }
+  
   .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
+    font-size: 24px;
   }
-  .close:hover {
-    color: #000;
-  }
-  #complaintDetails img {
-    max-width: 100%;
-    margin-top: 10px;
-    border-radius: 4px;
-  }
-  #complaintDetails p {
-    margin: 8px 0;
-    font-size: 16px;
-  }
+}

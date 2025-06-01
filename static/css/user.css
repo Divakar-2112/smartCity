@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
 * {
   margin: 0;
@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   background-color: #f8fafc;
   color: #333;
   line-height: 1.6;
@@ -36,7 +36,8 @@ body {
 
 header {
   background-color: #fff;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -45,8 +46,14 @@ header {
 }
 
 @keyframes slideDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .navbar {
@@ -58,7 +65,8 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .navbar .logo {
@@ -376,8 +384,14 @@ header {
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .modal-content h2 {
@@ -413,8 +427,8 @@ form label {
   font-size: 0.95rem;
 }
 
-form select, 
-form input, 
+form select,
+form input,
 form textarea {
   padding: 0.8rem;
   border: 1px solid #e2e8f0;
@@ -423,8 +437,8 @@ form textarea {
   transition: all 0.3s ease;
 }
 
-form select:focus, 
-form input:focus, 
+form select:focus,
+form input:focus,
 form textarea:focus {
   border-color: #01c38e;
   box-shadow: 0 0 0 2px rgba(1, 195, 142, 0.2);
@@ -517,24 +531,34 @@ footer {
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 1024px) {
   .navbar .logo img {
     width: 10rem;
   }
-  
+
   .stats {
     gap: 1rem;
   }
-  
+
   .card {
     width: 160px;
     padding: 1rem;
@@ -546,39 +570,39 @@ footer {
     flex-wrap: wrap;
     padding: 0.5rem 1rem;
   }
-  
+
   .navbar .logo {
     width: 100%;
     text-align: center;
     margin-bottom: 0.5rem;
   }
-  
+
   .navbar .logo img {
     width: 9rem;
   }
-  
+
   .search-container {
     order: 3;
     width: 100%;
     max-width: 100%;
     margin: 0.5rem 0;
   }
-  
+
   .actions {
     order: 2;
     margin-left: auto;
   }
-  
+
   .stats {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .card {
     width: 100%;
     max-width: 220px;
   }
-  
+
   .complaint-main {
     padding: 0 1rem;
   }
@@ -590,21 +614,21 @@ footer {
     gap: 0.5rem;
     align-items: flex-end;
   }
-  
+
   .btn-getstarted {
     margin-left: 0;
   }
-  
+
   .modal-content {
     width: 95%;
     padding: 1.5rem;
   }
-  
+
   .footer-container {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .complaintButton {
     width: 100%;
     justify-content: center;

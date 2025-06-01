@@ -9,7 +9,6 @@ from django.shortcuts import render
 from django.contrib.auth import logout
 from .models import ComplaintDetail, Department, SubCategory
 
-
 def home(request):
     return render(request, "citizen/index.html")
 
@@ -64,11 +63,6 @@ def staff_home(request):
 
 def admin_home(request):
     return render(request, 'myadmin.html')
-
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from .models import ComplaintDetail, Department, SubCategory
-
 
 @login_required(login_url='login')
 def user(request):
