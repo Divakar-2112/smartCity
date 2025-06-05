@@ -35,6 +35,7 @@ def staff_complaints_view(request):
         'Rejected': complaints.filter(status='Rejected').count(),
     }
 
+
     context = {
         "department": department,
         "department_complaints": complaints,
@@ -42,8 +43,8 @@ def staff_complaints_view(request):
         "total_complaints": complaints.count(),
         "user": request.user
     }
+    
     return render(request, 'department/staff.html', context)
-
 @csrf_exempt
 def update_complaint_status(request):
     if request.method == 'POST':

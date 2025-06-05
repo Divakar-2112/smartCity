@@ -7,9 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Register Page</title>
   <link rel="stylesheet" href="{% static 'css/register.css' %}" />
-  <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon-icon.png' %}" />
+  <link rel="icon" href="{% static 'assets/favicon-icon.png' %}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
   <style>
     body::before {
       content: "";
@@ -19,6 +18,23 @@
       filter: blur(5px);
       z-index: -1;
       opacity: 0.85;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      cursor: pointer;
     }
   </style>
 </head>
@@ -32,76 +48,76 @@
 
       <div class="form-section">
         <h3>Create Account</h3>
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+
         <form method="POST" autocomplete="off">
           {% csrf_token %}
-
           <div class="step active" id="step-1">
             {% for field in form %}
-            {% if field.name in 'username,email,first_name,last_name' %}
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            {{ field }}
-            {% endif %}
-            {% endfor %}
-            <div class="button-group">
-              <button type="button" onclick="nextStep()">Next</button>
-            </div>
-          </div>
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {% if 'password' in field.name %}
+                <div class="password-wrapper">
+                  {{ field }}
+                  <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('{{ field.auto_id }}', this)"></i>
+                </div>
+                <span id="{{ field.auto_id }}-error" class="error-message"></span><br>
+              {% else %}
+                {{ field }}
+              {% endif %}
 
-          <div class="step" id="step-2">
-            {% for field in form %}
-            {% if field.name == 'phone' %}
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            {{ field }}
-            {% elif field.name == 'password1' %}
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            <div class="password-wrapper">
-              {{ field }}
-              <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('id_password1', this)"></i>
-            </div>
-            {% elif field.name == 'password2' %}
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            <div class="password-wrapper">
-              {{ field }}
-              <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('id_password2', this)"></i>
-            </div>
-            {% endif %}
+              {% if field.errors %}
+                <span class="error-message">{{ field.errors.0 }}</span>
+              {% endif %}
             {% endfor %}
+
             <div class="button-group">
-              <button type="button" onclick="prevStep()">Back</button>
               <button type="submit">Register</button>
             </div>
           </div>
-
           <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
         </form>
       </div>
     </div>
   </div>
+
   <script>
     function togglePassword(inputId, icon) {
       const input = document.getElementById(inputId);
-      const isHidden = input.type === "password";
-      input.type = isHidden ? "text" : "password";
-
+      if (!input) return;
+      input.type = input.type === "password" ? "text" : "password";
       icon.classList.toggle("fa-eye");
       icon.classList.toggle("fa-eye-slash");
     }
 
-    let currentStep = 1;
-    function showStep(step) {
-      document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-      document.getElementById('step-' + step).classList.add('active');
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+      const password1 = document.getElementById("id_password1");
+      const password2 = document.getElementById("id_password2");
 
-    function nextStep() {
-      currentStep++;
-      showStep(currentStep);
-    }
+      const error1 = document.getElementById("id_password1-error");
+      const error2 = document.getElementById("id_password2-error");
 
-    function prevStep() {
-      currentStep--;
-      showStep(currentStep);
-    }
+      const pattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+
+      function validatePasswords() {
+        const pass = password1.value;
+        const confirm = password2.value;
+
+        error1.textContent = pattern.test(pass)
+          ? ""
+          : "Min 8 chars, 1 uppercase,1 special char(!@#$%^&*).";
+
+        error2.textContent = confirm && pass !== confirm
+          ? "Passwords do not match."
+          : "";
+      }
+
+      password1.addEventListener("input", validatePasswords);
+      password2.addEventListener("input", validatePasswords);
+    });
   </script>
 </body>
 
