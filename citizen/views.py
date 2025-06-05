@@ -9,6 +9,7 @@ from django.shortcuts import render
 from django.contrib.auth import logout
 from .models import ComplaintDetail, Department, SubCategory
 from django.contrib.auth import authenticate
+from django.shortcuts import get_object_or_404
 
 def home(request):
     return render(request, "citizen/index.html")
@@ -102,3 +103,30 @@ def user(request):
         'rejected_count': rejected_count,
         'message': message,
     })
+
+@login_required(login_url='login')
+def edit_complaint(request, complaint_id):
+    complaint = get_object_or_404(ComplaintDetail, pk=complaint_id, user=request.user)
+
+    if request.method == 'POST':
+        complaint.department_id = request.POST.get('department')
+        complaint.subCategory_id = request.POST.get('subCategory')
+        complaint.description = request.POST.get('description')
+        complaint.location = request.POST.get('location')
+        complaint.image_url = request.POST.get('image_url')
+        complaint.save()
+        messages.success(request, 'Complaint updated successfully.')
+        return redirect('user')
+
+    return render(request, 'citizen/edit_complaint.html', {
+        'complaint': complaint,
+        'departments': Department.objects.all(),
+        'subcategories': SubCategory.objects.all(),
+    })
+
+@login_required(login_url='login')
+def delete_complaint(request, complaint_id):
+    complaint = get_object_or_404(ComplaintDetail, pk=complaint_id, user=request.user)
+    complaint.delete()
+    messages.success(request, 'Complaint deleted successfully.')
+    return redirect('user')
