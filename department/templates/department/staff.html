@@ -88,11 +88,12 @@
                             <td>{{ complaint.created_at|date:"M-d-y" }}</td>
                             <td>{{ complaint.location }}</td>
                             <td>
-                                {% if complaint.image_url %}
-                                <img src="{{ complaint.image_url }}" alt="Image" style="width: 60px;">
+                                {% if complaint.image_upload %}
+                                    <img src="{{ complaint.image_upload }}" alt="Complaint Image" style="max-width: 300px;">
                                 {% else %}
-                                No image
+                                    <p>No image uploaded.</p>
                                 {% endif %}
+
                             </td>
                             <td>
                                 <select class="status-dropdown status">
