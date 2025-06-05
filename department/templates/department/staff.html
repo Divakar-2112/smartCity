@@ -27,18 +27,6 @@
     </header>
 
     <div class="container">
-        <div class="header">
-            <div class="sortdiv">
-                <label for="sorttype">Sort by:</label>
-                <select id="sorttype">
-                    <option selected>Default</option>
-                    <option value="Resolved">Resolved</option>
-                    <option value="Pending">Pending</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Rejected">Rejected</option>
-                </select>
-            </div>
-        </div>
 
         <div class="status-counts">
             <div class="total">
@@ -65,6 +53,20 @@
 
         <div class="content">
             <h2>Complaints Overview - {{ department.name }}</h2>
+
+        <div class="header">
+            <div class="sortdiv">
+                <label for="sorttype">Sort by:</label>
+                <select id="sorttype">
+                    <option selected>Default</option>
+                    <option value="Resolved">Resolved</option>
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Rejected">Rejected</option>
+                </select>
+            </div>
+        </div>
+        
             <div class="department-section">
                 <table class="complaint-table">
                     <thead>

@@ -101,13 +101,13 @@
         </select>
 
         <label for="description">Description:</label><br>
-        <textarea name="description" rows="4" cols="50" required></textarea><br><br>
+        <textarea name="description" rows="4" cols="50" required></textarea>
 
         <label for="location">Location:</label>
-        <input type="text" name="location" required><br><br>
+        <input type="text" name="location" required>
 
         <label for="image_url">Image URL:</label>
-        <input type="url" name="image_url" placeholder="https://..."><br><br>
+        <input type="url" name="image_url" placeholder="https://...">
 
         <input type="submit" value="Submit Complaint">
       </form>
@@ -145,6 +145,19 @@
     </div>
   </footer>
 
+
+  <div id="profileSidebar" class="sidebar">
+    <span class="close-sidebar" id="closeSidebar">&times;</span>
+    <h2>User Profile</h2>
+    <div class="profile-details">
+      <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+      <p><strong>Username:</strong> {{ user.username }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Phone:</strong> {{ user.phone }}</p>
+    </div>
+  </div>
+
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const searchInput = document.querySelector('.search-input');
@@ -181,6 +194,24 @@
         if (event.target == modal) {
           modal.style.display = "none";
         }
+      }
+    });
+
+    const userIcon = document.querySelector('.user-icon');
+    const profileSidebar = document.getElementById('profileSidebar');
+    const closeSidebar = document.getElementById('closeSidebar');
+
+    userIcon.addEventListener('click', () => {
+      profileSidebar.classList.add('active');
+    });
+
+    closeSidebar.addEventListener('click', () => {
+      profileSidebar.classList.remove('active');
+    });
+
+    window.addEventListener('click', (event) => {
+      if (!profileSidebar.contains(event.target) && !userIcon.contains(event.target)) {
+        profileSidebar.classList.remove('active');
       }
     });
   </script>

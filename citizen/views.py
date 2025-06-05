@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib.auth import logout
 from .models import ComplaintDetail, Department, SubCategory
+from django.contrib.auth import authenticate
 
 def home(request):
     return render(request, "citizen/index.html")
