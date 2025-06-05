@@ -3,17 +3,19 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Register Page</title>
-  <link rel="stylesheet" href="{% static 'css/register.css' %}">
-  <link rel="icon" type="image/x-icon" href="{%static 'assets/favicon-icon.png'%}">
+  <link rel="stylesheet" href="{% static 'css/register.css' %}" />
+  <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon-icon.png' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
   <style>
     body::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: url("{% static 'assets/background.png'%}") center/cover no-repeat;
+      background: url("{% static 'assets/background.png' %}") center/cover no-repeat;
       filter: blur(5px);
       z-index: -1;
       opacity: 0.85;
@@ -25,23 +27,82 @@
   <div class="signup-wrapper">
     <div class="container">
       <div class="image-section">
-        <img src="{% static 'assets/sign-up-form.png' %}" alt="Register Background">
+        <img src="{% static 'assets/sign-up-form.png' %}" alt="Register Background" />
       </div>
 
       <div class="form-section">
         <h3>Create Account</h3>
         <form method="POST" autocomplete="off">
           {% csrf_token %}
-          {% for field in form %}
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-          {{ field }}
-          {% endfor %}
-          <button type="submit">Register</button>
+
+          <div class="step active" id="step-1">
+            {% for field in form %}
+            {% if field.name in 'username,email,first_name,last_name' %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% endif %}
+            {% endfor %}
+            <div class="button-group">
+              <button type="button" onclick="nextStep()">Next</button>
+            </div>
+          </div>
+
+          <div class="step" id="step-2">
+            {% for field in form %}
+            {% if field.name == 'phone' %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% elif field.name == 'password1' %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <div class="password-wrapper">
+              {{ field }}
+              <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('id_password1', this)"></i>
+            </div>
+            {% elif field.name == 'password2' %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <div class="password-wrapper">
+              {{ field }}
+              <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('id_password2', this)"></i>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <div class="button-group">
+              <button type="button" onclick="prevStep()">Back</button>
+              <button type="submit">Register</button>
+            </div>
+          </div>
+
           <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
         </form>
       </div>
     </div>
   </div>
+  <script>
+    function togglePassword(inputId, icon) {
+      const input = document.getElementById(inputId);
+      const isHidden = input.type === "password";
+      input.type = isHidden ? "text" : "password";
+
+      icon.classList.toggle("fa-eye");
+      icon.classList.toggle("fa-eye-slash");
+    }
+
+    let currentStep = 1;
+    function showStep(step) {
+      document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+      document.getElementById('step-' + step).classList.add('active');
+    }
+
+    function nextStep() {
+      currentStep++;
+      showStep(currentStep);
+    }
+
+    function prevStep() {
+      currentStep--;
+      showStep(currentStep);
+    }
+  </script>
 </body>
 
 </html>
