@@ -27,28 +27,6 @@
     </header>
 
     <div class="container">
-        <div class="header">
-            <div class="filterdiv">
-                <label for="filtertype">Filter:</label>
-                <select id="filtertype" name="category">
-                    <option value="All" selected>Select department</option>
-                    {% for dep in department %}
-                    <option value="{{ dep.name }}">{{ dep.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="sortdiv">
-                <label for="sorttype">Sort by:</label>
-                <select id="sorttype">
-                    <option selected>Default</option>
-                    <option value="Resolved">Resolved</option>
-                    <option value="Pending">Pending</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Rejected">Rejected</option>
-                </select>
-            </div>
-        </div>
-
         <div class="status-counts">
             <div class="total">
                 <h2>Total Complaints:</h2>
@@ -71,23 +49,42 @@
                 <h4 id="count-rejected">{{ status_counts.Rejected }}</h4>
             </div>
         </div>
-
+        
         <div class="content">
             <h2>Complaints Overview</h2>
+            <div class="header">
+            <div class="filterdiv">
+                <label for="filtertype">Filter:</label>
+                <select id="filtertype" name="category">
+                    <option value="All" selected>Select department</option>
+                    {% for dep in department %}
+                    <option value="{{ dep.name }}">{{ dep.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="sortdiv">
+                <label for="sorttype">Sort by:</label>
+                <select id="sorttype">
+                    <option value="default" selected>All</option>
+                    <option value="az">Sort by Name (A-Z)</option>
+                    <option value="id">Sort by ID (0-9)</option>
+                </select>
+            </div>
+        </div>
             {% for dept_name, complaints in department_complaints.items %}
             <div class="department-section" data-department="{{ dept_name }}">
                 <h3>{{ dept_name }}</h3>
                 <table class="complaint-table">
                     <thead>
                         <tr>
-                            <th>Complaint ID</th>
-                            <th>UserName</th>
+                            <th data-sort="complaint_id">Complaint ID</th>
+                            <th data-sort="username">UserName</th>
                             <th>Description</th>
                             <th>Sub Category</th>
-                            <th>Date</th>
+                            <th data-sort="created_at">Date</th>
                             <th>Location</th>
                             <th>Image</th>
-                            <th>Status</th>
+                            <th data-sort="status">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,7 +94,7 @@
                             <td>{{ complaint.user.name }}</td>
                             <td>{{ complaint.description }}</td>
                             <td>{{ complaint.subCategory }}</td>
-                            <td>{{ complaint.created_at|date:"Y-m-d" }}</td>
+                            <td>{{ complaint.created_at|date:"M-d-y" }}</td>
                             <td>{{ complaint.location }}</td>
                             <td>
                                 {% if complaint.image_url %}
@@ -190,21 +187,52 @@
 
         function filterTable() {
             const searchText = document.querySelector('.search-input').value.toLowerCase();
-            const selectedStatus = document.getElementById('sorttype').value;
+            const sortType = document.getElementById('sorttype').value;
             const selectedDepartment = document.getElementById('filtertype').value;
 
-            document.querySelectorAll('tbody tr').forEach(row => {
-                const cells = row.querySelectorAll('td');
-                const complainant = cells[1].textContent.toLowerCase();
-                const description = cells[2].textContent.toLowerCase();
-                const status = row.querySelector('.status').textContent.trim();
-                const department = row.getAttribute('data-department');
+            document.querySelectorAll('.department-section').forEach(section => {
+                const rows = Array.from(section.querySelectorAll('tbody tr'));
+                const department = section.getAttribute('data-department');
 
-                const matchesSearch = complainant.includes(searchText) || description.includes(searchText);
-                const matchesStatus = selectedStatus === "Default" || status === selectedStatus;
-                const matchesDepartment = selectedDepartment === "All" || department === selectedDepartment;
+                const filteredRows = rows.filter(row => {
+                    const cells = row.querySelectorAll('td');
+                    const username = cells[1].textContent.toLowerCase();
+                    const complaintId = cells[0].textContent.toLowerCase();
+                    const status = row.querySelector('.status').textContent.trim();
+                    const dept = row.getAttribute('data-department');
 
-                row.style.display = (matchesSearch && matchesStatus && matchesDepartment) ? '' : 'none';
+                    const matchesSearch = username.includes(searchText) || complaintId.includes(searchText);
+                    const matchesDepartment = selectedDepartment === "All" || dept === selectedDepartment;
+
+                    return matchesSearch && matchesDepartment;
+                });
+
+                if (sortType === 'az') {
+                    filteredRows.sort((a, b) => {
+                        const nameA = a.querySelectorAll('td')[1].textContent.toLowerCase();
+                        const nameB = b.querySelectorAll('td')[1].textContent.toLowerCase();
+                        return nameA.localeCompare(nameB);
+                    });
+                } else if (sortType === 'id') {
+                    filteredRows.sort((a, b) => {
+                        const idA = parseInt(a.querySelectorAll('td')[0].textContent);
+                        const idB = parseInt(b.querySelectorAll('td')[0].textContent);
+                        return idA - idB;
+                    });
+                }
+
+                const tbody = section.querySelector('tbody');
+                tbody.innerHTML = '';
+                filteredRows.forEach(row => {
+                    row.style.display = '';
+                    tbody.appendChild(row);
+                });
+
+                rows.forEach(row => {
+                    if (!filteredRows.includes(row)) {
+                        row.style.display = 'none';
+                    }
+                });
             });
 
             countFilteredComplaints();
@@ -225,14 +253,14 @@
 
                     const detailsDiv = document.getElementById('complaintDetails');
                     detailsDiv.innerHTML = `
-              <p><strong>Complaint ID:</strong> ${complaintId}</p>
-              <p><strong>User Name:</strong> ${userName}</p>
-              <p><strong>Description:</strong> ${description}</p>
-              <p><strong>Date:</strong> ${date}</p>
-              <p><strong>Location:</strong> ${location}</p>
-              <p><strong>Status:</strong> ${status}</p>
-              ${imageUrl ? `<p><strong>Image:</strong><br><img src="${imageUrl}" alt="Complaint Image"></p>` : '<p><strong>Image:</strong> No image</p>'}
-            `;
+                      <p><strong>Complaint ID:</strong> ${complaintId}</p>
+                      <p><strong>User Name:</strong> ${userName}</p>
+                      <p><strong>Description:</strong> ${description}</p>
+                      <p><strong>Date:</strong> ${date}</p>
+                      <p><strong>Location:</strong> ${location}</p>
+                      <p><strong>Status:</strong> ${status}</p>
+                      ${imageUrl ? `<p><strong>Image:</strong><br><img src="${imageUrl}" alt="Complaint Image"></p>` : '<p><strong>Image:</strong> No image</p>'}
+                    `;
 
                     document.getElementById('complaintModal').style.display = 'block';
                 });
@@ -250,10 +278,52 @@
             });
         }
 
+        function setupHeaderSort() {
+            document.querySelectorAll('th[data-sort]').forEach(header => {
+                header.addEventListener('click', () => {
+                    const sortKey = header.getAttribute('data-sort');
+                    const ascending = !header.classList.contains('asc');
+                    document.querySelectorAll('th[data-sort]').forEach(h => h.classList.remove('asc', 'desc'));
+                    header.classList.add(ascending ? 'asc' : 'desc');
+
+                    document.querySelectorAll('.department-section').forEach(section => {
+                        const rows = Array.from(section.querySelectorAll('tbody tr'));
+                        rows.sort((a, b) => {
+                            const aText = getSortValue(a, sortKey);
+                            const bText = getSortValue(b, sortKey);
+
+                            if (!isNaN(aText) && !isNaN(bText)) {
+                                return ascending ? aText - bText : bText - aText;
+                            }
+                            return ascending ? aText.localeCompare(bText) : bText.localeCompare(aText);
+                        });
+
+                        const tbody = section.querySelector('tbody');
+                        rows.forEach(row => tbody.appendChild(row));
+                    });
+
+                    applyStatusColors();
+                });
+            });
+        }
+
+        function getSortValue(row, key) {
+            const cells = row.querySelectorAll('td');
+            switch (key) {
+                case 'complaint_id': return parseInt(cells[0].textContent.trim()) || 0;
+                case 'username': return cells[1].textContent.trim().toLowerCase();
+                case 'status': return cells[7].textContent.trim().toLowerCase();
+                case 'created_at': return new Date(cells[4].textContent.trim()).getTime();
+                default:
+                    return '';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             applyStatusColors();
             filterTable();
             setupComplaintModal();
+            setupHeaderSort();
 
             document.querySelector('.search-input').addEventListener('input', filterTable);
             document.getElementById('sorttype').addEventListener('change', filterTable);

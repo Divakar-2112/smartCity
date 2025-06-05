@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Department Staff Dashboard</title>
-    <link rel="icon" type="image/x-icon" href="{%static 'assets/favicon-icon.png'%}">
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon-icon.png' %}">
     <link rel="stylesheet" href="{% static 'css/staff.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
@@ -27,19 +27,6 @@
     </header>
 
     <div class="container">
-        <div class="header">
-            <div class="sortdiv">
-                <label for="sorttype">Sort by:</label>
-                <select id="sorttype">
-                    <option selected>Default</option>
-                    <option value="Resolved">Resolved</option>
-                    <option value="Pending">Pending</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Rejected">Rejected</option>
-                </select>
-            </div>
-        </div>
-
         <div class="status-counts">
             <div class="total">
                 <h2>Total Complaints:</h2>
@@ -65,28 +52,38 @@
 
         <div class="content">
             <h2>Complaints Overview - {{ department.name }}</h2>
+            <div class="header">
+                <div class="sortdiv">
+                    <label for="sorttype">Sort by:</label>
+                    <select id="sorttype">
+                        <option value="default" selected>All</option>
+                        <option value="az">Sort by Name (A-Z)</option>
+                        <option value="id">Sort by ID (0-9)</option>
+                    </select>
+                </div>
+            </div>
             <div class="department-section">
                 <table class="complaint-table">
                     <thead>
                         <tr>
-                            <th>Complaint ID</th>
-                            <th>UserName</th>
+                            <th data-sort="complaint_id">Complaint ID</th>
+                            <th data-sort="username">UserName</th>
                             <th>Sub Category</th>
                             <th>Description</th>
-                            <th>Date</th>
+                            <th data-sort="created_at">Date</th>
                             <th>Location</th>
                             <th>Image</th>
-                            <th>Status</th>
+                            <th data-sort="status">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for complaint in department_complaints %}
-                        <tr>
+                        <tr data-department="{{ dept_name }}">
                             <td>{{ complaint.complaint_id }}</td>
                             <td>{{ complaint.user.name }}</td>
                             <td>{{ complaint.subCategory }}</td>
                             <td>{{ complaint.description }}</td>
-                            <td>{{ complaint.created_at|date:"Y-m-d" }}</td>
+                            <td>{{ complaint.created_at|date:"M-d-y" }}</td>
                             <td>{{ complaint.location }}</td>
                             <td>
                                 {% if complaint.image_url %}
@@ -106,7 +103,7 @@
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="7" style="text-align:center;">No complaints found.</td>
+                            <td colspan="8" style="text-align:center;">No complaints found.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -119,8 +116,7 @@
         <div class="modal-content">
             <span id="closeModal" class="close">&times;</span>
             <h2>Complaint Details</h2>
-            <div id="complaintDetails">
-            </div>
+            <div id="complaintDetails"></div>
         </div>
     </div>
 
@@ -152,69 +148,46 @@
         </div>
     </footer>
 
-</body>
-</html>
-
     <script>
-        function countFilteredComplaints() {
-            const counts = {
-                Resolved: 0,
-                "In Progress": 0,
-                Pending: 0,
-                Rejected: 0
-            };
-            let total = 0;
-
-            document.querySelectorAll('tbody tr').forEach(row => {
-                if (row.style.display !== 'none') {
-                    const status = row.querySelector('.status')?.value?.trim();
-                    if (counts.hasOwnProperty(status)) counts[status]++;
-                    total++;
-                }
-            });
-
-            document.getElementById('count-total').textContent = total;
-            document.getElementById('count-resolved').textContent = counts.Resolved;
-            document.getElementById('count-inprogress').textContent = counts["In Progress"];
-            document.getElementById('count-pending').textContent = counts.Pending;
-            document.getElementById('count-rejected').textContent = counts.Rejected;
-        }
-
-        function applyStatusColors() {
-            document.querySelectorAll('.status-dropdown').forEach(el => {
-                const status = el.value.toLowerCase();
-                el.style.color = {
-                    'pending': '#dc3545',
-                    'resolved': '#28a745',
-                    'in progress': '#ff8c00',
-                    'rejected': '#6c757d'
-                }[status] || 'black';
-            });
-        }
-
-        function filterTable() {
-            const searchText = document.querySelector('.search-input').value.toLowerCase();
-            const selectedStatus = document.getElementById('sorttype').value;
-
-            document.querySelectorAll('tbody tr').forEach(row => {
-                const cells = row.querySelectorAll('td');
-                const complainant = cells[1].textContent.toLowerCase();
-                const description = cells[2].textContent.toLowerCase();
-                const status = row.querySelector('.status')?.value?.trim();
-
-                const matchesSearch = complainant.includes(searchText) || description.includes(searchText);
-                const matchesStatus = selectedStatus === "Default" || status === selectedStatus;
-
-                row.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
-            });
-
-            countFilteredComplaints();
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             applyStatusColors();
-            document.querySelector('.search-input').addEventListener('input', filterTable);
-            document.getElementById('sorttype').addEventListener('change', filterTable);
+            setupHeaderSort();
+            countFilteredComplaints();
+
+            const searchInput = document.querySelector('.search-input');
+            const sortDropdown = document.getElementById('sorttype');
+
+            function filterTable() {
+                const searchText = searchInput.value.toLowerCase();
+                const sortType = sortDropdown.value;
+                const tbody = document.querySelector('.complaint-table tbody');
+                const allRows = Array.from(tbody.querySelectorAll('tr'));
+                let filteredRows = allRows.filter(row => {
+                    const cells = row.querySelectorAll('td');
+                    const userName = cells[1].textContent.toLowerCase();
+                    const complaintId = cells[0].textContent.toLowerCase();
+                    return userName.includes(searchText) || complaintId.includes(searchText);
+                });
+
+                if (sortType === 'az') {
+                    filteredRows.sort((a, b) =>
+                        a.cells[1].textContent.localeCompare(b.cells[1].textContent)
+                    );
+                } else if (sortType === 'id') {
+                    filteredRows.sort((a, b) =>
+                        parseInt(a.cells[0].textContent) - parseInt(b.cells[0].textContent)
+                    );
+                }
+
+                tbody.innerHTML = '';
+                filteredRows.forEach(row => tbody.appendChild(row));
+
+                countFilteredComplaints();
+                applyStatusColors();
+            }
+
+            searchInput.addEventListener('input', filterTable);
+            sortDropdown.addEventListener('change', filterTable);
 
             document.querySelectorAll('.status-dropdown').forEach(dropdown => {
                 dropdown.addEventListener('change', (event) => {
@@ -228,63 +201,106 @@
                             'Content-Type': 'application/json',
                             'X-CSRFToken': getCookie('csrftoken')
                         },
-                        body: JSON.stringify({
-                            complaint_id: complaintId,
-                            status: newStatus
-                        })
+                        body: JSON.stringify({ complaint_id: complaintId, status: newStatus })
                     })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (!data.success) alert("Error updating status: " + (data.error || "Unknown error"));
-                            applyStatusColors();
-                            countFilteredComplaints();
-                        })
-                        .catch(error => {
-                            alert("Network error: " + error);
-                        });
+                    .then(res => res.json())
+                    .then(data => {
+                        if (!data.success) alert("Error updating status");
+                        applyStatusColors();
+                        countFilteredComplaints();
+                    })
+                    .catch(error => alert("Error: " + error));
                 });
             });
 
             function getCookie(name) {
-                let cookieValue = null;
-                if (document.cookie && document.cookie !== '') {
-                    const cookies = document.cookie.split(';');
-                    for (let i = 0; i < cookies.length; i++) {
-                        const cookie = cookies[i].trim();
-                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                            break;
-                        }
-                    }
-                }
-                return cookieValue;
+                const cookieValue = document.cookie.split('; ')
+                    .find(row => row.startsWith(name + '='))
+                    ?.split('=')[1];
+                return cookieValue || '';
             }
+
+            function applyStatusColors() {
+                document.querySelectorAll('.status-dropdown').forEach(el => {
+                    const colorMap = {
+                        'pending': '#dc3545',
+                        'resolved': '#28a745',
+                        'in progress': '#ff8c00',
+                        'rejected': '#6c757d'
+                    };
+                    el.style.color = colorMap[el.value.toLowerCase()] || 'black';
+                });
+            }
+
+            function countFilteredComplaints() {
+                const counts = { Resolved: 0, "In Progress": 0, Pending: 0, Rejected: 0 };
+                let total = 0;
+                document.querySelectorAll('tbody tr').forEach(row => {
+                    if (row.style.display !== 'none') {
+                        const status = row.querySelector('.status')?.value;
+                        if (counts.hasOwnProperty(status)) counts[status]++;
+                        total++;
+                    }
+                });
+                document.getElementById('count-total').textContent = total;
+                document.getElementById('count-resolved').textContent = counts.Resolved;
+                document.getElementById('count-inprogress').textContent = counts["In Progress"];
+                document.getElementById('count-pending').textContent = counts.Pending;
+                document.getElementById('count-rejected').textContent = counts.Rejected;
+            }
+
+            function setupHeaderSort() {
+                document.querySelectorAll('th[data-sort]').forEach(header => {
+                    header.addEventListener('click', () => {
+                        const key = header.getAttribute('data-sort');
+                        const ascending = !header.classList.contains('asc');
+                        document.querySelectorAll('th').forEach(h => h.classList.remove('asc', 'desc'));
+                        header.classList.add(ascending ? 'asc' : 'desc');
+
+                        const tbody = document.querySelector('tbody');
+                        const rows = Array.from(tbody.querySelectorAll('tr'));
+
+                        rows.sort((a, b) => {
+                            const valA = getSortValue(a, key);
+                            const valB = getSortValue(b, key);
+                            if (!isNaN(valA) && !isNaN(valB)) return ascending ? valA - valB : valB - valA;
+                            return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                        });
+
+                        rows.forEach(row => tbody.appendChild(row));
+                    });
+                });
+            }
+
+            function getSortValue(row, key) {
+                const cells = row.querySelectorAll('td');
+                switch (key) {
+                    case 'complaint_id': return parseInt(cells[0].textContent.trim()) || 0;
+                    case 'username': return cells[1].textContent.trim().toLowerCase();
+                    case 'status': return cells[7].querySelector('select').value.toLowerCase();
+                    case 'created_at': return new Date(cells[4].textContent.trim()).getTime();
+                    default: return '';
+                }
+            }
+
             document.querySelectorAll('.complaint-table tbody tr').forEach(row => {
                 row.addEventListener('click', event => {
                     if (event.target.tagName.toLowerCase() === 'select') return;
-
                     const cells = row.querySelectorAll('td');
-                    const complaintId = cells[0].textContent.trim();
-                    const userName = cells[1].textContent.trim();
-                    const description = cells[2].textContent.trim();
-                    const date = cells[3].textContent.trim();
-                    const location = cells[4].textContent.trim();
-                    const status = row.querySelector('.status-dropdown').value.trim();
-                    const imgEl = cells[5].querySelector('img');
+                    const modal = document.getElementById('complaintModal');
+                    const imgEl = cells[6].querySelector('img');
                     const imageUrl = imgEl ? imgEl.src : null;
 
-                    const detailsDiv = document.getElementById('complaintDetails');
-                    detailsDiv.innerHTML = `
-      <p><strong>Complaint ID:</strong> ${complaintId}</p>
-      <p><strong>User Name:</strong> ${userName}</p>
-      <p><strong>Description:</strong> ${description}</p>
-      <p><strong>Date:</strong> ${date}</p>
-      <p><strong>Location:</strong> ${location}</p>
-      <p><strong>Status:</strong> ${status}</p>
-      ${imageUrl ? `<p><strong>Image:</strong><br><img src="${imageUrl}" alt="Complaint Image"></p>` : '<p><strong>Image:</strong> No image</p>'}
-    `;
-
-                    document.getElementById('complaintModal').style.display = 'block';
+                    document.getElementById('complaintDetails').innerHTML = `
+                        <p><strong>Complaint ID:</strong> ${cells[0].textContent.trim()}</p>
+                        <p><strong>User Name:</strong> ${cells[1].textContent.trim()}</p>
+                        <p><strong>Description:</strong> ${cells[3].textContent.trim()}</p>
+                        <p><strong>Date:</strong> ${cells[4].textContent.trim()}</p>
+                        <p><strong>Location:</strong> ${cells[5].textContent.trim()}</p>
+                        <p><strong>Status:</strong> ${cells[7].querySelector('select').value}</p>
+                        ${imageUrl ? `<p><strong>Image:</strong><br><img src="${imageUrl}" alt="Complaint Image"></p>` : '<p><strong>Image:</strong> No image</p>'}
+                    `;
+                    modal.style.display = 'block';
                 });
             });
 
@@ -300,6 +316,6 @@
             });
         });
     </script>
-</body>
 
+</body>
 </html>

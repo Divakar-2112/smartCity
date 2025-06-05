@@ -214,6 +214,22 @@ header {
   box-shadow: 0 0 0 2px rgba(1, 195, 142, 0.2);
 }
 
+th[data-sort] {
+  cursor: pointer;
+}
+
+th.asc::after {
+  content: " ↑";
+  font-weight: bolder;
+  color: black;
+}
+
+th.desc::after {
+  content: " ↓";
+  font-weight: bolder;
+  color: black;
+}
+
 .status-counts {
   display: flex;
   justify-content: space-between;
