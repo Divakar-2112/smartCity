@@ -52,7 +52,7 @@ body {
   background: var(--form-bg);
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-  max-width: 700px;
+  max-width: 620px;
   width: 100%;
   overflow: hidden;
   animation: containerFade 0.5s ease forwards;
@@ -227,4 +227,49 @@ textarea:focus {
     font-size: 0.9rem;
     padding: 0.65rem;
   }
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.password-wrapper i {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  cursor: pointer;
+  color: #555;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("{% static 'assets/background.png' %}") center/cover no-repeat;
+  filter: blur(5px);
+  z-index: -1;
+  opacity: 0.85;
+}
+
+.step {
+  display: none;
+}
+
+.step.active {
+  display: block;
+}
+
+.button-group {
+  margin-top: 15px;
+}
+
+.button-group button {
+  margin-right: 10px;
 }

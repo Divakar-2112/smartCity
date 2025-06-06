@@ -51,7 +51,7 @@ class ComplaintDetail(models.Model):
     subCategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     description = models.TextField()
     location = models.CharField(max_length=255)
-    image_url = models.URLField(blank=True, null=True)
+    image_upload = models.ImageField(upload_to='uploads/',blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

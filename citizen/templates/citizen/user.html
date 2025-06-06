@@ -6,13 +6,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Citizen Page</title>
-  <link rel="stylesheet" href="{%static 'css/user.css'%}" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="icon" type="image/x-icon" href="{%static 'assets/favicon-icon.png'%}">
+  <link rel="stylesheet" href="{% static 'css/user.css' %}" />
+  <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon-icon.png' %}">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
@@ -78,6 +75,7 @@
     </div>
   </main>
 
+  <!-- Complaint Modal -->
   <div id="complaintModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
@@ -101,91 +99,88 @@
         </select>
 
         <label for="description">Description:</label><br>
-        <textarea name="description" rows="4" cols="50" required></textarea><br><br>
+        <textarea name="description" rows="4" cols="50" required></textarea>
 
         <label for="location">Location:</label>
-        <input type="text" name="location" required><br><br>
+        <input type="text" name="location" required>
 
-        <label for="image_url">Image URL:</label>
-        <input type="url" name="image_url" placeholder="https://..."><br><br>
+        <label for="image_upload">Upload Image:</label>
+        <input type="file" name="image_upload" >
 
         <input type="submit" value="Submit Complaint">
       </form>
     </div>
   </div>
 
-  <footer>
-    <div class="footer-container" id="contact-details">
-      <div class="footer-about">
-        <h3>About Smart City</h3>
-        <p>
-          Empowering sustainable urban innovation and citizen engagement for a
-          better tomorrow.
-        </p>
+  <!-- Profile Sidebar -->
+  <div id="profileSidebar" class="sidebar">
+    <span class="close-sidebar" id="closeSidebar">&times;</span>
+    <h2>User Profile</h2>
+    <form method="POST" id="profileForm">
+      {% csrf_token %}
+      <div class="profile-details">
+        <div id="profileDisplay">
+          <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+          <p><strong>Username:</strong> {{ user.username }}</p>
+          <p><strong>Email:</strong> {{ user.email }}</p>
+          <p><strong>Phone:</strong> {{ user.phone }}</p>
+          <button type="button" onclick="enableEdit()">Update</button>
+        </div>
+        <div id="profileEdit" style="display: none;">
+          <label>First Name:</label>
+          <input type="text" name="first_name" value="{{ user.first_name }}" required><br>
+          <label>Last Name:</label>
+          <input type="text" name="last_name" value="{{ user.last_name }}" required><br>
+          <label>Username:</label>
+          <input type="text" name="username" value="{{ user.username }}" required><br>
+          <label>Email:</label>
+          <input type="email" name="email" value="{{ user.email }}" required><br>
+          <label>Phone:</label>
+          <input type="tel" name="phone" value="+91" pattern="^\+91[6-9][0-9]{9}$" maxlength="13"
+            title="Enter a valid Indian number like +919876543210" required>
+
+
+
+          <button type="submit">Save</button>
+          <button type="button" onclick="cancelEdit()">Cancel</button>
+        </div>
       </div>
-      <div class="footer-links">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-contact">
-        <h4>Contact Us</h4>
-        <p>L76A, L Block, 21st Street, Anna Nagar, Chennai, Tamil Nadu 600102</p>
-        <p>Phone: +91 99627XXXX</p>
-        <p>Email: smartcity@org.com</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      &copy; 2025 Smart City Initiative. All rights reserved.
-    </div>
-  </footer>
+    </form>
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const searchInput = document.querySelector('.search-input');
-      const complaintCards = document.querySelectorAll('.complaint-card');
-
-      searchInput.addEventListener('keyup', function (event) {
-        const searchTerm = event.target.value.toLowerCase();
-        let complaintsFound = false;
-        complaintCards.forEach(card => {
-          const complaintText = card.textContent.toLowerCase();
-          if (complaintText.includes(searchTerm)) {
-            card.style.display = 'block';
-            complaintsFound = true;
-          } else {
-            card.style.display = 'none';
-          }
-        });
+      document.querySelector('.user-icon').addEventListener('click', () => {
+        document.getElementById('profileSidebar').classList.add('active');
+      });
+      document.getElementById('closeSidebar').addEventListener('click', () => {
+        document.getElementById('profileSidebar').classList.remove('active');
+      });
+      window.addEventListener('click', (event) => {
+        const sidebar = document.getElementById('profileSidebar');
+        if (!sidebar.contains(event.target) && !event.target.classList.contains('user-icon')) {
+          sidebar.classList.remove('active');
+        }
       });
 
-      const modal = document.getElementById("complaintModal");
-      const btn = document.getElementById("openComplaintModal");
-      const span = document.getElementsByClassName("close")[0];
-      const form = document.getElementById("complaintForm");
-
-      btn.onclick = function () {
-        modal.style.display = "block";
+      document.querySelector('.close').onclick = function () {
+        document.getElementById("complaintModal").style.display = "none";
       }
-
-      span.onclick = function () {
-        modal.style.display = "none";
-      }
-
-      window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
+      document.getElementById("openComplaintModal").onclick = function () {
+        document.getElementById("complaintModal").style.display = "block";
       }
     });
+
+    function enableEdit() {
+      document.getElementById('profileDisplay').style.display = 'none';
+      document.getElementById('profileEdit').style.display = 'block';
+    }
+
+    function cancelEdit() {
+      document.getElementById('profileEdit').style.display = 'none';
+      document.getElementById('profileDisplay').style.display = 'block';
+    }
   </script>
-
-
 </body>
 
 </html>
