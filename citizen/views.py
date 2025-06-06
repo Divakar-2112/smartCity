@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from django.contrib.auth import logout
+from .models import ComplaintDetail, Department, SubCategory, HeroContent
 from django.contrib import messages
 
 from .form import CreateUserForm
@@ -97,6 +100,13 @@ def user(request):
     })
 
 
+def HeroContent(request):
+    hero = HeroContent.objects.first()
+
+    context = {
+        "hero": hero
+    }
+    return render(request, "citizen/index.html", context)
 def staff_home(request):
     return render(request, 'department/staff.html')
 

@@ -58,3 +58,10 @@ class ComplaintDetail(models.Model):
 
     def __str__(self):
         return f"Complaint #{self.complaint_id} by {self.user.name}"
+
+class HeroContent(models.Model):
+    title_desc = models.TextField(max_length=255)
+    sub_desc = models.TextField(max_length=255)
+
+    def __str__(self):
+        return f"Hercontent #{self.title_desc} by {self.sub_desc}"
