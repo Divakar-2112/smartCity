@@ -7,7 +7,7 @@ from .models import NewUser
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib.auth import logout
-from .models import ComplaintDetail, Department, SubCategory
+from .models import ComplaintDetail, Department, SubCategory, HeroContent
 
 def home(request):
     return render(request, "citizen/index.html")
@@ -101,3 +101,12 @@ def user(request):
         'rejected_count': rejected_count,
         'message': message,
     })
+
+
+def HeroContent(request):
+    hero = HeroContent.objects.first()
+
+    context = {
+        "hero": hero
+    }
+    return render(request, "citizen/index.html", context)
