@@ -61,3 +61,20 @@ def update_complaint_status(request):
         except Exception as e:
             return JsonResponse({"success": False, "error": str(e)})
     return JsonResponse({"success": False, "error": "Invalid request"})
+@csrf_exempt
+def upload_after_image(request):
+    if request.method == 'POST':
+        complaint_id = request.POST.get('complaint_id')
+        image = request.FILES.get('image')
+
+        if complaint_id and image:
+            try:
+                complaint = ComplaintDetail.objects.get(complaint_id=complaint_id)
+                complaint.image_upload = image
+                complaint.save()
+                return JsonResponse({'success': True})
+            except ComplaintDetail.DoesNotExist:
+                return JsonResponse({'success': False, 'error': 'Complaint not found'})
+        return JsonResponse({'success': False, 'error': 'Missing data'})
+
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
