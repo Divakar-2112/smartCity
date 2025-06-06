@@ -75,6 +75,7 @@
                             <th data-sort="created_at">Date</th>
                             <th>Location</th>
                             <th>Image</th>
+                            <th>After-image-upload</th>
                             <th data-sort="status">Status</th>
                         </tr>
                     </thead>
@@ -89,12 +90,14 @@
                             <td>{{ complaint.location }}</td>
                             <td>
                                 {% if complaint.image_upload %}
-                                    <img src="{{ complaint.image_upload }}" alt="Complaint Image" style="max-width: 300px;">
+                                    <img src="{{ complaint.image_upload.url }}" alt="Complaint Image" style="max-width: 200px;"><br>
                                 {% else %}
                                     <p>No image uploaded.</p>
                                 {% endif %}
-
                             </td>
+                            <td><input type="file" class="after-image-upload" data-complaint-id="{{ complaint.complaint_id }}"></td>
+
+
                             <td>
                                 <select class="status-dropdown status">
                                     <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>

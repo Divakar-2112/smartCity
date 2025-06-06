@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from django.contrib.auth import logout
+from .models import ComplaintDetail, Department, SubCategory, HeroContent
 from django.contrib import messages
 
 from .form import CreateUserForm
@@ -54,7 +57,7 @@ def user(request):
         subcategory_id = request.POST.get('subCategory')
         description = request.POST.get('description')
         location = request.POST.get('location')
-        image_upload = request.POST.get('image_upload')
+        image_upload = request.FILES.get('image_upload')  # ✅ Change here
 
         if department_id and subcategory_id:
             ComplaintDetail.objects.create(
@@ -63,7 +66,7 @@ def user(request):
                 subCategory_id=int(subcategory_id),
                 description=description,
                 location=location,
-                image_upload=image_upload
+                image_upload=image_upload  # ✅ Save uploaded image
             )
             message = "Complaint submitted successfully!"
         else:
@@ -94,6 +97,14 @@ def user(request):
     })
 
 
+
+def HeroContent(request):
+    hero = HeroContent.objects.first()
+
+    context = {
+        "hero": hero
+    }
+    return render(request, "citizen/index.html", context)
 def staff_home(request):
     return render(request, 'department/staff.html')
 
