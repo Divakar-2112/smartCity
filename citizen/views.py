@@ -49,7 +49,6 @@ def user(request):
     message = ""
     current_user = request.user
 
-    # Complaint submission
     if request.method == 'POST' and 'description' in request.POST:
         department_id = request.POST.get('department')
         subcategory_id = request.POST.get('subCategory')
@@ -70,7 +69,6 @@ def user(request):
         else:
             message = "Department or Subcategory not selected!"
 
-    # Profile update
     elif request.method == 'POST' and 'first_name' in request.POST:
         current_user.first_name = request.POST.get('first_name')
         current_user.last_name = request.POST.get('last_name')
@@ -80,7 +78,6 @@ def user(request):
         current_user.save()
         message = "Profile updated successfully!"
 
-    # Complaint data & stats
     complaints = ComplaintDetail.objects.filter(user=current_user).order_by('-created_at')
     resolved_count = complaints.filter(status='Resolved').count()
     in_progress_count = complaints.filter(status='In Progress').count()
@@ -102,3 +99,4 @@ def staff_home(request):
 
 def admin_home(request):
     return render(request, 'myadmin.html')
+

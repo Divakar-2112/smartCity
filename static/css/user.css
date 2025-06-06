@@ -657,25 +657,74 @@ footer {
   position: fixed;
   top: 0;
   right: -350px;
-  width: 300px;
+  width: 350px;
+  height: 100%;
   background-color: #fff;
   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
-  padding: 30px 20px;
+  padding: 40px;
   transition: right 0.3s ease-in-out;
   z-index: 1000;
+  box-sizing: border-box;
 }
+
 .sidebar.active {
   right: 0;
 }
+
 .close-sidebar {
   position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 24px;
+  top: 20px;
+  right: 25px;
+  font-size: 26px;
   cursor: pointer;
+  color: #333;
 }
+
+.profile-details {
+  margin-top: 30px;
+}
+
 .profile-details p {
-  margin: 10px 0;
+  margin: 15px 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.profile-details p {
+  margin: 20px 0;
   font-size: 14px;
 }
 
+.profile-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.profile-edit label {
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.85rem;
+}
+
+.profile-edit input {
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.profile-edit input:focus {
+  border-color: #01c38e;
+  box-shadow: 0 0 0 2px rgba(1, 195, 142, 0.2);
+  outline: none;
+}
+
+.edit-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}

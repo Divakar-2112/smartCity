@@ -22,7 +22,7 @@ class SubCategoryAdmin(admin.ModelAdmin):
 class ComplaintDetailAdmin(admin.ModelAdmin):
     list_display = (
         'complaint_id', 'user', 'department', 'subCategory',
-        'description', 'location', 'image_url', 'status',
+        'description', 'location', 'image_upload', 'status',
         'created_at', 'updated_at'
     )
     list_filter = ('status', 'department', 'subCategory')

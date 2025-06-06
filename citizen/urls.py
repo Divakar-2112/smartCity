@@ -10,6 +10,4 @@ urlpatterns = [
     path('user/', views.user, name='user'),        
     path('staff/', views.staff_home, name='staff'),
     path('myadmin/', views.admin_home, name='myadmin'),
-    # path('complaint/edit/<int:complaint_id>/', views.edit_complaint, name='edit_complaint'),
-    # path('complaint/delete/<int:complaint_id>/', views.delete_complaint, name='delete_complaint'),
 ]
