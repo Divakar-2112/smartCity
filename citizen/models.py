@@ -29,7 +29,7 @@ class NewUser(AbstractUser):
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=20)
     password = models.CharField(max_length=128)
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES,default='citizen')
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='citizen')
     department = models.ForeignKey('Department', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
@@ -50,8 +50,11 @@ class ComplaintDetail(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     subCategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     description = models.TextField()
-    location = models.CharField(max_length=255)
-    image_upload = models.ImageField(upload_to='uploads/',blank=True, null=True)
+    state = models.CharField(max_length=100)
+    district = models.CharField(max_length=100)
+    pincode = models.CharField(max_length=6)
+    address = models.CharField(max_length=255)
+    image_upload = models.ImageField(upload_to='uploads/', blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -3,11 +3,10 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib.auth import logout
-# from .models import ComplaintDetail, Department, SubCategory, HeroContent
-from django.contrib import messages
-
-from .form import CreateUserForm
 from .models import NewUser, ComplaintDetail, Department, SubCategory, HeroContent, Testimonials, Faq_Section, Latest_News
+from .models import ComplaintDetail, Department, SubCategory, HeroContent
+from django.contrib import messages
+from .form import CreateUserForm
 
 
 def home(request):
@@ -19,7 +18,6 @@ def login(request):
 def logout_view(request):
     auth_logout(request)
     return redirect('home')
-
 
 def register(request):
     if request.method == 'POST':
@@ -52,13 +50,12 @@ def user(request):
     message = ""
     current_user = request.user
 
-    # Complaint submission
     if request.method == 'POST' and 'description' in request.POST:
         department_id = request.POST.get('department')
         subcategory_id = request.POST.get('subCategory')
         description = request.POST.get('description')
-        location = request.POST.get('location')
-        image_upload = request.POST.get('image_upload')
+        address = request.POST.get('address')
+        image_upload = request.FILES.get('image_upload')
 
         if department_id and subcategory_id:
             ComplaintDetail.objects.create(
@@ -66,14 +63,13 @@ def user(request):
                 department_id=int(department_id),
                 subCategory_id=int(subcategory_id),
                 description=description,
-                location=location,
+                address=address,
                 image_upload=image_upload
             )
             message = "Complaint submitted successfully!"
         else:
             message = "Department or Subcategory not selected!"
 
-    # Profile update
     elif request.method == 'POST' and 'first_name' in request.POST:
         current_user.first_name = request.POST.get('first_name')
         current_user.last_name = request.POST.get('last_name')
@@ -83,7 +79,6 @@ def user(request):
         current_user.save()
         message = "Profile updated successfully!"
 
-    # Complaint data & stats
     complaints = ComplaintDetail.objects.filter(user=current_user).order_by('-created_at')
     resolved_count = complaints.filter(status='Resolved').count()
     in_progress_count = complaints.filter(status='In Progress').count()
@@ -98,7 +93,6 @@ def user(request):
         'rejected_count': rejected_count,
         'message': message,
     })
-
 
 def home(request):
     hero = HeroContent.objects.all()
