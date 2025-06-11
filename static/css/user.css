@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
-*{
+* {
   margin: 0;
   padding: 0;
   letter-spacing: 2px;
@@ -7,8 +7,8 @@
   box-sizing: border-box;
 }
 
-html{
-    scroll-behavior: smooth;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -34,7 +34,8 @@ body {
 
 header {
   background-color: #fff;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -62,7 +63,8 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .navbar .logo {
@@ -282,6 +284,13 @@ header {
   font-size: 1rem;
 }
 
+.complaints-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
 .complaint-card {
   background: #fff;
   border-radius: 12px;
@@ -289,7 +298,8 @@ header {
   transition: all 0.3s ease;
   overflow: hidden;
   border-left: 4px solid #01c38e;
-  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .complaint-card:hover {
@@ -322,6 +332,11 @@ header {
   letter-spacing: 0.5px;
 }
 
+.status.pending {
+  background-color: #ffedd5;
+  color: #c2410c;
+}
+
 .status.in-progress {
   background-color: #fffbeb;
   color: #b45309;
@@ -339,11 +354,12 @@ header {
 
 .card-body {
   padding: 1.5rem;
+  flex-grow: 1;
 }
 
 .card-body p {
   margin: 0.85rem 0;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #475569;
   line-height: 1.5;
 }
@@ -351,6 +367,23 @@ header {
 .card-body strong {
   color: #1e293b;
   font-weight: 700;
+}
+
+.card-image {
+  padding: 0 1.5rem 1.5rem;
+  text-align: center;
+}
+
+.card-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card-image img:hover {
+  transform: scale(1.02);
 }
 
 .modal {
@@ -375,6 +408,7 @@ header {
   position: relative;
   animation: slideUp 0.4s ease-out;
   max-height: 90vh;
+  overflow-y: auto;
 }
 
 @keyframes slideUp {
@@ -606,6 +640,10 @@ footer {
     max-height: 80vh;
     overflow-y: hidden;
   }
+
+  .complaints-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
@@ -724,7 +762,258 @@ footer {
 
 .edit-buttons {
   display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
+  justify-content: space-around;
   margin-top: 1rem;
+  gap: 10px;
+}
+.edit-buttons .btn {
+  flex-grow: 1;
+  text-align: center;
+  padding: 0.7rem 1rem;
+  font-size: 0.9rem;
+}
+
+.profile-edit .btn-getstarted {
+  background-color: #01c38e;
+  color: white;
+}
+
+.profile-edit .btn-getstarted:hover {
+  background-color: #019f74;
+}
+
+.profile-edit .btn:not(.btn-getstarted) {
+  background-color: #64748b;
+  color: white;
+}
+
+.profile-edit .btn:not(.btn-getstarted):hover {
+  background-color: #475569;
+}
+
+.form-step {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-step.active {
+  display: flex;
+}
+
+.form-step .btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  width: fit-content;
+}
+
+.form-step .next-step {
+  background-color: #019f74;
+  color: white;
+  align-self: flex-end;
+}
+
+.form-step .next-step:hover {
+  background-color: #00815f;
+}
+
+.form-step .prev-next-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.form-step .prev-next-buttons .prev-step {
+  background-color: #6c757d;
+  color: white;
+}
+
+.form-step .prev-next-buttons .prev-step:hover {
+  background-color: #5a6268;
+}
+
+.modal-content input[type="submit"] {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content input[type="submit"]:hover {
+  background-color: #218838;
+}
+
+#simple-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #ffc107;
+  color: #333;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+#simple-popup.hide {
+  opacity: 0;
+}
+
+.form-step .btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  width: fit-content;
+}
+
+.form-step .next-step {
+  background-color: #007bff;
+  color: white;
+  align-self: flex-end;
+}
+
+.form-step .next-step:hover {
+  background-color: #0056b3;
+}
+
+.form-step .prev-next-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.form-step .prev-next-buttons .prev-step {
+  background-color: #6c757d;
+  color: white;
+}
+
+.form-step .prev-next-buttons .prev-step:hover {
+  background-color: #5a6268;
+}
+
+.modal-content input[type="submit"] {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content input[type="submit"]:hover {
+  background-color: #28a745;
+}
+
+#simple-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #ffc107;
+  color: #333;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+#simple-popup.hide {
+  opacity: 0;
+}
+
+.complaint-card .view-details-btn {
+  background-color: #01c38e;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-top: 10px;
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  transition: background-color 0.3s ease;
+}
+
+.complaint-card .view-details-btn:hover {
+  background-color: #029e75;
+}
+
+#complaintDetailModal .modal-content h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+#complaintDetailModal .modal-content p {
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+#complaintDetailModal .modal-content strong {
+  color: #555;
+}
+
+#complaintDetailModal .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+#complaintDetailModal .status {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 0.9em;
+}
+
+#complaintDetailModal .resolved {
+  background-color: #d4edda;
+  color: #155724;
+}
+#complaintDetailModal .in-progress {
+  background-color: #fff3cd;
+  color: #856404;
+}
+#complaintDetailModal .rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.form-step {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-step.active {
+  display: flex;
+}
+
+.close-detail-modal{
+  cursor: pointer;
 }

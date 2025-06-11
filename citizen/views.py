@@ -20,7 +20,6 @@ def logout_view(request):
     auth_logout(request)
     return redirect('home')
 
-
 def register(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
@@ -56,8 +55,8 @@ def user(request):
         department_id = request.POST.get('department')
         subcategory_id = request.POST.get('subCategory')
         description = request.POST.get('description')
-        location = request.POST.get('location')
-        image_upload = request.FILES.get('image_upload')  # ✅ Change here
+        address = request.POST.get('address')
+        image_upload = request.FILES.get('image_upload')
 
         if department_id and subcategory_id:
             ComplaintDetail.objects.create(
@@ -65,8 +64,8 @@ def user(request):
                 department_id=int(department_id),
                 subCategory_id=int(subcategory_id),
                 description=description,
-                location=location,
-                image_upload=image_upload  # ✅ Save uploaded image
+                address=address,
+                image_upload=image_upload
             )
             message = "Complaint submitted successfully!"
         else:
@@ -110,4 +109,3 @@ def staff_home(request):
 
 def admin_home(request):
     return render(request, 'myadmin.html')
-
