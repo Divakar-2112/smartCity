@@ -429,8 +429,8 @@ header {
 }
 
 .news-content {
-  flex: 1;
-  min-width: 280px;
+  flex: 1.2;
+  width: 280px;
   animation: slideIn 0.8s ease forwards;
 }
 

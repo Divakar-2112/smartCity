@@ -209,7 +209,7 @@ body {
 .password-wrapper i {
   position: absolute;
   right: 10px;
-  top: 5px;
+  margin-bottom: 20px;
   cursor: pointer;
   color: #555;
 }
