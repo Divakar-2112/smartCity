@@ -3,11 +3,11 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib.auth import logout
-from .models import ComplaintDetail, Department, SubCategory, HeroContent
+# from .models import ComplaintDetail, Department, SubCategory, HeroContent
 from django.contrib import messages
 
 from .form import CreateUserForm
-from .models import NewUser, ComplaintDetail, Department, SubCategory
+from .models import NewUser, ComplaintDetail, Department, SubCategory, HeroContent, Testimonials, Faq_Section, Latest_News
 
 
 def home(request):
@@ -100,13 +100,23 @@ def user(request):
     })
 
 
-def HeroContent(request):
-    hero = HeroContent.objects.first()
+def home(request):
+    hero = HeroContent.objects.all()
+    testimonials = Testimonials.objects.all()
+    faq_section = Faq_Section.objects.all()
+    lastest_news = Latest_News.objects.all()
 
     context = {
-        "hero": hero
+        "hero": hero,
+        "testimonials": testimonials,
+        "faq_section": faq_section,
+        "lastest_news": lastest_news
     }
+
     return render(request, "citizen/index.html", context)
+
+
+
 def staff_home(request):
     return render(request, 'department/staff.html')
 

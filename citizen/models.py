@@ -64,4 +64,29 @@ class HeroContent(models.Model):
     sub_desc = models.TextField(max_length=255)
 
     def __str__(self):
-        return f"Hercontent #{self.title_desc} by {self.sub_desc}"
+        return f"Herocontent #{self.title_desc} by {self.sub_desc}"
+
+
+class Testimonials(models.Model):
+    main_title = models.TextField(max_length=255)
+    sub_title = models.TextField(max_length=255)
+    image = models.ImageField(upload_to= 'Landing_media/', null=True, blank=True)
+
+    def __str__(self):
+        return f"Testimonials #{self.main_title}"
+    
+
+class Faq_Section(models.Model):
+    faq_question = models.TextField(max_length=255)
+    faq_answer = models.TextField(max_length=255)
+
+    def __str__(self):
+        return f"Faq_Section #{self.faq_question} by {self.faq_answer}"
+    
+
+class Latest_News(models.Model):
+    new_title = models.TextField(max_length=255)
+    new_desc = models.TextField(max_length=255)
+
+    def __str__(self):
+        return f"Latest_News #{self.new_title} by {self.new_desc}"
