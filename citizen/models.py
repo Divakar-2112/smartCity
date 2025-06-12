@@ -54,6 +54,8 @@ class ComplaintDetail(models.Model):
     district = models.CharField(max_length=100)
     pincode = models.CharField(max_length=6)
     address = models.CharField(max_length=255)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     image_upload = models.ImageField(upload_to='uploads/', blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
     created_at = models.DateTimeField(auto_now_add=True)

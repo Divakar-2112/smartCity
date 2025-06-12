@@ -56,6 +56,8 @@ def user(request):
         description = request.POST.get('description')
         address = request.POST.get('address')
         image_upload = request.FILES.get('image_upload')
+        latitude = request.POST.get('latitude')
+        longitude = request.POST.get('longitude')
 
         if department_id and subcategory_id:
             ComplaintDetail.objects.create(
@@ -64,7 +66,9 @@ def user(request):
                 subCategory_id=int(subcategory_id),
                 description=description,
                 address=address,
-                image_upload=image_upload
+                image_upload=image_upload,
+                latitude=latitude,
+                longitude=longitude
             )
             message = "Complaint submitted successfully!"
         else:
