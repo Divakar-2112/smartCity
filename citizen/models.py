@@ -29,7 +29,7 @@ class NewUser(AbstractUser):
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=20)
     password = models.CharField(max_length=128)
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES,default='citizen')
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='citizen')
     department = models.ForeignKey('Department', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
@@ -50,8 +50,11 @@ class ComplaintDetail(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     subCategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     description = models.TextField()
-    location = models.CharField(max_length=255)
-    image_upload = models.ImageField(upload_to='uploads/',blank=True, null=True)
+    state = models.CharField(max_length=100)
+    district = models.CharField(max_length=100)
+    pincode = models.CharField(max_length=6)
+    address = models.CharField(max_length=255)
+    image_upload = models.ImageField(upload_to='uploads/', blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -64,4 +67,29 @@ class HeroContent(models.Model):
     sub_desc = models.TextField(max_length=255)
 
     def __str__(self):
-        return f"Hercontent #{self.title_desc} by {self.sub_desc}"
+        return f"Herocontent #{self.title_desc} by {self.sub_desc}"
+
+
+class Testimonials(models.Model):
+    main_title = models.TextField(max_length=255)
+    sub_title = models.TextField(max_length=255)
+    image = models.ImageField(upload_to= 'Landing_media/', null=True, blank=True)
+
+    def __str__(self):
+        return f"Testimonials #{self.main_title}"
+    
+
+class Faq_Section(models.Model):
+    faq_question = models.TextField(max_length=255)
+    faq_answer = models.TextField(max_length=255)
+
+    def __str__(self):
+        return f"Faq_Section #{self.faq_question} by {self.faq_answer}"
+    
+
+class Latest_News(models.Model):
+    new_title = models.TextField(max_length=255)
+    new_desc = models.TextField(max_length=255)
+
+    def __str__(self):
+        return f"Latest_News #{self.new_title} by {self.new_desc}"

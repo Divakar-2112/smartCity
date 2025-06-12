@@ -56,7 +56,6 @@
 
         <form method="POST" autocomplete="off">
           {% csrf_token %}
-          <div class="step active" id="step-1">
             {% for field in form %}
               <label for="{{ field.id_for_label }}">{{ field.label }}</label>
               {% if 'password' in field.name %}
@@ -77,8 +76,7 @@
             <div class="button-group">
               <button type="submit">Register</button>
             </div>
-          </div>
-          <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+          <p id="foot">Already have an account? <a href="{% url 'login' %}">Login</a></p>
         </form>
       </div>
     </div>
@@ -93,31 +91,6 @@
       icon.classList.toggle("fa-eye-slash");
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-      const password1 = document.getElementById("id_password1");
-      const password2 = document.getElementById("id_password2");
-
-      const error1 = document.getElementById("id_password1-error");
-      const error2 = document.getElementById("id_password2-error");
-
-      const pattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
-
-      function validatePasswords() {
-        const pass = password1.value;
-        const confirm = password2.value;
-
-        error1.textContent = pattern.test(pass)
-          ? ""
-          : "Min 8 chars, 1 uppercase,1 special char(!@#$%^&*).";
-
-        error2.textContent = confirm && pass !== confirm
-          ? "Passwords do not match."
-          : "";
-      }
-
-      password1.addEventListener("input", validatePasswords);
-      password2.addEventListener("input", validatePasswords);
-    });
   </script>
 </body>
 

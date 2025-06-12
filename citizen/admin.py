@@ -1,6 +1,11 @@
 from django.contrib import admin
 from .models import *
 
+admin.site.register(HeroContent)
+admin.site.register(Testimonials)
+admin.site.register(Faq_Section)
+admin.site.register(Latest_News)
+
 admin.site.site_header = "Smart City Admin"
 
 @admin.register(Department)
@@ -22,7 +27,7 @@ class SubCategoryAdmin(admin.ModelAdmin):
 class ComplaintDetailAdmin(admin.ModelAdmin):
     list_display = (
         'complaint_id', 'user', 'department', 'subCategory',
-        'description', 'location', 'image_upload', 'status',
+        'description', 'image_upload', 'status','address',
         'created_at', 'updated_at'
     )
     list_filter = ('status', 'department', 'subCategory')
