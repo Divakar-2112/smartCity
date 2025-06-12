@@ -18,11 +18,11 @@
     </div>
     <div class="search-container">
       <i class="fas fa-search search-icon"></i>
-      <input type="text" class="search-input" placeholder="Search complaints...">
+      <input type="text" class="search-input" id="complaintSearch" placeholder="Search complaints...">
     </div>
     <div class="actions">
       <img src="{% static 'assets/user.svg' %}" alt="" class="user-icon">
-      <p>Hello ! {{ user.username }}</p>
+      <p>Hello! {{ user.username }}</p>
       <button class="btn btn-getstarted" onclick="window.location.href='/logout/'">Logout</button>
     </div>
   </header>
@@ -51,28 +51,34 @@
           <h2>My Complaints</h2>
           <button class="complaintButton" id="openComplaintModal"><i class="fa-solid fa-plus"></i>Add Complaints</button>
         </div>
-
-        {% if complaints %}
-        {% for complaint in complaints %}
-        <div class="complaint-card">
-          <div class="card-header">
-            <span class="complaint-id">#{{ complaint.complaint_id }}</span>
-            <span class="status {{ complaint.status|lower|slugify }}">{{ complaint.status }}</span>
-          </div>
-          <div class="card-body">
-            <p><strong>Category:</strong> {{ complaint.subCategory.name }}</p>
-            <p><strong>Date:</strong> {{ complaint.created_at|date:"Y-m-d" }}</p>
-            <p><strong>Description:</strong> {{ complaint.description }}</p>
-          </div>
+        <div id="noResults" style="display: none; text-align: center; font-size: 1.2rem; color: #888; margin-top: 20px;">
+                No complaints found.
         </div>
-        {% endfor %}
-        {% else %}
-        <p>No complaints submitted yet.</p>
-        {% endif %}
+
+        <div id="complaintList">
+          {% if complaints %}
+          {% for complaint in complaints %}
+          <div class="complaint-card">
+            <div class="card-header">
+              <span class="complaint-id">#{{ complaint.complaint_id }}</span>
+              <span class="status {{ complaint.status|lower|slugify }}">{{ complaint.status }}</span>
+            </div>
+            <div class="card-body">
+              <p><strong>Category:</strong> {{ complaint.subCategory.name }}</p>
+              <p><strong>Date:</strong> {{ complaint.created_at|date:"Y-m-d" }}</p>
+              <p><strong>Description:</strong> {{ complaint.description }}</p>
+            </div>
+          </div>
+          {% endfor %}
+          {% else %}
+          <p>No complaints submitted yet.</p>
+          {% endif %}
+        </div>
       </section>
     </div>
   </main>
 
+  <!-- Add Complaint Modal -->
   <div id="complaintModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
@@ -99,13 +105,14 @@
         <input type="text" name="location" required>
 
         <label for="image_upload">Upload Image:</label>
-        <input type="file" multiple name="image_upload" >
+        <input type="file" multiple name="image_upload">
 
         <input type="submit" value="Submit Complaint">
       </form>
     </div>
   </div>
 
+  <!-- Profile Sidebar -->
   <div id="profileSidebar" class="sidebar">
     <span class="close-sidebar" id="closeSidebar">&times;</span>
     <h2>Profile</h2>
@@ -148,7 +155,6 @@
   </div>
 
   <script>
-  
     document.addEventListener('DOMContentLoaded', function () {
       const departmentSelect = document.getElementById('department');
       const subCategorySelect = document.getElementById('subCategory');
@@ -188,6 +194,28 @@
       document.getElementById("openComplaintModal").onclick = function () {
         document.getElementById("complaintModal").style.display = "block";
       }
+
+      // ✅ Complaint search logic with "No complaints found"
+      const searchInput = document.getElementById('complaintSearch');
+      const complaintCards = document.querySelectorAll('.complaint-card');
+      const noResults = document.getElementById('noResults');
+
+      searchInput.addEventListener('keyup', function () {
+        const searchText = searchInput.value.toLowerCase();
+        let visibleCount = 0;
+
+        complaintCards.forEach(card => {
+          const text = card.textContent.toLowerCase();
+          if (text.includes(searchText)) {
+            card.style.display = 'block';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      });
     });
 
     function enableEdit() {
