@@ -229,16 +229,19 @@ th[data-sort]::after {
   color: hsl(0, 100%, 100%);
   font-size: 16px;
   padding-left: 5px;
+  cursor: pointer;
 }
 
 th.asc::after {
   content: " ▲";
   color: #000;
+  cursor: pointer;
 }
 
 th.desc::after {
   content: " ▼";
   color: #000;
+  cursor: pointer;
 }
 
 .status-counts {
@@ -652,4 +655,20 @@ footer {
   .close {
     font-size: 24px;
   }
+}
+
+.filterdiv, .sortdiv {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 10px;
+}
+
+.filterdiv select {
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }

@@ -58,6 +58,9 @@ def user(request):
         image_upload = request.FILES.get('image_upload')
         latitude = request.POST.get('latitude')
         longitude = request.POST.get('longitude')
+        state = request.POST.get('state')
+        district = request.POST.get('district')
+        pincode = request.POST.get('pincode')
 
         if department_id and subcategory_id:
             ComplaintDetail.objects.create(
@@ -68,11 +71,15 @@ def user(request):
                 address=address,
                 image_upload=image_upload,
                 latitude=latitude,
-                longitude=longitude
+                longitude=longitude,
+                state=state,
+                district=district,
+                pincode=pincode
             )
             message = "Complaint submitted successfully!"
         else:
             message = "Department or Subcategory not selected!"
+
 
     elif request.method == 'POST' and 'first_name' in request.POST:
         current_user.first_name = request.POST.get('first_name')
@@ -112,8 +119,6 @@ def home(request):
     }
 
     return render(request, "citizen/index.html", context)
-
-
 
 def staff_home(request):
     return render(request, 'department/staff.html')

@@ -19,7 +19,7 @@
         </div>
         <div class="actions">
             <img src="{% static 'assets/user.svg' %}" alt="" class="user-icon">
-            <p >Hello!<p id="user-name">{{ user.username }}</p></p>
+            <p>Hello! <span id="user-name">{{ user.username }}</span></p>
             <button class="btn btn-getstarted" onclick="window.location.href='/logout/'">Logout</button>
         </div>
     </header>
@@ -97,15 +97,25 @@
         </div>
     </div>
 
+    <div id="complaintModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2>Complaint Details</h2>
+            <div id="complaintDetails"></div>
+        </div>
+    </div>
+
     <script>
     document.addEventListener('DOMContentLoaded', () => {
+        const updateUrl = "{% url 'update_complaint_status' %}"; 
         const filterSelect = document.getElementById('filtertype');
         const searchInput = document.querySelector('.search-input');
         const tbody = document.querySelector('.complaint-table tbody');
 
         function getCookie(name) {
-            const cookieValue = document.cookie.split('; ').find(row => row.startsWith(name + '='))?.split('=')[1];
-            return cookieValue || '';
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
         }
 
         function applyStatusColors() {
@@ -223,12 +233,50 @@
             });
         });
 
+        function setupComplaintModal() {
+            document.querySelectorAll('.complaint-table tbody tr').forEach(row => {
+                row.addEventListener('click', (e) => {
+                    // Prevent modal if dropdown is clicked
+                    if (e.target.tagName === 'SELECT') return;
+
+                    const cells = row.querySelectorAll('td');
+                    const complaintId = cells[0].textContent.trim();
+                    const userName = cells[1].textContent.trim();
+                    const description = cells[2].textContent.trim();
+                    const date = cells[4].textContent.trim();
+                    const location = cells[5].textContent.trim();
+                    const status = row.querySelector('.status').value.trim();
+                    const imgEl = cells[6].querySelector('img');
+                    const imageUrl = imgEl ? imgEl.src : null;
+                    const detailsDiv = document.getElementById('complaintDetails');
+                    detailsDiv.innerHTML = `
+                        <p><strong>Complaint ID:</strong> ${complaintId}</p>
+                        <p><strong>User Name:</strong> ${userName}</p>
+                        <p><strong>Description:</strong> ${description}</p>
+                        <p><strong>Date:</strong> ${date}</p>
+                        <p><strong>Location:</strong> ${location}</p>
+                        <p><strong>Status:</strong> ${status}</p>
+                        ${imageUrl ? `<p><strong>Image:</strong><br><img src="${imageUrl}" alt="Complaint Image"></p>` : '<p><strong>Image:</strong> No image</p>'}
+                    `;
+                    document.getElementById('complaintModal').style.display = 'block';
+                });
+            });
+            document.getElementById('closeModal').addEventListener('click', () => {
+                document.getElementById('complaintModal').style.display = 'none';
+            });
+            window.addEventListener('click', (event) => {
+                const modal = document.getElementById('complaintModal');
+                if (event.target === modal) modal.style.display = 'none';
+            });
+        }
+
         filterSelect.addEventListener('change', filterTable);
         searchInput.addEventListener('input', filterTable);
 
         applyStatusColors();
         setupHeaderSort();
         countFilteredComplaints();
+        setupComplaintModal();
     });
     </script>
 </body>

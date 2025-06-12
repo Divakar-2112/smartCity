@@ -296,14 +296,6 @@ header {
 .complaintButton i {
   font-size: 1rem;
 }
-
-.complaints-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-}
-
 .complaint-card {
   background: #fff;
   border-radius: 12px;
@@ -1137,4 +1129,55 @@ footer {
     font-size: 11px;
     letter-spacing: 1px;
     width: 50%;
+}
+
+.complaints-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.complaint-card {
+  border: none;
+  border-radius: 18px;
+  padding: 1rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  border-radius: 12px;
+}
+
+.complaint-id {
+  font-weight: bold;
+}
+
+.status {
+  padding: 0.2em 0.6em;
+  border-radius: 10px;
+  font-size: 0.8em;
+  color: white;
+}
+
+.pending { background-color: #ffc107; }
+.in-progress { background-color: #17a2b8; }
+.resolved { background-color: #28a745; }
+.closed { background-color: #6c757d; }
+
+.card-body p {
+  margin-bottom: 0.4rem;
+}
+
+.view-details-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1rem;
 }

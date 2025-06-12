@@ -21,7 +21,7 @@
         </div>
         <div class="actions">
             <img src="{% static 'assets/user.svg' %}" alt="" class="user-icon">
-            <p >Hello!<p id="user-name">{{ user.username }}</p></p>
+            <p>Hello!<p id="user-name">{{ user.username }}</p></p>
             <button class="btn btn-getstarted" onclick="window.location.href='/logout/'">Logout</button>
         </div>
     </header>
@@ -161,6 +161,49 @@
                 document.getElementById('count-rejected').textContent = counts.Rejected;
             }
 
+            function setupHeaderSort() {
+                document.querySelectorAll('.department-section').forEach(section => {
+                    const table = section.querySelector('table');
+                    const tbody = table.querySelector('tbody');
+                    const headers = table.querySelectorAll('th[data-sort]');
+
+                    headers.forEach(header => {
+                        header.addEventListener('click', () => {
+                            const key = header.getAttribute('data-sort');
+                            const ascending = !header.classList.contains('asc');
+
+                            headers.forEach(h => h.classList.remove('asc', 'desc'));
+                            header.classList.add(ascending ? 'asc' : 'desc');
+
+                            const rows = Array.from(tbody.querySelectorAll('tr')).filter(row => row.style.display !== 'none');
+
+                            rows.sort((a, b) => {
+                                const valA = getSortValue(a, key);
+                                const valB = getSortValue(b, key);
+                                const numA = parseFloat(valA);
+                                const numB = parseFloat(valB);
+                                if (!isNaN(numA) && !isNaN(numB)) {
+                                    return ascending ? numA - numB : numB - numA;
+                                }
+                                return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                            });
+
+                            rows.forEach(row => tbody.appendChild(row));
+                        });
+                    });
+
+                    function getSortValue(row, key) {
+                        switch (key) {
+                            case 'complaint_id': return row.cells[0].textContent.trim();
+                            case 'username': return row.cells[1].textContent.trim().toLowerCase();
+                            case 'created_at': return new Date(row.cells[4].textContent.trim());
+                            case 'status': return row.cells[7].textContent.trim().toLowerCase();
+                            default: return '';
+                        }
+                    }
+                });
+            }
+
             function filterTable() {
                 const searchText = searchInput.value.toLowerCase();
                 const selectedDepartment = departmentFilter.value;
@@ -193,9 +236,7 @@
                     }
                 });
 
-                const noResultsDiv = document.getElementById('noResults');
-                noResultsDiv.style.display = anyVisibleRows ? 'none' : 'block';
-
+                document.getElementById('noResults').style.display = anyVisibleRows ? 'none' : 'block';
                 countFilteredComplaints();
             }
 
@@ -224,23 +265,27 @@
                         document.getElementById('complaintModal').style.display = 'block';
                     });
                 });
+
                 document.getElementById('closeModal').addEventListener('click', () => {
                     document.getElementById('complaintModal').style.display = 'none';
                 });
+
                 window.addEventListener('click', (event) => {
                     const modal = document.getElementById('complaintModal');
                     if (event.target === modal) modal.style.display = 'none';
                 });
             }
 
+            
             applyStatusColors();
-            filterTable();
+            setupHeaderSort();
             setupComplaintModal();
+            filterTable();
+
             searchInput.addEventListener('input', filterTable);
             departmentFilter.addEventListener('change', filterTable);
             statusFilter.addEventListener('change', filterTable);
         });
     </script>
 </body>
-
 </html>

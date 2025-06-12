@@ -61,28 +61,29 @@
                 No complaints found.
         </div>
 
-        <div id="complaintList">
-          {% if complaints %}
-          <div class="complaints-grid"></div>
-          {% for complaint in complaints %}
-          <div class="complaint-card">
-            <div class="card-header">
-              <span class="complaint-id">#{{ complaint.complaint_id }}</span>
-              <span class="status {{ complaint.status|lower|slugify }}">{{ complaint.status }}</span>
-            </div>
-            <div class="card-body">
-              <p><strong>Department:</strong> {{ complaint.department.name }}</p>
-              <p><strong>Sub-Category:</strong> {{ complaint.subCategory.name }}</p>
-              <p><strong>Date:</strong> {{ complaint.created_at|date:"Y-m-d H:i" }}</p>
-              <p><strong>Description:</strong> {{ complaint.description|truncatechars:100 }}</p>
-              <button class="view-details-btn" data-complaint-id="{{ complaint.complaint_id }}">View Details</button>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-        {% else %}
-        <p>No complaints submitted yet.</p>
-        {% endif %}
+<div id="complaintList">
+  {% if complaints %}
+  <div class="complaints-grid">
+    {% for complaint in complaints %}
+    <div class="complaint-card">
+      <div class="card-header">
+        <span class="complaint-id">#{{ complaint.complaint_id }}</span>
+        <span class="status {{ complaint.status|lower|slugify }}">{{ complaint.status }}</span>
+      </div>
+      <div class="card-body">
+        <p><strong>Department:</strong> {{ complaint.department.name }}</p>
+        <p><strong>Sub-Category:</strong> {{ complaint.subCategory.name }}</p>
+        <p><strong>Date:</strong> {{ complaint.created_at|date:"Y-m-d H:i" }}</p>
+        <p><strong>Description:</strong> {{ complaint.description|truncatechars:100 }}</p>
+        <button class="view-details-btn" data-complaint-id="{{ complaint.complaint_id }}">View Details</button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>No complaints submitted yet.</p>
+  {% endif %}
+</div>
       </section>
     </div>
   </main>
@@ -209,7 +210,6 @@
     </div>
   </div>
 
-  <!-- Profile Sidebar -->
   <div id="profileSidebar" class="sidebar">
     <span class="close-sidebar" id="closeSidebar">&times;</span>
     <h2>Profile</h2>
@@ -802,6 +802,7 @@
       })
     })
   </script>
+
 </body>
 
 </html>
