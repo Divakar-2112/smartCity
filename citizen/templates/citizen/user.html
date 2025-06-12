@@ -21,7 +21,7 @@
     </div>
     <div class="search-container">
       <i class="fas fa-search search-icon"></i>
-      <input type="text" class="search-input" placeholder="Search complaints...">
+      <input type="text" class="search-input" id="complaintSearch" placeholder="Search complaints...">
     </div>
     <div class="actions">
       <img src="{% static 'assets/user.svg' %}" alt="" class="user-icon">
@@ -57,9 +57,13 @@
           <button class="complaintButton" id="openComplaintModal"><i class="fa-solid fa-plus"></i>Add
             Complaints</button>
         </div>
+        <div id="noResults" style="display: none; text-align: center; font-size: 1.2rem; color: #888; margin-top: 20px;">
+                No complaints found.
+        </div>
 
-        {% if complaints %}
-        <div class="complaints-grid">
+        <div id="complaintList">
+          {% if complaints %}
+          <div class="complaints-grid"></div>
           {% for complaint in complaints %}
           <div class="complaint-card">
             <div class="card-header">
@@ -205,6 +209,7 @@
     </div>
   </div>
 
+  <!-- Profile Sidebar -->
   <div id="profileSidebar" class="sidebar">
     <span class="close-sidebar" id="closeSidebar">&times;</span>
     <h2>Profile</h2>
@@ -404,9 +409,29 @@
         document.getElementById("complaintModal").style.display = "block";
       }
 
-      const complaintForm = document.getElementById('complaintForm');
-      const formSteps = complaintForm.querySelectorAll('.form-step');
-      let currentStep = 0;
+      const searchInput = document.getElementById('complaintSearch');
+      const complaintCards = document.querySelectorAll('.complaint-card');
+      const noResults = document.getElementById('noResults');
+
+      searchInput.addEventListener('keyup', function () {
+        const searchText = searchInput.value.toLowerCase();
+        let visibleCount = 0;
+
+        complaintCards.forEach(card => {
+          const text = card.textContent.toLowerCase();
+          if (text.includes(searchText)) {
+            card.style.display = 'block';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      });
+    const complaintForm = document.getElementById('complaintForm');
+    const formSteps = complaintForm.querySelectorAll('.form-step');
+    let currentStep = 0;
 
       function showStep(stepIndex) {
         formSteps.forEach((step, index) => {

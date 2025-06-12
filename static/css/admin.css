@@ -232,20 +232,21 @@ body {
   box-shadow: 0 0 0 2px rgba(1, 195, 142, 0.2);
 }
 
-th[data-sort] {
-  cursor: pointer;
+th[data-sort]::after {
+  content: " ⇅";
+  color: hsl(0, 100%, 100%);
+  font-size: 16px;
+  padding-left: 5px;
 }
 
 th.asc::after {
-  content: " ↑";
-  font-weight: bolder;
-  color: black;
+  content: " ▲";
+  color: #000;
 }
 
 th.desc::after {
-  content: " ↓";
-  font-weight: bolder;
-  color: black;
+  content: " ▼";
+  color: #000;
 }
 
 .userprofile {

@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import os
 from pathlib import Path
 import os
 
@@ -136,23 +135,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS=[BASE_DIR/'static']
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = '/images/'
-MEDIA_ROOT = BASE_DIR/'static'
+STATIC_URL = 'static/'
+STATICFILES_DIRS=[os.path.join(BASE_DIR/'static')]
 
 LOGIN_REDIRECT_URL = 'user'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Session Settings
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_COOKIE_AGE = 1800 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "Landing_media")
-MEDIA_URL = 'Landing_media/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
