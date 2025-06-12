@@ -1,10 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Manrope:wght@200..800&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=PT+Sans+Narrow:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 * {
   margin: 0;
   padding: 0;
-  letter-spacing: 2px;
-  word-spacing: 2px;
   box-sizing: border-box;
+  font-family: "poppins", sans-serif;
 }
 
 html {
@@ -12,9 +11,9 @@ html {
 }
 
 body {
-  font-family: "Lato", sans-serif;
   background-color: #f8fafc;
   color: #333;
+  letter-spacing: 1.5px;
 }
 
 ::-webkit-scrollbar {
@@ -149,6 +148,13 @@ header {
   box-shadow: 0 6px 15px rgba(1, 195, 142, 0.2);
 }
 
+#user-name{
+  letter-spacing: 1px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: rgb(0, 110, 73);
+}
+
 .btn {
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
@@ -156,8 +162,15 @@ header {
   cursor: pointer;
   font-weight: 600;
   transition: all 0.3s ease;
-  margin-left: 1rem;
+  background-color: #01c38e;
   font-size: 0.9rem;
+}
+
+.btn:hover {
+  background-color: #00815f;
+  transition: all 1s;
+  transform: scale(1.05);
+  color: white;
 }
 
 .btn-getstarted {
@@ -253,8 +266,8 @@ header {
 }
 
 .complaints-actions h2 {
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: 1.5rem;
+  font-weight: 500;
   color: #1e293b;
 }
 
@@ -883,13 +896,13 @@ footer {
 }
 
 .form-step .next-step {
-  background-color: #007bff;
+  background-color: #28a745;
   color: white;
   align-self: flex-end;
 }
 
 .form-step .next-step:hover {
-  background-color: #0056b3;
+  background-color: var(#00815f);
 }
 
 .form-step .prev-next-buttons {
@@ -1014,6 +1027,6 @@ footer {
   display: flex;
 }
 
-.close-detail-modal{
+.close-detail-modal {
   cursor: pointer;
 }

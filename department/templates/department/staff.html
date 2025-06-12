@@ -21,7 +21,7 @@
         </div>
         <div class="actions">
             <img src="{% static 'assets/user.svg' %}" alt="" class="user-icon">
-            <p>Hello ! {{ user.first_name }}</p>
+            <p >Hello!<p id="user-name">{{ user.username }}</p></p>
             <button class="btn btn-getstarted" onclick="window.location.href='/logout/'">Logout</button>
         </div>
     </header>
@@ -69,7 +69,7 @@
                     <thead>
                         <tr>
                             <th data-sort="complaint_id">Complaint ID</th>
-                            <th data-sort="username">UserName</th>
+                            <th data-sort="username">Name</th>
                             <th>Sub Category</th>
                             <th>Description</th>
                             <th data-sort="created_at">Date</th>
@@ -86,7 +86,7 @@
                             <td>{{ complaint.subCategory }}</td>
                             <td>{{ complaint.description }}</td>
                             <td>{{ complaint.created_at|date:"M-d-y" }}</td>
-                            <td>{{ complaint.location }}</td>
+                            <td>{{ complaint.address }}</td>
                             <td>
                                 {% if complaint.image_upload %}
                                     <img src="{{ complaint.image_upload }}" alt="Complaint Image" style="max-width: 300px;">

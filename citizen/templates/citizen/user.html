@@ -22,7 +22,7 @@
     </div>
     <div class="actions">
       <img src="{% static 'assets/user.svg' %}" alt="" class="user-icon">
-      <p>Hello ! {{ user.username }}</p>
+      <p >Hello!<p id="user-name">{{ user.username }}</p></p>
       <button class="btn btn-getstarted" onclick="window.location.href='/logout/'">Logout</button>
     </div>
   </header>
@@ -53,7 +53,7 @@
         </div>
 
         {% if complaints %}
-        <div class="complaints-grid"> {# ADD THIS WRAPPER DIV #}
+        <div class="complaints-grid">
         {% for complaint in complaints %}
         <div class="complaint-card">
           <div class="card-header">
@@ -61,15 +61,15 @@
             <span class="status {{ complaint.status|lower|slugify }}">{{ complaint.status }}</span>
           </div>
           <div class="card-body">
-            <p><strong>Department:</strong> {{ complaint.department.name }}</p> {# Added Department #}
+            <p><strong>Department:</strong> {{ complaint.department.name }}</p>
             <p><strong>Sub-Category:</strong> {{ complaint.subCategory.name }}</p>
-            <p><strong>Date:</strong> {{ complaint.created_at|date:"Y-m-d H:i" }}</p> {# Added time #}
-            <p><strong>Description:</strong> {{ complaint.description|truncatechars:100 }}</p> {# Truncate for card view #}
+            <p><strong>Date:</strong> {{ complaint.created_at|date:"Y-m-d H:i" }}</p>
+            <p><strong>Description:</strong> {{ complaint.description|truncatechars:100 }}</p>
             <button class="view-details-btn" data-complaint-id="{{ complaint.complaint_id }}">View Details</button>
           </div>
         </div>
         {% endfor %}
-        </div> {# CLOSE complaints-grid #}
+        </div>
         {% else %}
         <p>No complaints submitted yet.</p>
         {% endif %}
@@ -178,11 +178,8 @@
         <input type="email" name="email" value="{{ user.email }}" required>
 
         <label for="phone">Phone</label>
-        <div style="display: flex; align-items: center;">
-          <span style="padding: 0 8px;">+91</span>
-          <input type="tel" id="phone" name="phone" value="{{ user.phone|slice:'3:' }}" pattern="^[6-9][0-9]{9}$"
+          <input type="tel" id="phone" name="phone" pattern="^[6-9][0-9]{9}$" value="{{ user.phone }}"
             maxlength="10" title="Enter a valid 10-digit Indian mobile number starting with 6-9" required>
-        </div>
 
         <div class="edit-buttons">
           <button type="submit" class="btn btn-getstarted">Save</button>
