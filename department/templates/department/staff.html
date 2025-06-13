@@ -53,7 +53,6 @@
                     <thead>
                         <tr>
                             <th data-sort="complaint_id">Complaint ID</th>
-                            {% comment %} <th data-sort="username">Name</th> {% endcomment %}
                             <th>Sub Category</th>
                             <th>Description</th>
                             <th data-sort="created_at">Date</th>
@@ -66,7 +65,6 @@
                         {% for complaint in department_complaints %}
                         <tr data-department="{{ complaint.department.name }}">
                             <td>{{ complaint.complaint_id }}</td>
-                            {% comment %} <td>{{ complaint.user.name }}</td> {% endcomment %}
                             <td>{{ complaint.subCategory }}</td>
                             <td>{{ complaint.description }}</td>
                             <td>{{ complaint.created_at|date:"M-d-y" }}</td>
@@ -241,22 +239,20 @@
 
                     const cells = row.querySelectorAll('td');
                     const complaintId = cells[0].textContent.trim();
-                    const userName = cells[1].textContent.trim();
-                    const description = cells[2].textContent.trim();
-                    const date = cells[4].textContent.trim();
-                    const location = cells[5].textContent.trim();
+                    const description = cells[1].textContent.trim();
+                    const date = cells[3].textContent.trim();
+                    const location = cells[4].textContent.trim();
                     const status = row.querySelector('.status').value.trim();
-                    const imgEl = cells[6].querySelector('img');
+                    const imgEl = cells[5].querySelector('img');
                     const imageUrl = imgEl ? imgEl.src : null;
                     const detailsDiv = document.getElementById('complaintDetails');
                     detailsDiv.innerHTML = `
                         <p><strong>Complaint ID:</strong> ${complaintId}</p>
-                        <p><strong>User Name:</strong> ${userName}</p>
                         <p><strong>Description:</strong> ${description}</p>
                         <p><strong>Date:</strong> ${date}</p>
                         <p><strong>Location:</strong> ${location}</p>
                         <p><strong>Status:</strong> ${status}</p>
-                        ${imageUrl ? `<p><strong>Image:</strong><br><img src="${imageUrl}" alt="Complaint Image"></p>` : '<p><strong>Image:</strong> No image</p>'}
+                        ${imageUrl ?` <p><strong>Image:</strong><br><img src="${imageUrl}" alt="Complaint Image"></p>` : '<p><strong>Image:</strong> No image</p>'}
                     `;
                     document.getElementById('complaintModal').style.display = 'block';
                 });
