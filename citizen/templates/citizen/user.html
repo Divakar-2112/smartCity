@@ -73,7 +73,6 @@
       <div class="card-body">
         <p><strong>Department:</strong> {{ complaint.department.name }}</p>
         <p><strong>Sub-Category:</strong> {{ complaint.subCategory.name }}</p>
-        <p><strong>Date:</strong> {{ complaint.created_at|date:"Y-m-d H:i" }}</p>
         <p><strong>Description:</strong> {{ complaint.description|truncatechars:100 }}</p>
         <button class="view-details-btn" data-complaint-id="{{ complaint.complaint_id }}">View Details</button>
       </div>
@@ -801,6 +800,58 @@
         districtselection.appendChild(option);
       })
     })
+
+  document.querySelectorAll('.delete-complaint').forEach(icon => {
+    icon.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const complaintId = this.dataset.complaintId;
+      if (confirm('Are you sure you want to delete this complaint?')) {
+        deleteComplaint(complaintId);
+      }
+    });
+  });
+
+function deleteComplaint(complaintId) {
+    if (confirm('Are you sure you want to delete this complaint?')) {
+        fetch(`/delete_complaint/${complaintId}/`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': getCSRFToken(),
+                'Content-Type': 'application/json'
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(err => { throw err; });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'success') {
+                const card = document.querySelector(`[data-complaint-id="${complaintId}"]`).closest('.complaint-card');
+                if (card) card.remove();
+                showSimplePopup('Complaint deleted successfully!');
+                updateStatsAfterDeletion();
+            } else {
+                throw new Error(data.message || 'Failed to delete complaint');
+            }
+        })
+        .catch(error => {
+            console.error('Delete error:', error);
+            showSimplePopup(error.message);
+        });
+    }
+}
+
+function getCSRFToken() {
+    const cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('csrftoken='))
+        ?.split('=')[1];
+    return cookieValue || '';
+}
+
   </script>
 
 </body>

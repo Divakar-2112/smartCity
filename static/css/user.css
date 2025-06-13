@@ -148,7 +148,7 @@ header {
   box-shadow: 0 6px 15px rgba(1, 195, 142, 0.2);
 }
 
-#user-name{
+#user-name {
   letter-spacing: 1px;
   font-weight: 700;
   font-size: 1rem;
@@ -1104,18 +1104,18 @@ footer {
   .detail-container {
     grid-template-columns: 1fr;
   }
-  
+
   .detail-modal {
     padding: 1.5rem !important;
   }
-  
+
   .close-detail-modal {
     top: 1rem;
     right: 1rem;
   }
 }
 
-#locationStatus{
+#locationStatus {
   font-size: 10px;
   margin-left: 1rem;
   transition: all 1s;
@@ -1123,12 +1123,12 @@ footer {
   font-weight: 600;
 }
 
-#getLocation{
-    margin-top: 0px;
-    padding: 10px;
-    font-size: 11px;
-    letter-spacing: 1px;
-    width: 50%;
+#getLocation {
+  margin-top: 0px;
+  padding: 10px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  width: 50%;
 }
 
 .complaints-grid {
@@ -1163,10 +1163,18 @@ footer {
   color: white;
 }
 
-.pending { background-color: #ffc107; }
-.in-progress { background-color: #17a2b8; }
-.resolved { background-color: #28a745; }
-.closed { background-color: #6c757d; }
+.pending {
+  background-color: #ffc107;
+}
+.in-progress {
+  background-color: #17a2b8;
+}
+.resolved {
+  background-color: #28a745;
+}
+.closed {
+  background-color: #6c757d;
+}
 
 .card-body p {
   margin-bottom: 0.4rem;

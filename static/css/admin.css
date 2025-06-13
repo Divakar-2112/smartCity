@@ -237,6 +237,7 @@ th[data-sort]::after {
   color: hsl(0, 100%, 100%);
   font-size: 16px;
   padding-left: 5px;
+  cursor: pointer;
 }
 
 th.asc::after {

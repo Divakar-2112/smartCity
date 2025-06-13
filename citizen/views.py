@@ -8,7 +8,6 @@ from .models import ComplaintDetail, Department, SubCategory, HeroContent
 from django.contrib import messages
 from .form import CreateUserForm
 
-
 def home(request):
     return render(request, "citizen/index.html")
 
@@ -77,6 +76,7 @@ def user(request):
                 pincode=pincode
             )
             message = "Complaint submitted successfully!"
+            return redirect('user')
         else:
             message = "Department or Subcategory not selected!"
 
@@ -89,6 +89,7 @@ def user(request):
         current_user.phone = request.POST.get('phone')
         current_user.save()
         message = "Profile updated successfully!"
+        return redirect('user')
 
     complaints = ComplaintDetail.objects.filter(user=current_user).order_by('-created_at')
     resolved_count = complaints.filter(status='Resolved').count()
