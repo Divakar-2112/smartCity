@@ -85,7 +85,7 @@
                     <thead>
                         <tr>
                             <th data-sort="complaint_id">Complaint ID</th>
-                            <th data-sort="username">Name</th>
+                            {% comment %} <th data-sort="username">Name</th> {% endcomment %}
                             <th>Description</th>
                             <th>Sub Category</th>
                             <th data-sort="created_at">Date</th>
@@ -98,7 +98,7 @@
                         {% for complaint in complaints %}
                         <tr data-department="{{ dept_name }}">
                             <td>{{ complaint.complaint_id }}</td>
-                            <td>{{ complaint.user.name }}</td>
+                            {% comment %} <td>{{ complaint.user.name }}</td> {% endcomment %}
                             <td>{{ complaint.description }}</td>
                             <td>{{ complaint.subCategory }}</td>
                             <td>{{ complaint.created_at|date:"M-d-y" }}</td>
