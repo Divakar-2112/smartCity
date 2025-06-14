@@ -43,6 +43,21 @@ class SubCategory(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.department.name})"
+    
+class StateLocation(models.Model):
+    state_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return self.name
+    
+class DistrictLocation(models.Model):
+    distric_id = models.AutoField(primary_key=True)
+    state = models.ForeignKey(StateLocation, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return f"{self.name} ({self.state.name})"
 
 class ComplaintDetail(models.Model):
     complaint_id = models.AutoField(primary_key=True)
@@ -50,8 +65,8 @@ class ComplaintDetail(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     subCategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     description = models.TextField()
-    state = models.CharField(max_length=100)
-    district = models.CharField(max_length=100)
+    state = models.ForeignKey(StateLocation,on_delete=models.CASCADE)
+    district = models.ForeignKey(DistrictLocation,on_delete=models.CASCADE)
     pincode = models.CharField(max_length=6)
     address = models.CharField(max_length=255)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
