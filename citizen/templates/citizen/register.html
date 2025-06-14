@@ -20,19 +20,19 @@
       opacity: 0.85;
     }
 
-    .error-message {
-      color: red;
-      font-size: 12px;
-    }
-
     .password-wrapper {
       position: relative;
     }
 
+    .password-wrapper input {
+      width: 100%;
+      padding-right: 40px;
+    }
+
     .toggle-password {
       position: absolute;
-      top: 50%;
       right: 10px;
+      top: 50%;
       transform: translateY(-50%);
       cursor: pointer;
     }
@@ -45,45 +45,148 @@
       <div class="image-section">
         <img src="{% static 'assets/sign-up-form.png' %}" alt="Register Background" />
       </div>
-
       <div class="form-section">
+        <p id="matchError" class="error-null">Passwords do not match</p>
         <h3>Create Account</h3>
-        {% if messages %}
-          {% for message in messages %}
-            <div class="alert">{{ message }}</div>
-          {% endfor %}
-        {% endif %}
-
-        <form method="POST" autocomplete="off">
+        <form id="registerForm" method="POST" autocomplete="off">
           {% csrf_token %}
-            {% for field in form %}
-              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-              {% if 'password' in field.name %}
-                <div class="password-wrapper">
-                  {{ field }}
-                  <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('{{ field.auto_id }}', this)"></i>
-                </div>
-                <span id="{{ field.auto_id }}-error" class="error-message"></span><br>
-              {% else %}
-                {{ field }}
-              {% endif %}
-
-              {% if field.errors %}
-                <span class="error-message">{{ field.errors.0 }}</span>
-              {% endif %}
-            {% endfor %}
-
-            <div class="button-group">
-              <button type="submit">Register</button>
-            </div>
-          <p id="foot">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+          {% for field in form %}
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {% if 'password1' in field.name %}
+          <div class="password-wrapper">
+            {{ field }}
+            <i class="fa-solid fa-eye-slash toggle-password" onclick="togglePassword('pws', this)"></i>
+          </div>
+          {% elif 'password2' in field.name %}
+          <div class="password-wrapper">
+            {{ field }}
+            <i class="fa-solid fa-eye-slash toggle-password" onclick="togglePassword('pws2', this)"></i>
+          </div>
+          {% else %}
+          {{ field }}
+          {% endif %}
+          {% endfor %}
+          <div class="button-group">
+            <button type="submit" class="registerBtn">Register</button>
+          </div>
+          <p id="foot">
+            Already have an account? <a href="{% url 'login' %}">Login</a>
+          </p>
         </form>
       </div>
     </div>
+
+    <div id="usernameRequriment">
+      <p id="spaceError" class="error">Username cannot be empty or spaces only</p>
+    </div>
+
+    <div id="emailRequriment">
+      <p id="template" class="emailError">Format: admin@example.com</p>
+    </div>
+
+    <div id="passwordRequriment">
+      <strong>Password Requirements:</strong><br />
+      <p id="letter" class="invalid">At least one lowercase letter</p>
+      <p id="capital" class="invalid">At least one capital letter</p>
+      <p id="number" class="invalid">At least one number</p>
+      <p id="symbol" class="invalid">At least one special character (@, #, $, &)</p>
+      <p id="length" class="invalid">8 to 20 characters</p>
+    </div>
   </div>
 
-  <script src="{% static 'js/register.js' %}"></script>
+  <script>
 
+    const username = document.getElementById('mainName');
+    const useremail = document.getElementById('mainEmail');
+    const pws = document.getElementById('pws');
+    const pws2 = document.getElementById('pws2');
+
+    const spaceError = document.getElementById('spaceError');
+    const template = document.getElementById('template');
+
+    const letter = document.getElementById('letter');
+    const capital = document.getElementById('capital');
+    const number = document.getElementById('number');
+    const symbol = document.getElementById('symbol');
+    const length = document.getElementById('length');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const matchError = document.getElementById('matchError')
+
+      username.onfocus = () => {
+        document.getElementById('usernameRequriment').style.display = 'block';
+      };
+      username.onblur = () => {
+        document.getElementById('usernameRequriment').style.display = 'none';
+      };
+      username.onkeyup = () => {
+        const trimmed = username.value.trim();
+        spaceError.classList.toggle('error', trimmed === '');
+        spaceError.classList.toggle('error-null', trimmed !== '');
+      };
+
+      // Email focus
+      useremail.onfocus = () => {
+        document.getElementById('emailRequriment').style.display = 'block';
+      };
+      useremail.onblur = () => {
+        document.getElementById('emailRequriment').style.display = 'none';
+      };
+      useremail.onkeyup = () => {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const valid = emailRegex.test(useremail.value);
+        template.classList.toggle('email', valid);
+        template.classList.toggle('emailError', !valid);
+      };
+
+      pws.onfocus = () => {
+        document.getElementById('passwordRequriment').style.display = 'block';
+      };
+      pws.onblur = () => {
+        document.getElementById('passwordRequriment').style.display = 'none';
+      };
+      pws.onkeyup = () => {
+        const value = pws.value;
+        letter.classList.toggle('valid', /[a-z]/.test(value));
+        letter.classList.toggle('invalid', !/[a-z]/.test(value));
+        capital.classList.toggle('valid', /[A-Z]/.test(value));
+        capital.classList.toggle('invalid', !/[A-Z]/.test(value));
+        number.classList.toggle('valid', /[0-9]/.test(value));
+        number.classList.toggle('invalid', !/[0-9]/.test(value));
+        symbol.classList.toggle('valid', /[@#$&]/.test(value));
+        symbol.classList.toggle('invalid', !/[@#$&]/.test(value));
+        length.classList.toggle('valid', value.length >= 8 && value.length <= 20);
+        length.classList.toggle('invalid', !(value.length >= 8 && value.length <= 20));
+      };
+    });
+
+    const form = document.getElementById('registerForm');
+    form.addEventListener('submit', (e) => {
+      const match = pws.value === pws2.value;
+      if (!match) {
+        e.preventDefault();
+        matchError.classList.remove('error-null');
+        matchError.classList.add('error');
+      } else {
+        matchError.classList.remove('error');
+        matchError.classList.add('error-null');
+      }
+    });
+    
+    function togglePassword(inputId, icon) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      }
+    }
+  </script>
 </body>
 
 </html>
