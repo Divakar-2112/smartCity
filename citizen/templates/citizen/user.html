@@ -54,97 +54,94 @@
       <section class="complaint-main" id="user-complaint">
         <div class="complaints-actions">
           <h2>My Complaints</h2>
-          <button class="complaintButton" id="openComplaintModal"><i class="fa-solid fa-plus"></i>Add
-            Complaints</button>
+          <button class="complaintButton" id="openComplaintModal"><i class="fa-solid fa-plus"></i>Add Complaints</button>
         </div>
         <div id="noResults" style="display: none; text-align: center; font-size: 1.2rem; color: #888; margin-top: 20px;">
-                No complaints found.
+          No complaints found.
         </div>
 
-<div id="complaintList">
-  {% if complaints %}
-  <div class="complaints-grid">
-    {% for complaint in complaints %}
-    <div class="complaint-card">
-      <div class="card-header">
-        <span class="complaint-id">#{{ complaint.complaint_id }}</span>
-        <span class="status {{ complaint.status|lower|slugify }}">{{ complaint.status }}</span>
-      </div>
-      <div class="card-body">
-        <p><strong>Department:</strong> {{ complaint.department.name }}</p>
-        <p><strong>Sub-Category:</strong> {{ complaint.subCategory.name }}</p>
-        <p><strong>Description:</strong> {{ complaint.description|truncatechars:100 }}</p>
-        <button class="view-details-btn" data-complaint-id="{{ complaint.complaint_id }}">View Details</button>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-  {% else %}
-  <p>No complaints submitted yet.</p>
-  {% endif %}
-</div>
+        <div id="complaintList">
+          {% if complaints %}
+          <div class="complaints-grid">
+            {% for complaint in complaints %}
+            <div class="complaint-card">
+              <div class="card-header">
+                <span class="complaint-id">#{{ complaint.complaint_id }}</span>
+                <span class="status {{ complaint.status|lower|slugify }}">{{ complaint.status }}</span>
+              </div>
+              <div class="card-body">
+                <p><strong>Department:</strong> {{ complaint.department.name }}</p>
+                <p><strong>Sub-Category:</strong> {{ complaint.subCategory.name }}</p>
+                <p><strong>Description:</strong> {{ complaint.description|truncatechars:100 }}</p>
+                <button class="view-details-btn" data-complaint-id="{{ complaint.complaint_id }}">View Details</button>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <p>No complaints submitted yet.</p>
+          {% endif %}
+        </div>
       </section>
     </div>
   </main>
 
   <div id="complaintModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Add New Complaint</h2>
-    <form method="POST" enctype="multipart/form-data" id="complaintForm">
-      {% csrf_token %}
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Add New Complaint</h2>
+      <form method="POST" enctype="multipart/form-data" id="complaintForm">
+        {% csrf_token %}
 
-      <div class="form-step active" id="step1">
-        <label for="department">Department</label>
-<select name="department" id="department" required>
-    <option value="">-- Select Department --</option>
-    {% for dept in departments %}
-    <option value="{{ dept.department_id }}">{{ dept.name }}</option>
-    {% endfor %}
-</select>
+        <div class="form-step active" id="step1">
+          <label for="department">Department</label>
+          <select name="department" id="department" required>
+            <option value="">-- Select Department --</option>
+            {% for dept in departments %}
+            <option value="{{ dept.department_id }}">{{ dept.name }}</option>
+            {% endfor %}
+          </select>
 
-<label for="subCategory">Sub Category</label>
-<select name="subCategory" id="subCategory" required>
-    <option value="">-- Select SubCategory --</option>
-</select>
+          <label for="subCategory">Sub Category</label>
+          <select name="subCategory" id="subCategory" required>
+            <option value="">-- Select SubCategory --</option>
+          </select>
 
-        <label for="description">Description:</label>
-        <textarea name="description" rows="4" cols="50" required></textarea>
+          <label for="description">Description:</label>
+          <textarea name="description" rows="4" cols="50" required></textarea>
 
-        <div class="form-navigation">
-          <button type="button" class="btn next-step">Next</button>
+          <div class="form-navigation">
+            <button type="button" class="btn next-step">Next</button>
+          </div>
         </div>
-      </div>
 
-      <div class="form-step" id="step2">
-  
-        <label for="states">State</label>
-<select name="state" id="states" required>
-    <option value="">-- Select State --</option>
-    {% for state in states %}
-    <option value="{{ state.state_id }}">{{ state.name }}</option>
-    {% endfor %}
-</select>
+        <div class="form-step" id="step2">
+          <label for="states">State</label>
+          <select name="state" id="states" required>
+            <option value="">-- Select State --</option>
+            {% for state in states %}
+            <option value="{{ state.state_id }}">{{ state.name }}</option>
+            {% endfor %}
+          </select>
 
-<label for="districts">District</label>
-<select name="district" id="districts" required>
-    <option value="">-- Select District --</option>
-</select>
+          <label for="districts">District</label>
+          <select name="district" id="districts" required>
+            <option value="">-- Select District --</option>
+          </select>
+          
+          <label for="address">House No, Street Name, Building Name</label>
+          <input type="text" name="address" id="address" placeholder="Enter door no, street name" required>
 
-        <label for="pin">Pincode</label>
-        <input type="text" name="pincode" pattern="[0-9]{6}" maxlength="6" placeholder="Enter pincode" required>
+          <label for="pin">Pincode</label>
+          <input type="text" name="pincode" pattern="[0-9]{6}" maxlength="6" placeholder="Enter pincode" required>
 
-        <label for="address">House No, Street Name, Building Name</label>
-        <input type="text" name="address" id="address" placeholder="Enter door no, street name" required>
-
-
-        <div class="form-navigation">
-          <button type="button" class="btn prev-step">Previous</button>
-          <button type="button" class="btn next-step">Next</button>
+          <div class="form-navigation">
+            <button type="button" class="btn prev-step">Previous</button>
+            <button type="button" class="btn next-step">Next</button>
+          </div>
         </div>
-      </div>
 
-      <div class="form-step" id="step3">
+        <div class="form-step" id="step3">
           <div class="map-container">
             <div id="miniMap" style="height: 200px; width: 100%; margin: 1rem 0;"></div>
           </div>
@@ -157,17 +154,17 @@
             <span id="locationStatus"></span>
           </div>
 
-        <label for="image_upload">Upload Image:</label>
-        <input type="file" multiple name="image_upload">
+          <label for="image_upload">Upload Image:</label>
+          <input type="file" multiple name="image_upload">
 
-        <div class="form-navigation">
-          <button type="button" class="btn prev-step">Previous</button>
-          <input type="submit" value="Submit Complaint" class="btn btn-submit">
+          <div class="form-navigation">
+            <button type="button" class="btn prev-step">Previous</button>
+            <input type="submit" value="Submit Complaint" class="btn btn-submit">
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
 
   <div id="complaintDetailModal" class="modal">
     <div class="modal-content detail-modal">
@@ -194,7 +191,6 @@
             <label>Date Submitted:</label>
             <div class="detail-value" id="detail-created-at"></div>
           </div>
-
         </div>
 
         <div class="detail-section">
@@ -259,16 +255,6 @@
           better tomorrow.
         </p>
       </div>
-      <div class="footer-links">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
       <div class="footer-contact">
         <h4>Contact Us</h4>
         <p>L76A, L Block, 21st Street, Anna Nagar, Chennai, Tamil Nadu 600102</p>
@@ -283,7 +269,6 @@
 
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script>
-
     let map;
     let marker;
 
@@ -351,97 +336,94 @@
     });
 
     const allSubcategories = [
-    {% for sub in subcategories %}
-    {
+      {% for sub in subcategories %}
+      {
         id: {{ sub.subCategory_id }},
         name: "{{ sub.name|escapejs }}",
         department_id: {{ sub.department.department_id }}
-    },
-    {% endfor %}
-];
+      },
+      {% endfor %}
+    ];
 
-const allDistricts = [
-    {% for district in districts %}
-    {
+    const allDistricts = [
+      {% for district in districts %}
+      {
         id: {{ district.distric_id }},
         name: "{{ district.name|escapejs }}",
         state_id: {{ district.state.state_id }}
-    },
-    {% endfor %}
-];
+      },
+      {% endfor %}
+    ];
 
     const allComplaintsData = [
       {% for complaint in complaints %}
-    {
-      complaint_id: "{{ complaint.complaint_id }}",
+      {
+        complaint_id: "{{ complaint.complaint_id }}",
         status: "{{ complaint.status }}",
-          department_name: "{{ complaint.department.name }}",
-            subcategory_name: "{{ complaint.subCategory.name }}",
-              created_at: "{{ complaint.created_at|date:'c' }}",
-                updated_at: "{{ complaint.updated_at|date:'c' }}",
-                  description: "{{ complaint.description }}",
-                    address: "{{ complaint.address }}",
-                      district: "{{ complaint.district }}",
-                        state: "{{ complaint.state }}",
-                          pincode: "{{ complaint.pincode }}"
-    },
-    {% endfor %}
+        department_name: "{{ complaint.department.name }}",
+        subcategory_name: "{{ complaint.subCategory.name }}",
+        created_at: "{{ complaint.created_at|date:'c' }}",
+        updated_at: "{{ complaint.updated_at|date:'c' }}",
+        description: "{{ complaint.description }}",
+        address: "{{ complaint.address }}",
+        district: "{{ complaint.district }}",
+        state: "{{ complaint.state }}",
+        pincode: "{{ complaint.pincode }}"
+      },
+      {% endfor %}
     ];
 
     document.addEventListener('DOMContentLoaded', function () {
       const departmentSelect = document.getElementById('department');
-const subCategorySelect = document.getElementById('subCategory');
-const stateSelect = document.getElementById('states');
-const districtSelect = document.getElementById('districts');
+      const subCategorySelect = document.getElementById('subCategory');
+      const stateSelect = document.getElementById('states');
+      const districtSelect = document.getElementById('districts');
 
       stateSelect.addEventListener('change', function() {
-    const selectedStateId = parseInt(this.value);
-    districtSelect.innerHTML = '<option value="">-- Select District --</option>';
-    
-    if (!selectedStateId) return;
-    
-    // Filter districts based on selected state
-    const filteredDistricts = allDistricts.filter(district => district.state_id === selectedStateId);
-    
-    if (filteredDistricts.length === 0) {
-        const option = document.createElement('option');
-        option.value = "";
-        option.textContent = "No districts available";
-        districtSelect.appendChild(option);
-    } else {
-        filteredDistricts.forEach(district => {
+        const selectedStateId = parseInt(this.value);
+        districtSelect.innerHTML = '<option value="">-- Select District --</option>';
+        
+        if (!selectedStateId) return;
+        
+        const filteredDistricts = allDistricts.filter(district => district.state_id === selectedStateId);
+        
+        if (filteredDistricts.length === 0) {
+          const option = document.createElement('option');
+          option.value = "";
+          option.textContent = "No districts available";
+          districtSelect.appendChild(option);
+        } else {
+          filteredDistricts.forEach(district => {
             const option = document.createElement('option');
             option.value = district.id;
             option.textContent = district.name;
             districtSelect.appendChild(option);
-        });
-    }
-});
+          });
+        }
+      });
 
-// Department change handler for subcategories
-departmentSelect.addEventListener('change', function() {
-    const selectedDeptId = parseInt(this.value);
-    subCategorySelect.innerHTML = '<option value="">-- Select SubCategory --</option>';
-    
-    if (!selectedDeptId) return;
-    
-    // Filter subcategories based on selected department
-    const filteredSubcategories = allSubcategories.filter(sub => sub.department_id === selectedDeptId);
-    
-    if (filteredSubcategories.length === 0) {
-        const option = document.createElement('option');
-        option.value = "";
-        option.textContent = "No subcategories available";
-        subCategorySelect.appendChild(option);
-    } else {
-        filteredSubcategories.forEach(sub => {
+      departmentSelect.addEventListener('change', function() {
+        const selectedDeptId = parseInt(this.value);
+        subCategorySelect.innerHTML = '<option value="">-- Select SubCategory --</option>';
+        
+        if (!selectedDeptId) return;
+        
+        const filteredSubcategories = allSubcategories.filter(sub => sub.department_id === selectedDeptId);
+        
+        if (filteredSubcategories.length === 0) {
+          const option = document.createElement('option');
+          option.value = "";
+          option.textContent = "No subcategories available";
+          subCategorySelect.appendChild(option);
+        } else {
+          filteredSubcategories.forEach(sub => {
             const option = document.createElement('option');
             option.value = sub.id;
             option.textContent = sub.name;
             subCategorySelect.appendChild(option);
-        });
-    }
-});
+          });
+        }
+      });
 
       document.querySelector('.user-icon').addEventListener('click', () => {
         document.getElementById('profileSidebar').classList.add('active');
@@ -485,7 +467,6 @@ departmentSelect.addEventListener('change', function() {
 
       document.getElementById("openComplaintModal").onclick = function () {
         document.getElementById("complaintModal").style.display = "block";
-        
       }
 
       const searchInput = document.getElementById('complaintSearch');
@@ -508,9 +489,10 @@ departmentSelect.addEventListener('change', function() {
 
         noResults.style.display = visibleCount === 0 ? 'block' : 'none';
       });
-    const complaintForm = document.getElementById('complaintForm');
-    const formSteps = complaintForm.querySelectorAll('.form-step');
-    let currentStep = 0;
+      
+      const complaintForm = document.getElementById('complaintForm');
+      const formSteps = complaintForm.querySelectorAll('.form-step');
+      let currentStep = 0;
 
       function showStep(stepIndex) {
         formSteps.forEach((step, index) => {
@@ -589,7 +571,6 @@ departmentSelect.addEventListener('change', function() {
           showSimplePopup("Complaint details not found.");
         }
       }
-
     });
 
     function enableEdit() {
@@ -620,15 +601,13 @@ departmentSelect.addEventListener('change', function() {
       }, 3000);
     }
 
-function getCSRFToken() {
-    const cookieValue = document.cookie
+    function getCSRFToken() {
+      const cookieValue = document.cookie
         .split('; ')
         .find(row => row.startsWith('csrftoken='))
         ?.split('=')[1];
-    return cookieValue || '';
-}
-
+      return cookieValue || '';
+    }
   </script>
-
 </body>
 </html>

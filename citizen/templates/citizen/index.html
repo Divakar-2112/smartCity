@@ -1,147 +1,168 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart City - Home Page</title>
+    <link rel="stylesheet" href="{%static 'css/style.css'%}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{%static 'assets/favicon-icon.png'%}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Smart City - Home Page</title>
-  <link rel="stylesheet" href="{%static 'css/style.css'%}" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="icon" type="image/x-icon" href="{%static 'assets/favicon-icon.png'%}">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
-</head>
-
-<body>
-  <header class="navbar">
-    <div class="logo">
-      <img src="{% static 'assets/smartCityLogo.png' %}" alt="">
-    </div>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#testimonial-section">About</a>
-      <a href="#faq-section">FAQs</a>
-      <a href="#contact-details">Contact Us</a>
-    </nav>
-    <div class="actions">
-      <button class="btn btn-getstarted" onclick="window.location.href='/login/'">Login</button>
-    </div>
-  </header>
-
- <section class="hero-section" id="hero-section">
-  {% for hero_section in hero %}
-  <div class="hero">
-    <div class="hero-text">
-      <div class="hero-title">{{ hero_section.title_desc }}</div>
-      <div class="hero-desc">{{ hero_section.sub_desc }}</div>
-    </div>
-    <div class="hero-img">
-      <img src="{% static 'assets/image-2' %}.svg" alt="Smart City Illustration" />
-    </div>
-  </div>
-  {% endfor %}
-</section>
-
-  <section class="image-gallery" id="Highlights">
-    <h2 class="gallery-title">Gallery Highlights</h2>
-    <div class="gallery-container">
-      <div class="gallery-item">
-        <img src="{% static 'assets/image-3.png' %}" alt="Smart Lighting">
-        <p class="caption">Smart Lighting System</p>
+  <body>
+    <header class="navbar">
+      <div class="logo">
+        <img src="{% static 'assets/smartCityLogo.png' %}" alt="" />
       </div>
-      <div class="gallery-item">
-        <img src="{% static 'assets/image-4.png' %}" alt="Public Transport">
-        <p class="caption">Advanced Public Transport</p>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#testimonial-section">About</a>
+        <a href="#faq-section">FAQs</a>
+        <a href="#contact-details">Contact Us</a>
+      </nav>
+      <div class="actions">
+        <button
+          class="btn btn-getstarted"
+          onclick="window.location.href='/login/'"
+        >
+          Login
+        </button>
       </div>
-      <div class="gallery-item">
-        <img src="{% static 'assets/image-5.png' %}" alt="Green Initiatives">
-        <p class="caption">Green Infrastructure</p>
-      </div>
-    </div>
-  </section>
+    </header>
 
-<section class="news-section">
-  <div class="news-img">
-    <img src="https://img.freepik.com/free-vector/news-concept-illustration_114360-1517.jpg?w=740"
-         alt="Latest News" />
-  </div>
-  {% for latest_news in lastest_news %}
-    <div class="news-content">
-      <div class="news-title">{{ latest_news.new_title }} 📰</div>
-      <div class="news-desc">
-        <p>{{ latest_news.new_desc }}</p>
-      </div>
-    </div>
-  {% endfor %}
-</section>
-
-  <section class="testimonials" id="testimonial-section">
-    <h2>About Us</h2>
-    <div class="testimonial-cards">
-      {% for card in testimonials %}
-      <div class="card">
-        <img src="{% static 'assets/testimonials' %}{{ forloop.counter }}.svg" alt="Static Image">
-        <h3>{{ card.main_title }}</h3>
-        <p>{{ card.sub_title }}</p>
-        <div class="star-icon">★</div>
+    <section class="hero-section" id="hero-section">
+      {% for hero_section in hero %}
+      <div class="hero">
+        <div class="hero-text">
+          <div class="hero-title">{{ hero_section.title_desc }}</div>
+          <div class="hero-desc">{{ hero_section.sub_desc }}</div>
+        </div>
+        <div class="hero-img">
+          <img
+            src="{% static 'assets/image-2' %}.svg"
+            alt="Smart City Illustration"
+          />
+        </div>
       </div>
       {% endfor %}
-    </div>
-  </section>
+    </section>
 
-
-  <section class="faq-section" id="faq-section">
-  <div class="faq-title">FAQs</div>
-  <ul class="faq-list">
-    {% for faq in faq_section %}
-    <li class="faq-item">
-      <div class="faq-question">
-        {{ faq.faq_question }}
-        <span class="faq-icon">▶</span>
+    <section class="image-gallery" id="Highlights">
+      <h2 class="gallery-title">Gallery Highlights</h2>
+      <div class="gallery-container">
+        <div class="gallery-item">
+          <img src="{% static 'assets/image-3.png' %}" alt="Smart Lighting" />
+          <p class="caption">Smart Lighting System</p>
+        </div>
+        <div class="gallery-item">
+          <img src="{% static 'assets/image-4.png' %}" alt="Public Transport" />
+          <p class="caption">Advanced Public Transport</p>
+        </div>
+        <div class="gallery-item">
+          <img
+            src="{% static 'assets/image-5.png' %}"
+            alt="Green Initiatives"
+          />
+          <p class="caption">Green Infrastructure</p>
+        </div>
       </div>
-      <div class="faq-answer">
-        <hr />
-        <small>{{ faq.faq_answer }}</small>
-      </div>
-    </li>
-    {% endfor %}
-  </ul>
-</section>
+    </section>
 
-  <footer>
-    <div class="footer-container" id="contact-details">
-      <div class="footer-about">
-        <h3>About Smart City</h3>
-        <p>
-          Empowering sustainable urban innovation and citizen engagement for a
-          better tomorrow.
-        </p>
+    <section class="news-section">
+      <div class="news-img">
+        <img
+          src="https://img.freepik.com/free-vector/news-concept-illustration_114360-1517.jpg?w=740"
+          alt="Latest News"
+        />
       </div>
-      <div class="footer-links">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
+      {% for latest_news in lastest_news %}
+      <div class="news-content">
+        <div class="news-title">{{ latest_news.new_title }} 📰</div>
+        <div class="news-desc">
+          <p>{{ latest_news.new_desc }}</p>
+        </div>
       </div>
-      <div class="footer-contact">
-        <h4>Contact Us</h4>
-        <p>L76A, L Block, 21st Street, Anna Nagar, Chennai, Tamil Nadu 600102</p>
-        <p>Phone: +91 99627XXXX</p>
-        <p>Email: smartcity@org.com</p>
+      {% endfor %}
+    </section>
+
+    <section class="testimonials" id="testimonial-section">
+      <h2>About Us</h2>
+      <div class="testimonial-cards">
+        {% for card in testimonials %}
+        <div class="card">
+          <img
+            src="{% static 'assets/testimonials' %}{{ forloop.counter }}.svg"
+            alt="Static Image"
+          />
+          <h3>{{ card.main_title }}</h3>
+          <p>{{ card.sub_title }}</p>
+          <div class="star-icon">★</div>
+        </div>
+        {% endfor %}
       </div>
-    </div>
-    <div class="footer-bottom">
-      &copy; 2025 Smart City Initiative. All rights reserved.
-    </div>
-  </footer>
+    </section>
 
-  <script src="{% static 'js/index.js' %}"></script>
+    <section class="faq-section" id="faq-section">
+      <div class="faq-title">FAQs</div>
+      <ul class="faq-list">
+        {% for faq in faq_section %}
+        <li class="faq-item">
+          <div class="faq-question">
+            {{ faq.faq_question }}
+            <span class="faq-icon">▶</span>
+          </div>
+          <div class="faq-answer">
+            <hr />
+            <small>{{ faq.faq_answer }}</small>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
 
-</body>
+    <footer>
+      <div class="footer-container" id="contact-details">
+        <div class="footer-about">
+          <h3>About Smart City</h3>
+          <p>
+            Empowering sustainable urban innovation and citizen engagement for a
+            better tomorrow.
+          </p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact Us</h4>
+          <p>
+            L76A, L Block, 21st Street, Anna Nagar, Chennai, Tamil Nadu 600102
+          </p>
+          <p>Phone: +91 99627XXXX</p>
+          <p>Email: smartcity@org.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2025 Smart City Initiative. All rights reserved.
+      </div>
+    </footer>
 
+    <script src="{% static 'js/index.js' %}"></script>
+  </body>
 </html>

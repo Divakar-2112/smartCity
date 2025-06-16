@@ -2,11 +2,15 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
+# role of users
+
 ROLE_CHOICES = [
     ('citizen', 'Citizen'),
     ('staff', 'Staff'),
     ('admin', 'Admin'),
 ]
+
+# status of complaint
 
 STATUS_CHOICES = [
     ('Pending', 'Pending'),
@@ -15,6 +19,8 @@ STATUS_CHOICES = [
     ('Rejected', 'Rejected'),
 ]
 
+# department table
+
 class Department(models.Model):
     department_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
@@ -22,6 +28,8 @@ class Department(models.Model):
 
     def __str__(self):
         return self.name
+
+# user table
 
 class NewUser(AbstractUser):
     user_id = models.AutoField(primary_key=True)
@@ -34,6 +42,8 @@ class NewUser(AbstractUser):
 
     def __str__(self):
         return self.name
+    
+# subcategory table
 
 class SubCategory(models.Model):
     subCategory_id = models.AutoField(primary_key=True)
@@ -44,12 +54,16 @@ class SubCategory(models.Model):
     def __str__(self):
         return f"{self.name} ({self.department.name})"
     
+# table for all the states
+    
 class StateLocation(models.Model):
     state_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     
     def __str__(self):
         return self.name
+    
+# table for all the districts
     
 class DistrictLocation(models.Model):
     distric_id = models.AutoField(primary_key=True)
@@ -58,6 +72,8 @@ class DistrictLocation(models.Model):
     
     def __str__(self):
         return f"{self.name} ({self.state.name})"
+
+# table for complaint details
 
 class ComplaintDetail(models.Model):
     complaint_id = models.AutoField(primary_key=True)
@@ -79,6 +95,8 @@ class ComplaintDetail(models.Model):
     def __str__(self):
         return f"Complaint #{self.complaint_id} by {self.user.name}"
 
+# table for hero content in landing page
+ 
 class HeroContent(models.Model):
     title_desc = models.TextField(max_length=255)
     sub_desc = models.TextField(max_length=255)
@@ -86,6 +104,7 @@ class HeroContent(models.Model):
     def __str__(self):
         return f"Herocontent #{self.title_desc} by {self.sub_desc}"
 
+# table for testimonials content in landing page
 
 class Testimonials(models.Model):
     main_title = models.TextField(max_length=255)
@@ -95,6 +114,7 @@ class Testimonials(models.Model):
     def __str__(self):
         return f"Testimonials #{self.main_title}"
     
+# table for faq_section content in landing page
 
 class Faq_Section(models.Model):
     faq_question = models.TextField(max_length=255)
@@ -103,6 +123,7 @@ class Faq_Section(models.Model):
     def __str__(self):
         return f"Faq_Section #{self.faq_question} by {self.faq_answer}"
     
+# table for latest_news content in landing page
 
 class Latest_News(models.Model):
     new_title = models.TextField(max_length=255)

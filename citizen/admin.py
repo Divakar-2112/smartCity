@@ -1,6 +1,12 @@
 from django.contrib import admin
 from .models import *
 
+# admin site header
+
+admin.site.site_header = "Smart City Admin"
+
+# hero content display
+
 @admin.register(HeroContent)
 class HeroContentAdmin(admin.ModelAdmin):
     
@@ -10,6 +16,8 @@ class HeroContentAdmin(admin.ModelAdmin):
         css = {
             'all': ('css/admin_custom.css',)
         }
+
+# testimonials content display
 
 @admin.register(Testimonials)
 class TestimonialsAdmin(admin.ModelAdmin):
@@ -21,6 +29,8 @@ class TestimonialsAdmin(admin.ModelAdmin):
             'all': ('css/admin_custom.css',)
         }
 
+# faq_section content display
+
 @admin.register(Faq_Section)
 class Faq_SectionAdmin(admin.ModelAdmin):
     
@@ -30,6 +40,8 @@ class Faq_SectionAdmin(admin.ModelAdmin):
         css = {
             'all': ('css/admin_custom.css',)
         }
+
+# latest_news content display
 
 @admin.register(Latest_News)
 class Latest_NewsAdmin(admin.ModelAdmin):
@@ -41,7 +53,7 @@ class Latest_NewsAdmin(admin.ModelAdmin):
             'all': ('css/admin_custom.css',)
         }
 
-admin.site.site_header = "Smart City Admin"
+# department table display
 
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
@@ -51,6 +63,8 @@ class DepartmentAdmin(admin.ModelAdmin):
         css = {
             'all': ('css/admin_custom.css',)
         }
+        
+# user table display
 
 @admin.register(NewUser)
 class NewUserAdmin(admin.ModelAdmin):
@@ -64,6 +78,8 @@ class NewUserAdmin(admin.ModelAdmin):
             'all': ('css/admin_custom.css',)
         }
 
+# sub category table display 
+
 @admin.register(SubCategory)
 class SubCategoryAdmin(admin.ModelAdmin):
     list_display = ('subCategory_id', 'name', 'department', 'description')
@@ -74,6 +90,8 @@ class SubCategoryAdmin(admin.ModelAdmin):
         css = {
             'all': ('css/admin_custom.css',)
         }
+
+# complaint details table display
 
 @admin.register(ComplaintDetail)
 class ComplaintDetailAdmin(admin.ModelAdmin):

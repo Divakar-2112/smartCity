@@ -4,6 +4,8 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from citizen.models import *
 
+# staff page view
+ 
 def staff_complaints_view(request):
     if not request.user.is_authenticated:
         return redirect('/login')
@@ -45,6 +47,9 @@ def staff_complaints_view(request):
     }
     
     return render(request, 'department/staff.html', context)
+
+# update complaint status
+
 @csrf_exempt
 def update_complaint_status(request):
     if request.method == 'POST':
@@ -61,6 +66,9 @@ def update_complaint_status(request):
         except Exception as e:
             return JsonResponse({"success": False, "error": str(e)})
     return JsonResponse({"success": False, "error": "Invalid request"})
+
+# image upload
+
 @csrf_exempt
 def upload_after_image(request):
     if request.method == 'POST':

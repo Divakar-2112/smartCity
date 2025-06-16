@@ -1,56 +1,67 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{%static 'assets/favicon-icon.png'%}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      body::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("{% static 'assets/background.png'%}") center/cover
+          no-repeat;
+        filter: blur(5px);
+        z-index: -1;
+        opacity: 0.85;
+      }
+    </style>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
-  <link rel="stylesheet" href="{% static 'css/login.css' %}">
-  <link rel="icon" type="image/x-icon" href="{%static 'assets/favicon-icon.png'%}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    body::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url("{% static 'assets/background.png'%}") center/cover no-repeat;
-      filter: blur(5px);
-      z-index: -1;
-      opacity: 0.85;
-    }
-  </style>
-</head>
+  <body>
+    <div class="login-wrapper">
+      <div class="container">
+        <div class="image-section">
+          <img src="{%static 'assets/login-image.png'%}" alt="" />
+        </div>
+        <div class="form-section">
+          <form method="POST" autocomplete="off" class="login-form">
+            {% csrf_token %}
 
-<body>
-  <div class="login-wrapper">
-    <div class="container">
-      <div class="image-section">
-        <img src="{%static 'assets/login-image.png'%}" alt="" />
-      </div>
-      <div class="form-section">
-        <form method="POST" autocomplete="off" class="login-form">
-          {% csrf_token %}
-          
-          <label for="username">Enter username or email</label>
-          <input type="text" id="username" name="username" required />
+            <label for="username">Enter username or email</label>
+            <input type="text" id="username" name="username" required />
 
-          <label for="password">Enter password</label>
-          <div class="password-wrapper">
-            <input type="password" id="password" name="password" required />
-            <i class="fa-solid fa-eye" id="togglePassword" onclick="togglePassword()"></i>
-          </div>
+            <label for="password">Enter password</label>
+            <div class="password-wrapper">
+              <input type="password" id="password" name="password" required />
+              <i
+                class="fa-solid fa-eye"
+                id="togglePassword"
+                onclick="togglePassword()"
+              ></i>
+            </div>
 
-          <button type="submit">Login</button>
+            <button type="submit">Login</button>
 
-          <p>Don't have an account? <a href="{% url 'register' %}">Sign Up</a></p>
-        </form>
+            <p>
+              Don't have an account? <a href="{% url 'register' %}">Sign Up</a>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
 
-  <script src="{% static 'js/login.js' %}"></script>
-
-</body>
-
+    <script src="{% static 'js/login.js' %}"></script>
+  </body>
 </html>

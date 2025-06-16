@@ -6,15 +6,23 @@ from django.http import JsonResponse
 from .models import *
 from .form import CreateUserForm
 
+# home page
+
 def home(request):
     return render(request, "citizen/index.html")
+
+# login page
 
 def login_view(request):
     return render(request, "citizen/login.html")
 
+# logout user
+
 def logout_view(request):
     auth_logout(request)
     return redirect('home')
+
+# register view
 
 def register(request):
     if request.method == 'POST':
@@ -25,6 +33,7 @@ def register(request):
             user.save()
             
             # Authenticate and login the user
+            
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
@@ -40,12 +49,16 @@ def register(request):
         form = CreateUserForm()
     return render(request, "citizen/register.html", {'form': form})
 
+# login view
+
 @login_required(login_url='login')
 def user(request):
     current_user = request.user
     
     if request.method == 'POST':
+        
         # Handle complaint submission
+        
         if 'description' in request.POST:
             try:
                 department_id = request.POST.get('department')
@@ -78,6 +91,7 @@ def user(request):
                 return redirect('user')
         
         # Handle profile update
+        
         elif 'first_name' in request.POST:
             try:
                 current_user.first_name = request.POST.get('first_name')
@@ -93,6 +107,7 @@ def user(request):
                 return redirect('user')
 
     # Get user complaints and stats
+    
     complaints = ComplaintDetail.objects.filter(user=current_user).order_by('-created_at')
     resolved_count = complaints.filter(status='Resolved').count()
     in_progress_count = complaints.filter(status='In Progress').count()
@@ -109,6 +124,9 @@ def user(request):
         'districts': DistrictLocation.objects.all(),
     }
     return render(request, 'citizen/user.html', context)
+
+# landing page view
+
 def home(request):
     hero = HeroContent.objects.all()
     testimonials = Testimonials.objects.all()
@@ -124,6 +142,8 @@ def home(request):
 
     return render(request, "citizen/index.html", context)
 
+# get district according to their states
+
 def get_districts(request):
     state_id = request.GET.get('state_id')
     if not state_id:
@@ -135,8 +155,12 @@ def get_districts(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
 
+# staff page
+
 def staff_home(request):
     return render(request, 'department/staff.html')
+
+# myadmin page
 
 def admin_home(request):
     return render(request, 'myadmin.html')
