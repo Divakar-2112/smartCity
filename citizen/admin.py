@@ -108,3 +108,28 @@ class ComplaintDetailAdmin(admin.ModelAdmin):
         css = {
             'all': ('css/admin_custom.css',)
         }
+
+# states table display
+
+@admin.register(StateLocation)
+class StateLocationAdmin(admin.ModelAdmin):
+    list_display = ('state_id', 'name')              
+    search_fields = ('name',)
+    
+    class Media:
+        css = {
+            'all': ('css/admin_custom.css',)
+        }                        
+
+# district table display
+
+@admin.register(DistrictLocation)
+class DistrictLocationAdmin(admin.ModelAdmin):
+    list_display = ('distric_id', 'name', 'state')   
+    search_fields = ('name', 'state__name')         
+    list_filter = ('state',)    
+    
+    class Media:
+        css = {
+            'all': ('css/admin_custom.css',)
+        }                     
