@@ -191,6 +191,11 @@
             <label>Date Submitted:</label>
             <div class="detail-value" id="detail-created-at"></div>
           </div>
+
+          <div class="detail-group">
+            <label>Last updated:</label>
+            <div class="detail-value" id="detail-updated-at"></div>
+          </div>
         </div>
 
         <div class="detail-section">
@@ -203,6 +208,17 @@
             <label>Address:</label>
             <div class="detail-value" id="detail-address"></div>
           </div>
+                    
+          <div class="detail-group">
+            <label>Location:</label>
+            <div class="detail-value" id="detail-district"></div>
+          </div>
+                    
+          <div class="detail-group">
+            <label>Pincode:</label>
+            <div class="detail-value" id="detail-pincode"></div>
+          </div>
+          
         </div>
       </div>
     </div>
@@ -563,8 +579,11 @@
           document.getElementById('detail-department').textContent = complaint.department_name;
           document.getElementById('detail-subcategory').textContent = complaint.subcategory_name;
           document.getElementById('detail-created-at').textContent = new Date(complaint.created_at).toLocaleString();
+          document.getElementById('detail-updated-at').textContent = new Date(complaint.updated_at).toLocaleString();
           document.getElementById('detail-description').textContent = complaint.description;
           document.getElementById('detail-address').textContent = complaint.address;
+          document.getElementById('detail-district').textContent = complaint.district;
+          document.getElementById('detail-pincode').textContent = complaint.pincode;
 
           complaintDetailModal.style.display = "block";
         } else {
