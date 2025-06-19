@@ -26,11 +26,26 @@ step 4:
 
 step 5:
 
-    // to migrate created models to database
+    // 1. to install jazzmin package for superadmin package
 
-       5.1 python3 manage.py makemigrations
+         pip install django-jazzmin
 
-       5.2 python3 manage.py migrate
+
+    // 2. to install mysqlclient for connecting a database
+
+        pip install mysqlclient
+
+
+    // 3. to install pillow package
+
+        pip install pillow
+
+
+    // 4. to migrate created models to database
+
+        python3 manage.py makemigrations
+
+        python3 manage.py migrate
 
 step 6:
 

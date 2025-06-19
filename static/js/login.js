@@ -5,6 +5,6 @@
     const isHidden = passwordInput.type === "password";
     passwordInput.type = isHidden ? "text" : "password";
 
-    toggleIcon.classList.toggle("fa-eye");
     toggleIcon.classList.toggle("fa-eye-slash");
+    toggleIcon.classList.toggle("fa-eye");
   }
