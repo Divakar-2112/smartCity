@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 18, 2025 at 05:29 PM
+-- Generation Time: Jun 19, 2025 at 08:22 AM
 -- Server version: 10.6.22-MariaDB-ubu2004
 -- PHP Version: 8.1.29
 
@@ -1064,7 +1064,7 @@ CREATE TABLE `citizen_herocontent` (
 --
 
 INSERT INTO `citizen_herocontent` (`id`, `title_desc`, `sub_desc`) VALUES
-(1, 'Empowering Urban Innovation for a', 'Discover how our city is transforming into a smart, sustainable, and inclusive urban space by leveraging technology, data, and community engagement. Our mission is to enhance quality of life, drive economic growth, and protect the environment for all.');
+(1, 'Empowering Urban Innovation for a Better Tomorrow', 'Discover how our city is transforming into a smart, sustainable, and inclusive urban space by leveraging technology, data, and community engagement. Our mission is to enhance quality of life, drive economic growth, and protect the environment for all.');
 
 -- --------------------------------------------------------
 
@@ -1083,7 +1083,7 @@ CREATE TABLE `citizen_latest_news` (
 --
 
 INSERT INTO `citizen_latest_news` (`id`, `new_title`, `new_desc`) VALUES
-(1, 'Latest News &', 'The renovation of the Nageswara Rao Pantulu Park involves civil infrastructure upgrade, landscaping, installation of new fixtures, and development of pedestrian pathways and play areas.');
+(1, 'Latest News & Updates', 'The renovation of the Nageswara Rao Pantulu Park involves civil infrastructure upgrade, landscaping, installation of new fixtures, and development of pedestrian pathways and play areas.');
 
 -- --------------------------------------------------------
 
@@ -1114,7 +1114,7 @@ CREATE TABLE `citizen_newuser` (
 --
 
 INSERT INTO `citizen_newuser` (`last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `is_staff`, `is_active`, `date_joined`, `user_id`, `name`, `email`, `phone`, `password`, `role`, `department_id`) VALUES
-('2025-06-18 11:51:20.392132', 1, 'Balaji', 'Balaji', 'S', 1, 1, '2025-05-24 04:17:10.000000', 9, 'Balaji S', 'balaji@admin.com', '9865581367', 'pbkdf2_sha256$600000$tKkbwieAdBhrzs9udS3h5X$1rL7fKqrWWlnVzagJK6RbSOqOmhyPDblxmcAoqluFJM=', 'admin', NULL),
+('2025-06-19 02:48:36.509220', 1, 'Balaji', 'Balaji', 'S', 1, 1, '2025-05-24 04:17:10.000000', 9, 'Balaji S', 'balaji@admin.com', '9865581367', 'pbkdf2_sha256$600000$tKkbwieAdBhrzs9udS3h5X$1rL7fKqrWWlnVzagJK6RbSOqOmhyPDblxmcAoqluFJM=', 'admin', NULL),
 ('2025-06-17 06:14:36.693522', 0, 'dckap_admin', 'DCKAP', 'R', 1, 1, '2025-05-28 10:45:53.000000', 140, 'Dckap Admin', 'dckap.admin@gmail.com', '9940025087', 'pbkdf2_sha256$600000$9cPMWlIpKZh79Z5DvOzri4$ymlZ9lq2EEw/VT5etdS3GB3MXUFOem2sngQTmPRD5b4=', 'staff', NULL),
 ('2025-06-18 11:58:02.402674', 0, 'bala_pw_dpt', 'Bala Chandar', 'S', 1, 1, '2025-05-28 10:49:16.000000', 141, 'Bala Chandar S', 'bala.pw.dpt@gmail.com', '9940025087', 'pbkdf2_sha256$600000$UdSlvnIAfqjpLKuhkOTiMb$ofWcyGeI0VDcQm0hG6sDrxYeprqHpBzCqw1+pq7LBeY=', 'staff', NULL),
 ('2025-06-14 06:30:59.959867', 0, 'lokesh_ws_dpt', 'Lokesh', 'M', 1, 1, '2025-05-28 10:50:26.000000', 142, 'Lokesh M', 'lokesh.ws.dpt@gmail.com', '9940025087', 'pbkdf2_sha256$600000$js9v5aCThQTSb8YTseqgZh$P2/obqeNxBrAm24A9ZOV8AWK0GhWn7AhDdmW6O1HVyI=', 'staff', NULL),
@@ -1139,7 +1139,7 @@ INSERT INTO `citizen_newuser` (`last_login`, `is_superuser`, `username`, `first_
 ('2025-06-13 09:05:54.454612', 0, 'user17', '', '', 0, 1, '2025-06-13 09:05:53.153244', 275, '', 'user17@gmail.com', '', 'pbkdf2_sha256$1000000$an4D2luALyRlZAJxMKd4U4$em7G/S8vKZfamIBZkmsro7OCmGwY5qDfKhyoovIUUL8=', 'citizen', NULL),
 ('2025-06-13 09:06:26.252716', 0, 'user18', '', '', 0, 1, '2025-06-13 09:06:24.937869', 276, '', 'user18@gmail.com', '', 'pbkdf2_sha256$1000000$xbx5s3dLm0PHJfvQqyyMzT$jbpLbQWp2+BYqxsjY0B5G6ulhDzsgctnqA+TxgNUl0A=', 'citizen', NULL),
 ('2025-06-13 09:06:53.489402', 0, 'user19', '', '', 0, 1, '2025-06-13 09:06:52.209456', 277, '', 'user19@gmail.com', '', 'pbkdf2_sha256$1000000$FUMi7ufBoVthsfabjV1g7o$l1eg5mFSGdj6D4z47iur02Odqe5tLy/SBhiFW2W2AMQ=', 'citizen', NULL),
-('2025-06-18 11:54:29.590402', 0, 'user200', 'User', 'Twenty', 0, 1, '2025-06-13 09:07:26.094380', 278, '', 'user20@gmail.com', '8976541320', 'pbkdf2_sha256$600000$sQQX6ZvAnPDZ3cB4Gcpbbw$YkgNHcg9T/w9QdtW6BZI0TlGkTvuVRlZ4QtZBfgQCHw=', 'citizen', NULL),
+('2025-06-19 02:51:15.128887', 0, 'user200', 'User', 'Twenty', 0, 1, '2025-06-13 09:07:26.094380', 278, '', 'user20@gmail.com', '8976541320', 'pbkdf2_sha256$600000$sQQX6ZvAnPDZ3cB4Gcpbbw$YkgNHcg9T/w9QdtW6BZI0TlGkTvuVRlZ4QtZBfgQCHw=', 'citizen', NULL),
 ('2025-06-13 09:07:55.554271', 0, 'user21', '', '', 0, 1, '2025-06-13 09:07:54.284309', 279, '', 'user21@gmail.com', '', 'pbkdf2_sha256$1000000$UiAsuWKmnNaUYsqmdJCJwR$zeUG4lqYUqMgKMhHv6LaO0BhpZ390rJeG9KgmvyFvuU=', 'citizen', NULL),
 ('2025-06-13 09:08:23.643238', 0, 'user22', '', '', 0, 1, '2025-06-13 09:08:22.363090', 280, '', 'user22@gmail.com', '', 'pbkdf2_sha256$1000000$U28SFjJZzIwHPqsmD0jMUl$MZ4ddvu58+0jztXlVkz3tpO1l/FEG0vWBVO0UZxInsM=', 'citizen', NULL),
 ('2025-06-13 09:08:46.759077', 0, 'user23', '', '', 0, 1, '2025-06-13 09:08:45.431324', 281, '', 'user23@gmail.com', '', 'pbkdf2_sha256$1000000$SH2Q1ykJNMvlbZIu7pnKma$fKOqYJz4BcEoC093NEBF5LEJwKD615DTDAUaQuNQ5wY=', 'citizen', NULL),
@@ -1350,7 +1350,9 @@ INSERT INTO `django_admin_log` (`id`, `action_time`, `object_id`, `object_repr`,
 (37, '2025-06-02 05:13:11.802625', '143', 'Vicky C', 2, '[{\"changed\": {\"fields\": [\"Staff status\", \"Role\"]}}]', 7, 9),
 (38, '2025-06-10 09:25:52.327147', '1055', 'Complaint #1055 by Mohan R', 1, '[{\"added\": {}}]', 9, 9),
 (39, '2025-06-18 11:51:43.543619', '1', 'Herocontent #Empowering Urban Innovation for a by Discover how our city is transforming into a smart, sustainable, and inclusive urban space by leveraging technology, data, and community engagement. O', 2, '[{\"changed\": {\"fields\": [\"Title desc\"]}}]', 15, 9),
-(40, '2025-06-18 11:52:33.115469', '1', 'Latest_News #Latest News & by The renovation of the Nageswara Rao Pantulu Park involves civil infrastructure upgrade, landscaping, installation of new fixtures, and development of pedestrian pathways ', 2, '[{\"changed\": {\"fields\": [\"New title\"]}}]', 18, 9);
+(40, '2025-06-18 11:52:33.115469', '1', 'Latest_News #Latest News & by The renovation of the Nageswara Rao Pantulu Park involves civil infrastructure upgrade, landscaping, installation of new fixtures, and development of pedestrian pathways ', 2, '[{\"changed\": {\"fields\": [\"New title\"]}}]', 18, 9),
+(41, '2025-06-19 02:49:03.780861', '1', 'Herocontent #Empowering Urban Innovation for a Better Tomorrow by Discover how our city is transforming into a smart, sustainable, and inclusive urban space by leveraging technology, data, and communi', 2, '[{\"changed\": {\"fields\": [\"Title desc\"]}}]', 15, 9),
+(42, '2025-06-19 02:49:29.323106', '1', 'Latest_News #Latest News & Updates by The renovation of the Nageswara Rao Pantulu Park involves civil infrastructure upgrade, landscaping, installation of new fixtures, and development of pedestrian p', 2, '[{\"changed\": {\"fields\": [\"New title\"]}}]', 18, 9);
 
 -- --------------------------------------------------------
 
@@ -1466,6 +1468,7 @@ CREATE TABLE `django_session` (
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
 ('0bcen00zfr8v51tzequwacq9nbdfvtur', '.eJxVjLsOwjAQBP_FNYoc48QxJRIloqK2zndrxSIJUh4NiH8noBTQzuzOUwVa5jYsE8aQRR2UMU7tfmkkvmH4KM5zfmAovm7Dxamn3F3G6zodqMf5LuiO2-Wv09LUrhEPW3o0JpnILom1Kbqq0nUDabQWrg2JNsTCDlxaxzHCC2BrgU92r15vQ4c8ow:1uPxaM:APkCQGHFP0-XfOzv_Ekb6L0pHXrubVXs_h6yvzPQM0o', '2025-06-13 06:38:18.790036'),
 ('0h0jrllel1z3wpjvlkhk8e7ul3kejeyo', '.eJxVjLsOgkAQRf9la0OA2YUZSxNLY2VNhpkhbOSR8Gg0_rtoKLQ9597zdBWvS1uts01VVHd05A6_rGa52_AREpf4sCH5uh0n555jd51u23Tg3i6jWnfaL3-dlud2i6SkSpShZugFkLCAUGBao4gFSEspG58zqQRsCI29JwKA4Elz8KW51xu6Tjn7:1uRO47:c7Q9ZaJB4TArFFIZE62HZLwxUITnCH6c8Vq_GTyggCE', '2025-06-17 05:06:55.596142'),
+('2spg4b3f7b7wspnq46nx5wh5zo3h9ga5', '.eJxVjLsKAjEQRf8ltSyZvLEULMXKeplMJiS4D9hHo_jvrrKFtufce56ixXUp7Trz1NYkjkL5IA6_NCLdefgoqkt98NB83Y6bc4-1u063bTpgz5cxcXfaL3-dgnPZIlaTIfAOQrbByczoQUZLUit2ECMYJNYZglIbSslISNo6YzMplsTi9QYSMzr2:1uS5Mx:_fiTHDXQLDoVHxRcF5tt58z5_b65Xmb8etI5hKfWQkc', '2025-06-19 03:21:15.130534'),
 ('2xjsf6um8mb2bab7zt9kx5kvq7pc5lxx', '.eJxVjLsOwjAQBP_FNYoc48QxJRIloqK2zndrxSIJUh4NiH8noBTQzuzOUwVa5jYsE8aQRR2UMU7tfmkkvmH4KM5zfmAovm7Dxamn3F3G6zodqMf5LuiO2-Wv09LUrhEPW3o0JpnILom1Kbqq0nUDabQWrg2JNsTCDlxaxzHCC2BrgU92r15vQ4c8ow:1uQ02W:0HIWkiVDrKy7_eKmWdvQTWqJ-6P6mWRy3uWpVoe7gLI', '2025-06-13 09:15:32.949971'),
 ('4oytqbfvhbldo5z8jhcqio169mnkz6fa', '.eJxVjLkOwjAQBf_FNYocHwlLiUSJqKit9e5asUiMlKMB8e8ElALamffmqQIucxeWScaQWR2UMV7tfmlEukn5KMpzfkipvm7D1WnA3F_G6zotOMj5ztIft8tfp8OpWyPWOmi8lsTNvmVAB1KzSegdGQCOjI014Lw27CCBRGqtjuyp1kRMWr3eH987qg:1uPaJv:GPiHvxiavPjvMCWBKNXR58Q5RSmxtwri5h26BViWxxI', '2025-06-12 05:47:47.428908'),
 ('576qawi5xjwa0n48ob3taetn8aa2xfck', '.eJxVjL0OwiAURt-F2TSlwKU4mjgaJ2fChUsgtjTpz6Lx3UXTQddzzvc9mXXbmuy20GxzYEfGpWKHX4rO36l8lM9rflBpvm7HzXl0ebjOt5oWN9JlCjSc9snfT3JLqicoIHiNXdQGfK901EoFajWPkoMg5B1ICjFyQAfc1AANyZZ6DVKSUOz1BimuOzU:1uOt80:3TMwRHwXNeQE4-yGNgv8EBtKmxznFkIu6aBmKy3MCFE', '2025-06-10 07:40:36.296578'),
@@ -1735,7 +1738,7 @@ ALTER TABLE `citizen_testimonials`
 -- AUTO_INCREMENT for table `django_admin_log`
 --
 ALTER TABLE `django_admin_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `django_content_type`
